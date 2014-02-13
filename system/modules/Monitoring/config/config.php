@@ -1,8 +1,8 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2010 Leo Feyer
+ * Copyright (C) 2005-2014 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,17 +21,29 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  2010 by e@sy Solutions IT <http://www.easySolutionsIT.de/>
- * @author     Patrick Froch <patrick.froch@easySolutionsIT.de/>
- * @package    Language
+ * @copyright  Cliff Parnitzky 2014
+ * @author     Cliff Parnitzky
+ * @package    Monitoring
  * @license    LGPL
- * @filesource
+ * @filesource [eS_Webcheck] by Patrick Froch
  */
-
 
 /**
- * Back end modules
+ * Backend modules
  */
-$GLOBALS['TL_LANG']['MOD']['tl_es_webcheck'] = array('eS_WebCheck', 'Mit dem eS_WebCheck werden Webseiten auf Erreichbarkeit getestet');
+$GLOBALS['BE_MOD']['system']['monitoring'] = array
+(
+	'icon'       => 'system/modules/Monitoring/assets/icon.png',
+	'tables'     => array('tl_monitoring'),
+	'stylesheet' => 'system/modules/Monitoring/assets/styles.css',
+	'check'      => array('Monitoring', 'run'),
+	'checkall'   => array('Monitoring', 'checkall')
+);
+
+/**
+ * Cron
+ */
+// Daily cron job to check all server
+$GLOBALS['TL_CRON']['daily'][] = array('Monitoring', 'checkall');
 
 ?>

@@ -2,10 +2,10 @@
 
 /**
  * Contao Open Source CMS
- * 
- * Copyright (C) 2005-2013 Leo Feyer
- * 
- * @package Es_webcheck
+ *
+ * Copyright (c) 2005-2014 Leo Feyer
+ *
+ * @package Monitoring
  * @link    https://contao.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
@@ -16,5 +16,5 @@
  */
 ClassLoader::addClasses(array
 (
-	'eS_WebCheck' => 'system/modules/es_webcheck/eS_WebCheck.php',
+	'Monitoring' => 'system/modules/Monitoring/Monitoring.php',
 ));

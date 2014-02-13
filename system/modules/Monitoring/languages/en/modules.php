@@ -1,8 +1,8 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2010 Leo Feyer
+ * Copyright (C) 2005-2014 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,17 +21,21 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  2010 by e@sy Solutions IT <http://www.easySolutionsIT.de/>
- * @author     Patrick Froch <patrick.froch@easySolutionsIT.de/>
- * @package    Language
+ * @copyright  Cliff Parnitzky 2014
+ * @author     Cliff Parnitzky
+ * @package    Monitoring
  * @license    LGPL
- * @filesource
+ * @filesource [eS_Webcheck] by Patrick Froch
  */
-
 
 /**
- * Back end modules
+ * Define name and tooltip for preferences (inactive modules)
  */
-$GLOBALS['TL_LANG']['MOD']['tl_es_webcheck'] = array('eS_WebCheck', 'Check the availability of Websites');
+$GLOBALS['TL_LANG']['MOD']['Monitoring'] = 'Monitoring extension for checking availability of websites';
+
+/**
+ * Backend modules
+ */
+$GLOBALS['TL_LANG']['MOD']['monitoring'] = array('Monitoring', 'The monitoring extension is used for checking the availability of websites.');
 
 ?>

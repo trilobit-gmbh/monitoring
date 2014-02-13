@@ -1,9 +1,0 @@
-a.checkall{
-    padding-left: 20px;
-    background-image: url('server_checkall.png');
-    background-repeat: no-repeat;
-}
-
-a.checkall:hover{
-    background-image: url('server_checkall_hover.png');
-}
