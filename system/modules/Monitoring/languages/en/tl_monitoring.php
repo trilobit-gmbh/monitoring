@@ -41,7 +41,7 @@ $GLOBALS['TL_LANG']['tl_monitoring']['response_string'] = array('Response string
 $GLOBALS['TL_LANG']['tl_monitoring']['date']            = array('Testdate', 'The date of the last test');
 $GLOBALS['TL_LANG']['tl_monitoring']['time']            = array('Testtime', 'The time of the last test.');
 $GLOBALS['TL_LANG']['tl_monitoring']['status']          = array('Status', 'The status of the last test.');
-
+$GLOBALS['TL_LANG']['tl_monitoring']['disable']         = array('Deactivate', 'Temporarily disable the monitoring entry.');
 
 /**
  * Legenden
@@ -52,10 +52,10 @@ $GLOBALS['TL_LANG']['tl_monitoring']['test_legend']    = 'Test';
 /**
  * References
  */
-$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes']['OKAY']       = array('Okay', 'The Webserver is available and the test string could be checked successfully.');
-$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes']['INCOMPLETE'] = array('Incomplete', 'The webserver is available but the test string could not be checked successfully.');
-$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes']['ERROR']      = array('Error', 'The webserver is not available.');
-$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes']['UNTESTED']   = array('Untested', 'The webserver was not yet tested.');
+$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'][Monitoring::STATUS_OKAY]       = array('Okay', 'The Webserver is available and the test string could be checked successfully.');
+$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'][Monitoring::STATUS_INCOMPLETE] = array('Incomplete', 'The webserver is available but the test string could not be checked successfully.');
+$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'][Monitoring::STATUS_ERROR]      = array('Error', 'The webserver is not available.');
+$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'][Monitoring::STATUS_UNTESTED]   = array('Untested', 'The webserver was not yet tested.');
 
 /**
  * Buttons
@@ -65,8 +65,8 @@ $GLOBALS['TL_LANG']['tl_monitoring']['edit']       = array('Edit monitoring entr
 $GLOBALS['TL_LANG']['tl_monitoring']['copy']       = array('Copy monitoring entry', 'Copy the monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['delete']     = array('Delete monitoring entry', 'Delete the monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['show']       = array('Show monitoring entry', 'Show infos of monitoring entry with ID %s.');
-$GLOBALS['TL_LANG']['tl_monitoring']['check']       = array('Check server', 'Check server for monitoring entry with ID %s.');
+$GLOBALS['TL_LANG']['tl_monitoring']['check']      = array('Check server', 'Check server for monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['checkall']   = array('Check all server', 'Tests the availability of all servers.');
-
+$GLOBALS['TL_LANG']['tl_monitoring']['disable']    = array('Deactivated monitoring entry', 'A deactivated monitoring entry could not be checked.');
 
 ?>

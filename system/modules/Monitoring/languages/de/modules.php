@@ -31,11 +31,11 @@
 /**
  * Define name and tooltip for preferences (inactive modules)
  */
-$GLOBALS['TL_LANG']['MOD']['Monitoring'] = 'Monitoring Erweiterung zum Prüfen der Erreichbarkeit von Websystemen';
+$GLOBALS['TL_LANG']['MOD']['Monitoring'] = 'Monitoring Erweiterung zum PrÃ¼fen der Erreichbarkeit von Websystemen';
 
 /**
  * Backend modules
  */
-$GLOBALS['TL_LANG']['MOD']['monitoring'] = array('Monitoring', 'Die Monitoring Erweiterung dient der Prüfung von Websystemen auf ihre Erreichbarkeit.');
+$GLOBALS['TL_LANG']['MOD']['monitoring'] = array('Monitoring', 'Die Monitoring Erweiterung dient der PrÃ¼fung von Websystemen auf ihre Erreichbarkeit.');
 
 ?>

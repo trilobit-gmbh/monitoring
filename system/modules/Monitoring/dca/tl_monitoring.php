@@ -116,7 +116,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{website_legend},name,customer,website,system,added;{test_legend},url,test_string'
+        'default'                     => '{website_legend},name,customer,website,system,added;{test_legend},url,test_string,disable'
     ),
 
     // Fields
@@ -173,7 +173,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
             'search'                  => true,
             'inputType'               => 'text',
             'save_callback'           => array(array('tl_monitoring', 'saveSettings')),
-            'eval'                    => array('tl_class'=>'long', 'mandatory'=>true),
+            'eval'                    => array('tl_class'=>'long', 'mandatory'=>true, 'rgxp'=>'url'),
             'sql'                     => "text NOT NULL"
         ),
         'test_string' => array
@@ -212,10 +212,18 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['status'],
             'filter'                  => true,
             'inputType'               => 'hidden',
-            'default'                 => 'UNTESTED',
+            'default'                 => Monitoring::STATUS_UNTESTED,
             'reference'               => &$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'],
             'eval'                    => array('readonly'=>true, 'doNotCopy'=>true),
-            'sql'                     => "varchar(64) NOT NULL default 'UNTESTED'"
+            'sql'                     => "varchar(64) NOT NULL default '" . Monitoring::STATUS_UNTESTED . "'"
+        ),
+        'disable' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['disable'],
+            'exclude'                 => true,
+            'filter'                  => true,
+            'inputType'               => 'checkbox',
+            'sql'                     => "char(1) NOT NULL default ''"
         )
     )
 );
@@ -261,12 +269,19 @@ class tl_monitoring extends Backend
     /**
      * Empties test values when editing the url
      */
-    public function saveSettings()
+    public function saveSettings($value)
     {
-        $query = 'UPDATE tl_monitoring SET response_string = "", date = "", time = "", status = "" WHERE id = ' . $this->Input->get('id');
-        $this->Database->execute($query);
+        $arrSet = array();
+        $arrSet['response_string'] = '';
+        $arrSet['date'] = '';
+        $arrSet['time'] = '';
+        $arrSet['status'] = Monitoring::STATUS_UNTESTED;
+        
+        $this->Database->prepare("UPDATE tl_monitoring %s WHERE id=?")
+                       ->set($arrSet)
+                       ->execute(\Input::get('id'));
 
-        return str_replace('http://', '', $this->Input->post('url'));
+        return $value;
     }
 
     /**
@@ -274,9 +289,14 @@ class tl_monitoring extends Backend
      */
     public function getStatusIcon($arrRow, $href, $label, $title, $icon, $attributes, $strTable, $arrRootIds, $arrChildRecordIds, $blnCircularReference, $strPrevious, $strNext)
     {
-        // add the id to the link
-        $href  .= '&id=' . $arrRow['id'];
         $icon   = 'system/modules/Monitoring/assets/';
+        
+        if ($arrRow['disable'] == '1')
+        {
+            return $this->generateImage($icon .= 'status_disabled.png', $GLOBALS['TL_LANG']['tl_monitoring']['disable'][0], 'title="' . $GLOBALS['TL_LANG']['tl_monitoring']['disable'][1] . '"');
+        }
+        
+        $href  .= '&id=' . $arrRow['id'];
         $now    = time() - (60*60);     // now - 60 min. * 60 sek. (last test not older than 60 min)
         $last   = strtotime($arrRow['date'] . ' ' . $arrRow['time']);
 
@@ -284,12 +304,14 @@ class tl_monitoring extends Backend
         {
             // untested
             $icon .= 'status_untested.png';
-        } else {
+        }
+        else
+        {
             switch($arrRow['status'])
             {
-                case 'OKAY'       : $icon .= 'status_okay.png'; break;
-                case 'ERROR'      : $icon .= 'status_error.png'; break;
-                case 'INCOMPLETE' : $icon .= 'status_incomplete.png'; break;
+                case Monitoring::STATUS_OKAY       : $icon .= 'status_okay.png'; break;
+                case Monitoring::STATUS_ERROR      : $icon .= 'status_error.png'; break;
+                case Monitoring::STATUS_INCOMPLETE : $icon .= 'status_incomplete.png'; break;
             }
         }
 

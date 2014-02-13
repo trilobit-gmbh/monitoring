@@ -36,14 +36,14 @@ $GLOBALS['BE_MOD']['system']['monitoring'] = array
 	'icon'       => 'system/modules/Monitoring/assets/icon.png',
 	'tables'     => array('tl_monitoring'),
 	'stylesheet' => 'system/modules/Monitoring/assets/styles.css',
-	'check'      => array('Monitoring', 'run'),
-	'checkall'   => array('Monitoring', 'checkall')
+	'check'      => array('Monitoring', 'checkOne'),
+	'checkall'   => array('Monitoring', 'checkAll')
 );
 
 /**
  * Cron
  */
-// Daily cron job to check all server
-$GLOBALS['TL_CRON']['daily'][] = array('Monitoring', 'checkall');
+// Hourly cron job to check all server
+$GLOBALS['TL_CRON']['hourly'][] = array('Monitoring', 'checkScheduled');
 
 ?>

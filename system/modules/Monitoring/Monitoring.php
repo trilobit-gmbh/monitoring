@@ -38,6 +38,11 @@
  */
 class Monitoring extends Backend
 {
+    const STATUS_OKAY       = 'OKAY';
+    const STATUS_ERROR      = 'ERROR';
+    const STATUS_INCOMPLETE = 'INCOMPLETE';
+    const STATUS_UNTESTED   = 'UNTESTED';
+    
     /**
      * Constructor
      */
@@ -53,16 +58,49 @@ class Monitoring extends Backend
     /**
      * Executes a check
      */
-    public function run($id)
+    public function checkOne ()
     {
-        // if this is a single check, there will be not id, get it from url
-        $goBack = false;
-        if(!is_numeric($id))
+        $this->checkSingle(\Input::get('id'));
+        $this->returnToList(\Input::get('do'));
+    }
+
+
+    /**
+     * Check all monitoring entries
+     */
+    public function checkAll ()
+    {
+        $this->checkMultiple();
+        $this->returnToList(\Input::get('do'));
+    }
+
+    /**
+     * Check all monitoring entries triggered by cron
+     */
+    public function checkScheduled ()
+    {
+        $this->log('Running hourly monitoring check.', 'Monitoring checkScheduled()', 'TL_CRON'); 
+        $blnNoErrors = $this->checkMultiple();
+        if (!$blnNoErrors)
         {
-            $id = \Input::get('id');
-            $goBack = true;
+            // get monitoring entries which " (status = 'ERROR' OR status == 'INCOMPLETE') AND disable = '' " from db
+            $this->log('Scheduled monitoring check ended with errors. More Infos coming soon.', 'Monitoring checkScheduled()', 'TL_ERROR');
+            if ($GLOBALS['TL_CONFIG']['monitoringMailingActive'] && $GLOBALS['TL_CONFIG']['monitoringAdminEmail'] != '')
+            {
+                $this->log('Send email to monitoring admin with error report after erroneous check.', 'Monitoring checkScheduled()', 'TL_CRON');
+                $objEmail = new \Email();
+                $objEmail->subject = "Montoring errors detected";
+                $objEmail->text = "Scheduled monitoring check ended with errors. More Infos coming soon. Please check your system for further information.";
+                $objEmail->sendTo($GLOBALS['TL_CONFIG']['monitoringAdminEmail']); 
+            }
         }
-        
+    }
+
+    /**
+     * Executes a check
+     */
+    private function checkSingle ($id)
+    {
         $data = $this->loadMonitoringEntry($id);
 
         if($data)
@@ -77,32 +115,32 @@ class Monitoring extends Backend
             $arrSet['status']          = $this->compareSite($responseString, $testString);
 
             $this->saveMonitoringEntry($id, $arrSet);
+            
+            return ($arrSet['status'] == self::STATUS_OKAY);
         }
-        // only return to list, if the check is a single check
-        if($goBack)
-        {
-            $this->returnToList(\Input::get('do'));
-        }
+        // no data, no test ... no error !!!
+        return true;
     }
-
 
     /**
      * Check all monitoring entries
      */
-    public function checkall ()
+    private function checkMultiple ()
     {
-        $result = $this->Database->prepare('SELECT id FROM tl_monitoring')
+        $blnNoErrors = true;
+        $result = $this->Database->prepare("SELECT id FROM tl_monitoring WHERE disable = ''")
                                  ->execute();
         
         while($result->next())
         {
             $id = $result->id;
-            $this->run($id);
+            if (!$this->checkSingle($id))
+            {
+                $blnNoErrors = false;
+            }
         }
-
-        $this->returnToList(\Input::get('do'));
+        return $blnNoErrors;
     }
-
 
     /**
      * Save data of entry to database
@@ -113,7 +151,6 @@ class Monitoring extends Backend
                        ->set($arrSet)
                        ->execute($id); 
     }
-
 
     /**
      * Load entry from database
@@ -155,16 +192,15 @@ class Monitoring extends Backend
         {
             if(substr_count($source, $search) != 0)
             {
-                return 'OKAY';
+                return self::STATUS_OKAY;
             }
             else
             {
-                return 'INCOMPLETE';
+                return self::STATUS_INCOMPLETE;
             }
         }
-        return 'ERROR';
+        return self::STATUS_ERROR;
     }
-
 
     /**
      * Validate the given string.
