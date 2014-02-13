@@ -293,7 +293,7 @@ class tl_monitoring extends Backend
         
         if ($arrRow['disable'] == '1')
         {
-            return $this->generateImage($icon .= 'status_disabled.png', $GLOBALS['TL_LANG']['tl_monitoring']['disable'][0], 'title="' . $GLOBALS['TL_LANG']['tl_monitoring']['disable'][1] . '"');
+            return $this->generateImage($icon .= 'status_disabled.png', $GLOBALS['TL_LANG']['tl_monitoring']['disabled'][0], 'title="' . $GLOBALS['TL_LANG']['tl_monitoring']['disabled'][1] . '"');
         }
         
         $href  .= '&id=' . $arrRow['id'];

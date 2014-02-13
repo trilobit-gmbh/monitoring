@@ -67,6 +67,6 @@ $GLOBALS['TL_LANG']['tl_monitoring']['delete']     = array('Delete monitoring en
 $GLOBALS['TL_LANG']['tl_monitoring']['show']       = array('Show monitoring entry', 'Show infos of monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['check']      = array('Check server', 'Check server for monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['checkall']   = array('Check all server', 'Tests the availability of all servers.');
-$GLOBALS['TL_LANG']['tl_monitoring']['disable']    = array('Deactivated monitoring entry', 'A deactivated monitoring entry could not be checked.');
+$GLOBALS['TL_LANG']['tl_monitoring']['disabled']   = array('Deactivated monitoring entry', 'A deactivated monitoring entry could not be checked.');
 
 ?>
