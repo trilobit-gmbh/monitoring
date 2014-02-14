@@ -79,19 +79,22 @@ class Monitoring extends Backend
      */
     public function checkScheduled ()
     {
-        $this->log('Running hourly monitoring check.', 'Monitoring checkScheduled()', 'TL_CRON'); 
         $blnNoErrors = $this->checkMultiple();
         if (!$blnNoErrors)
         {
             // get monitoring entries which " (status = 'ERROR' OR status == 'INCOMPLETE') AND disable = '' " from db
-            $this->log('Scheduled monitoring check ended with errors. More Infos coming soon.', 'Monitoring checkScheduled()', 'TL_ERROR');
+            $this->log('Scheduled monitoring check ended with errors. More Infos coming soon.', 'Monitoring checkScheduled()', TL_ERROR);
             if ($GLOBALS['TL_CONFIG']['monitoringMailingActive'] && $GLOBALS['TL_CONFIG']['monitoringAdminEmail'] != '')
             {
-                $this->log('Send email to monitoring admin with error report after erroneous check.', 'Monitoring checkScheduled()', 'TL_CRON');
+                $this->log('Send email to monitoring admin with error report after erroneous check.', 'Monitoring checkScheduled()', TL_CRON);
                 $objEmail = new \Email();
                 $objEmail->subject = "Montoring errors detected";
                 $objEmail->text = "Scheduled monitoring check ended with errors. More Infos coming soon. Please check your system for further information.";
                 $objEmail->sendTo($GLOBALS['TL_CONFIG']['monitoringAdminEmail']); 
+            }
+            else
+            {
+                $this->log('No email send ... check monitoring settings.', 'Monitoring checkScheduled()', TL_GENERAL);
             }
         }
     }
