@@ -25,18 +25,33 @@
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
+ * @filesource [eS_Webcheck] by Patrick Froch
  */
 
 /**
- * Fields
+ * Run in a custom namespace, so the class can be replaced
  */
-$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive']  = array('Activate mailing', 'Select if mailing should be active.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']     = array('Monitoring admin email', 'The email address aof the monitoring admin.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringRedirectActive'] = array('Start with monitoring page', 'Select if user should be redirected to monitoring page after login.');
+namespace Monitoring;
 
 /**
- * Legenden
+ * Class MonitoringHook
+ *
+ * Special hook implementation for monitoring
+ * @copyright  Cliff Parnitzky 2014
+ * @author     Cliff Parnitzky
+ * @package    Controller
  */
-$GLOBALS['TL_LANG']['tl_settings']['monitoring_legend'] = 'Monitoring';
-
+class MonitoringHook
+{
+    /**
+     * Execute postLogin hook to redirect to monitoring page
+     */
+    public function redirectToMonitoring (\User $objUser)
+    {
+        if ($objUser instanceof \BackendUser && $objUser->hasAccess('modules', 'monitoring') && $GLOBALS['TL_CONFIG']['monitoringRedirectActive'])
+        {
+            \Controller::redirect(\Environment::get('base') . 'contao/main.php?do=monitoring', $intStatus); 
+        }
+    }
+}
 ?>

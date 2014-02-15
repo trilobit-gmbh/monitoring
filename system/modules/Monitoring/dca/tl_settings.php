@@ -31,7 +31,7 @@
  * Add to palette
  */
 $GLOBALS['TL_DCA']['tl_settings']['palettes']['__selector__'][] = 'monitoringMailingActive';
-$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{monitoring_legend},monitoringMailingActive;';
+$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{monitoring_legend},monitoringMailingActive,monitoringRedirectActive;';
 $GLOBALS['TL_DCA']['tl_settings']['subpalettes']['monitoringMailingActive'] = 'monitoringAdminEmail'; 
 
 /**
@@ -49,6 +49,13 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringAdminEmail'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail'],
 	'inputType'               => 'text',
 	'eval'                    => array('mandatory'=>true, 'rgxp'=>'email', 'tl_class'=>'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringRedirectActive'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringRedirectActive'],
+	'inputType'               => 'checkbox',
+	'eval'                    => array('tl_class'=>'w50 clr')
 );
 
 ?>

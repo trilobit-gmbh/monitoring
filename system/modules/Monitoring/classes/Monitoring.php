@@ -29,6 +29,11 @@
  */
 
 /**
+ * Run in a custom namespace, so the class can be replaced
+ */
+namespace Monitoring;
+
+/**
  * Class Monitoring
  *
  * Read the text from the given url and compare with test string.
@@ -36,7 +41,7 @@
  * @author     Cliff Parnitzky
  * @package    Controller
  */
-class Monitoring extends Backend
+class Monitoring extends \Backend
 {
     const STATUS_OKAY       = 'OKAY';
     const STATUS_ERROR      = 'ERROR';
@@ -48,10 +53,6 @@ class Monitoring extends Backend
      */
     public function __construct()
     {
-        $this->import('Database');
-        $this->import('Input');
-        $this->import('String');
-
         parent::__construct();
     }
 

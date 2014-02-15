@@ -49,7 +49,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
     (
         'sorting' => array
         (
-            'mode'                    => 1,
+            'mode'                    => 2,
             'flag'                    => 1,
             'fields'                  => array('customer', 'website'),
             'panelLayout'             => 'filter;sort,search,limit'
@@ -133,8 +133,10 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
         'customer' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['customer'],
+            'exclude'                 => true,
             'search'                  => true,
             'filter'                  => true,
+            'sorting'                 => true,
             'inputType'               => 'text',
             'eval'                    => array('tl_class'=>'w50', 'mandatory'=>true),
             'sql'                     => "varchar(255) NOT NULL default ''"
@@ -142,8 +144,10 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
         'website' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['website'],
+            'exclude'                 => true,
             'search'                  => true,
             'filter'                  => true,
+            'sorting'                 => true,
             'inputType'               => 'text',
             'eval'                    => array('tl_class'=>'w50', 'mandatory'=>true),
             'sql'                     => "varchar(255) NOT NULL default ''"
@@ -151,8 +155,10 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
         'system' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['system'],
+            'exclude'                 => true,
             'search'                  => true,
             'filter'                  => true,
+            'sorting'                 => true,
             'inputType'               => 'text',
             'eval'                    => array('tl_class'=>'w50', 'mandatory'=>true),
             'sql'                     => "varchar(255) NOT NULL default ''"
@@ -160,6 +166,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
         'added' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['added'],
+            'exclude'                 => true,
             'search'                  => true,
             'filter'                  => true,
             'inputType'               => 'text',
@@ -170,6 +177,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
         'url' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['url'],
+            'exclude'                 => true,
             'search'                  => true,
             'inputType'               => 'text',
             'save_callback'           => array(array('tl_monitoring', 'saveSettings')),
@@ -179,6 +187,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
         'test_string' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['test_string'],
+            'exclude'                 => true,
             'inputType'               => 'textarea',
             'eval'                    => array('tl_class'=>'long clr', 'mandatory'=>true),
             'sql'                     => "text NOT NULL"
@@ -195,6 +204,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
             'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['date'],
             'search'                  => true,
             'filter'                  => true,
+            'sorting'                 => true,
             'inputType'               => 'hidden',
             'eval'                    => array('readonly'=>true, 'doNotCopy'=>true),
             'sql'                     => "varchar(10) NOT NULL default ''"
@@ -203,6 +213,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['time'],
             'search'                  => true,
+            'sorting'                 => true,
             'inputType'               => 'hidden',
             'eval'                    => array('readonly'=>true, 'doNotCopy'=>true),
             'sql'                     => "varchar(8) NOT NULL default ''"
@@ -211,6 +222,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['status'],
             'filter'                  => true,
+            'sorting'                 => true,
             'inputType'               => 'hidden',
             'default'                 => Monitoring::STATUS_UNTESTED,
             'reference'               => &$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'],

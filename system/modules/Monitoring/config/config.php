@@ -46,4 +46,10 @@ $GLOBALS['BE_MOD']['system']['monitoring'] = array
 // Hourly cron job to check all server
 $GLOBALS['TL_CRON']['hourly'][] = array('Monitoring', 'checkScheduled');
 
+/**
+ * Hooks
+ */
+// config.php
+$GLOBALS['TL_HOOKS']['postLogin'][] = array('MonitoringHook', 'redirectToMonitoring');
+
 ?>

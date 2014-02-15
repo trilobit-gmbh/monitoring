@@ -12,9 +12,20 @@
 
 
 /**
+ * Register the namespaces
+ */
+ClassLoader::addNamespaces(array
+(
+	'Monitoring',
+));
+
+
+/**
  * Register the classes
  */
 ClassLoader::addClasses(array
 (
-	'Monitoring' => 'system/modules/Monitoring/Monitoring.php',
+	// Classes
+	'Monitoring\Monitoring'     => 'system/modules/Monitoring/classes/Monitoring.php',
+	'Monitoring\MonitoringHook' => 'system/modules/Monitoring/classes/MonitoringHook.php',
 ));

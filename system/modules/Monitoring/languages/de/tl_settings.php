@@ -30,8 +30,9 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive'] = array('Mailing aktivieren', 'Wählen Sie ob Mailing aktiviert sein soll.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']    = array('Monitoring Admin E-Mail', 'Die E-Mail Adresse des Monitoring Admin.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive']  = array('Mailing aktivieren', 'Wählen Sie ob Mailing aktiviert sein soll.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']     = array('Monitoring Admin E-Mail', 'Die E-Mail Adresse des Monitoring Admin.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringRedirectActive'] = array('Monitoring als Startseite', 'Wählen Sie Benutzer nach dem Login auf die Monitoring Seite weitergeleitet werden sollen.');
 
 /**
  * Legenden
