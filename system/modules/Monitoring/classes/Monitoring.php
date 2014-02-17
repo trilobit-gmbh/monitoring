@@ -83,14 +83,14 @@ class Monitoring extends \Backend
         $blnNoErrors = $this->checkMultiple();
         if (!$blnNoErrors)
         {
-            // get monitoring entries which " (status = 'ERROR' OR status == 'INCOMPLETE') AND disable = '' " from db
-            $this->log('Scheduled monitoring check ended with errors. More Infos coming soon.', 'Monitoring checkScheduled()', TL_ERROR);
+            $errorMsg = "Scheduled monitoring check ended with errors.\n\nThe following ckecks ended erroneous:\n\n" . $this->getErroneousCheckEntriesAsString();
+            $this->log($errorMsg, 'Monitoring checkScheduled()', TL_ERROR);
             if ($GLOBALS['TL_CONFIG']['monitoringMailingActive'] && $GLOBALS['TL_CONFIG']['monitoringAdminEmail'] != '')
             {
                 $this->log('Send email to monitoring admin with error report after erroneous check.', 'Monitoring checkScheduled()', TL_CRON);
                 $objEmail = new \Email();
                 $objEmail->subject = "Montoring errors detected";
-                $objEmail->text = "Scheduled monitoring check ended with errors. More Infos coming soon. Please check your system for further information.";
+                $objEmail->text = $errorMsg . "\n\nPlease check your system for further information: " . \Environment::get('base') . "\n\nThis is an automatically generated email by Contao extension [Monitoring].";
                 $objEmail->sendTo($GLOBALS['TL_CONFIG']['monitoringAdminEmail']); 
             }
             else
@@ -145,7 +145,32 @@ class Monitoring extends \Backend
         }
         return $blnNoErrors;
     }
-
+    
+    /**
+     * Return the list of erroneous check entries
+     */
+    private function getErroneousCheckEntries ()
+    {
+        $result = $this->Database->prepare("SELECT * FROM tl_monitoring WHERE disable = '' AND (status = 'ERROR' OR status = 'INCOMPLETE')")
+                                 ->execute();
+        
+        return $result->fetchAllAssoc();
+    }
+    
+    /**
+     * Return the list of erroneous check entries as string
+     */
+    private function getErroneousCheckEntriesAsString ()
+    {
+        $strReturn = '';
+        foreach ($this->getErroneousCheckEntries as $entry)
+        {
+            $strReturn .= "- " . $entry['customer'] . " " . $entry['website'] . " " . $entry['system'] . " (" . $entry['status'] . ")\n";
+        }
+        
+        return $strReturn;
+    }
+    
     /**
      * Save data of entry to database
      */
