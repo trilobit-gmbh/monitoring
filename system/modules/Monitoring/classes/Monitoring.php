@@ -90,7 +90,7 @@ class Monitoring extends \Backend
                 $this->log('Send email to monitoring admin with error report after erroneous check.', 'Monitoring checkScheduled()', TL_CRON);
                 $objEmail = new \Email();
                 $objEmail->subject = "Montoring errors detected";
-                $objEmail->text = $errorMsg . "\n\nPlease check your system for further information: " . \Environment::get('base') . "\n\nThis is an automatically generated email by Contao extension [Monitoring].";
+                $objEmail->text = $errorMsg . "\n\nPlease check your system for further information: " . \Environment::get('base') . "/contao\n\nThis is an automatically generated email by Contao extension [Monitoring].";
                 $objEmail->sendTo($GLOBALS['TL_CONFIG']['monitoringAdminEmail']); 
             }
             else
@@ -163,7 +163,7 @@ class Monitoring extends \Backend
     private function getErroneousCheckEntriesAsString ()
     {
         $strReturn = '';
-        foreach ($this->getErroneousCheckEntries as $entry)
+        foreach ($this->getErroneousCheckEntries() as $entry)
         {
             $strReturn .= "- " . $entry['customer'] . " " . $entry['website'] . " " . $entry['system'] . " (" . $entry['status'] . ")\n";
         }
