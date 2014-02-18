@@ -83,11 +83,11 @@ class Monitoring extends \Backend
         $blnNoErrors = $this->checkMultiple();
         if (!$blnNoErrors)
         {
+            $this->loadLanguageFile('tl_monitoring');
             $errorMsg = $GLOBALS['TL_LANG']['tl_monitoring']['email']['message']['start'] . $this->getErroneousCheckEntriesAsString();
             $this->log($errorMsg, __METHOD__, TL_ERROR);
             if ($GLOBALS['TL_CONFIG']['monitoringMailingActive'] && $GLOBALS['TL_CONFIG']['monitoringAdminEmail'] != '')
             {
-                $this->loadLanguageFile('tl_monitoring');
                 $objEmail = new \Email();
                 $objEmail->subject = $GLOBALS['TL_LANG']['tl_monitoring']['email']['subject'];
                 $objEmail->text = $errorMsg . sprintf($GLOBALS['TL_LANG']['tl_monitoring']['email']['message']['end'], \Environment::get('base') . "contao");
