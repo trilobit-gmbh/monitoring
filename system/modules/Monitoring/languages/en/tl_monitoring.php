@@ -69,4 +69,12 @@ $GLOBALS['TL_LANG']['tl_monitoring']['check']      = array('Check server', 'Chec
 $GLOBALS['TL_LANG']['tl_monitoring']['checkall']   = array('Check all server', 'Tests the availability of all servers.');
 $GLOBALS['TL_LANG']['tl_monitoring']['disabled']   = array('Deactivated monitoring entry', 'A deactivated monitoring entry could not be checked.');
 
+/**
+ * Email texts
+ */
+$GLOBALS['TL_LANG']['monitoring']['email']['subject']          = 'Montoring errors detected';
+$GLOBALS['TL_LANG']['monitoring']['email']['message']['start'] = "Scheduled monitoring check ended with errors.\n\nThe following checks ended erroneous:\n\n";
+$GLOBALS['TL_LANG']['monitoring']['email']['message']['entry'] = "- %s %s %s (%s)\n";
+$GLOBALS['TL_LANG']['monitoring']['email']['message']['end']   = "\nPlease check your system for further information: %s\n\nThis is an automatically generated email by Contao extension [Monitoring].";
+
 ?>

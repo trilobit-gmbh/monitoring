@@ -71,7 +71,8 @@ class Monitoring extends \Backend
      */
     public function checkAll ()
     {
-        $this->checkMultiple();
+        //$this->checkMultiple();
+        $this->checkScheduled();
         $this->returnToList(\Input::get('do'));
     }
 
@@ -83,19 +84,19 @@ class Monitoring extends \Backend
         $blnNoErrors = $this->checkMultiple();
         if (!$blnNoErrors)
         {
-            $errorMsg = "Scheduled monitoring check ended with errors.\n\nThe following ckecks ended erroneous:\n\n" . $this->getErroneousCheckEntriesAsString();
-            $this->log($errorMsg, 'Monitoring checkScheduled()', TL_ERROR);
+            $errorMsg = $GLOBALS['TL_LANG']['tl_monitoring']['email']['message']['start'] . $this->getErroneousCheckEntriesAsString();
+            $this->log($errorMsg, __METHOD__, TL_ERROR);
             if ($GLOBALS['TL_CONFIG']['monitoringMailingActive'] && $GLOBALS['TL_CONFIG']['monitoringAdminEmail'] != '')
             {
-                $this->log('Send email to monitoring admin with error report after erroneous check.', 'Monitoring checkScheduled()', TL_CRON);
+                $this->loadLanguageFile('tl_monitoring');
                 $objEmail = new \Email();
-                $objEmail->subject = "Montoring errors detected";
-                $objEmail->text = $errorMsg . "\n\nPlease check your system for further information: " . \Environment::get('base') . "contao\n\nThis is an automatically generated email by Contao extension [Monitoring].";
+                $objEmail->subject = $GLOBALS['TL_LANG']['tl_monitoring']['email']['subject'];
+                $objEmail->text = $errorMsg . sprintf($GLOBALS['TL_LANG']['tl_monitoring']['email']['message']['end'], \Environment::get('base') . "contao");
                 $objEmail->sendTo($GLOBALS['TL_CONFIG']['monitoringAdminEmail']); 
             }
             else
             {
-                $this->log('No email send ... check monitoring settings.', 'Monitoring checkScheduled()', TL_GENERAL);
+                $this->log('No email send ... check monitoring settings.', __METHOD__, TL_GENERAL);
             }
         }
     }
@@ -165,7 +166,7 @@ class Monitoring extends \Backend
         $strReturn = '';
         foreach ($this->getErroneousCheckEntries() as $entry)
         {
-            $strReturn .= "- " . $entry['customer'] . " " . $entry['website'] . " " . $entry['system'] . " (" . $entry['status'] . ")\n";
+            $strReturn .= sprintf($GLOBALS['TL_LANG']['tl_monitoring']['email']['message']['entry'], $entry['customer'], $entry['website'], $entry['system'], $entry['status']);
         }
         
         return $strReturn;
