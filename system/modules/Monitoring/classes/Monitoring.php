@@ -71,8 +71,7 @@ class Monitoring extends \Backend
      */
     public function checkAll ()
     {
-        //$this->checkMultiple();
-        $this->checkScheduled();
+        $this->checkMultiple();
         $this->returnToList(\Input::get('do'));
     }
 
