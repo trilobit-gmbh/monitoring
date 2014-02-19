@@ -69,12 +69,4 @@ $GLOBALS['TL_LANG']['tl_monitoring']['check']      = array('Server testen', 'Ser
 $GLOBALS['TL_LANG']['tl_monitoring']['checkall']   = array('Alle Server testen', 'Prüft die Erreichbarkeit aller Server.');
 $GLOBALS['TL_LANG']['tl_monitoring']['disabled']   = array('Monitoring Eintrag deaktiviert', 'Ein deaktivierter Monitoring Eintrag kann nicht getestet werden.');
 
-/**
- * Email texts
- */
-$GLOBALS['TL_LANG']['tl_monitoring']['email']['subject']          = 'Monitoring Fehler erkannt';
-$GLOBALS['TL_LANG']['tl_monitoring']['email']['message']['start'] = "Geplante Monitoring Überprüfung endete mit Fehlern.\n\nDie folgenden Prüfungen endeten fehlerhaft:\n\n";
-$GLOBALS['TL_LANG']['tl_monitoring']['email']['message']['entry'] = "- %s %s %s (%s)\n";
-$GLOBALS['TL_LANG']['tl_monitoring']['email']['message']['end']   = "\nBitte überprüfen Sie ihr System für weiterführende Informationen: %s\n\nDies ist eine automatisch erzeugte E-Mail der Contao Erweiterung [Monitoring].";
-
 ?>

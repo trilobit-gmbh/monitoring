@@ -48,6 +48,11 @@ class Monitoring extends \Backend
     const STATUS_INCOMPLETE = 'INCOMPLETE';
     const STATUS_UNTESTED   = 'UNTESTED';
     
+    const EMAIL_SUBJECT       = 'Montoring errors detected';
+    const EMAIL_MESSAGE_START = "Scheduled monitoring check ended with errors.\n\nThe following checks ended erroneous:\n\n";
+    const EMAIL_MESSAGE_ENTRY = "- %s %s %s (%s)\n";
+    const EMAIL_MESSAGE_END   = "\nPlease check your system for further information: %s\n\nThis is an automatically generated email by Contao extension [Monitoring].";
+    
     /**
      * Constructor
      */
@@ -83,14 +88,13 @@ class Monitoring extends \Backend
         $blnNoErrors = $this->checkMultiple();
         if (!$blnNoErrors)
         {
-            $this->loadLanguageFile('tl_monitoring');
-            $errorMsg = $GLOBALS['TL_LANG']['tl_monitoring']['email']['message']['start'] . $this->getErroneousCheckEntriesAsString();
+            $errorMsg = self::EMAIL_MESSAGE_START . $this->getErroneousCheckEntriesAsString();
             $this->log($errorMsg, __METHOD__, TL_ERROR);
             if ($GLOBALS['TL_CONFIG']['monitoringMailingActive'] && $GLOBALS['TL_CONFIG']['monitoringAdminEmail'] != '')
             {
                 $objEmail = new \Email();
-                $objEmail->subject = $GLOBALS['TL_LANG']['tl_monitoring']['email']['subject'];
-                $objEmail->text = $errorMsg . sprintf($GLOBALS['TL_LANG']['tl_monitoring']['email']['message']['end'], \Environment::get('base') . "contao");
+                $objEmail->subject = self::EMAIL_SUBJECT;
+                $objEmail->text = $errorMsg . sprintf(self::EMAIL_MESSAGE_END, \Environment::get('base') . "contao");
                 $objEmail->sendTo($GLOBALS['TL_CONFIG']['monitoringAdminEmail']); 
             }
             else
@@ -165,7 +169,7 @@ class Monitoring extends \Backend
         $strReturn = '';
         foreach ($this->getErroneousCheckEntries() as $entry)
         {
-            $strReturn .= sprintf($GLOBALS['TL_LANG']['tl_monitoring']['email']['message']['entry'], $entry['customer'], $entry['website'], $entry['system'], $entry['status']);
+            $strReturn .= sprintf(self::EMAIL_MESSAGE_ENTRY, $entry['customer'], $entry['website'], $entry['system'], $entry['status']);
         }
         
         return $strReturn;
