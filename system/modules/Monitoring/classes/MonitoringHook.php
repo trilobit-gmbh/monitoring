@@ -43,15 +43,15 @@ namespace Monitoring;
  */
 class MonitoringHook
 {
-    /**
-     * Execute postLogin hook to redirect to monitoring page
-     */
-    public function redirectToMonitoring (\User $objUser)
-    {
-        if ($objUser instanceof \BackendUser && $objUser->hasAccess('modules', 'monitoring') && $GLOBALS['TL_CONFIG']['monitoringRedirectActive'])
-        {
-            \Controller::redirect(\Environment::get('base') . 'contao/main.php?do=monitoring', $intStatus); 
-        }
-    }
+	/**
+	 * Execute postLogin hook to redirect to monitoring page
+	 */
+	public function redirectToMonitoring (\User $objUser)
+	{
+		if ($objUser instanceof \BackendUser && $objUser->hasAccess('modules', 'monitoring') && $GLOBALS['TL_CONFIG']['monitoringRedirectActive'])
+		{
+			\Controller::redirect(\Environment::get('base') . 'contao/main.php?do=monitoring', $intStatus);
+		}
+	}
 }
 ?>

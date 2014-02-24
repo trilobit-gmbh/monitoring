@@ -49,7 +49,7 @@ $GLOBALS['TL_CRON']['hourly'][] = array('Monitoring', 'checkScheduled');
 /**
  * Hooks
  */
-// config.php
+// Set monitoring as start page
 $GLOBALS['TL_HOOKS']['postLogin'][] = array('MonitoringHook', 'redirectToMonitoring');
 
 ?>

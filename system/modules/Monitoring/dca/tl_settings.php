@@ -39,23 +39,23 @@ $GLOBALS['TL_DCA']['tl_settings']['subpalettes']['monitoringMailingActive'] = 'm
  */
 $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringMailingActive'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive'],
-	'inputType'               => 'checkbox',
-	'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'w50 m12')
+	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive'],
+	'inputType' => 'checkbox',
+	'eval'      => array('submitOnChange'=>true, 'tl_class'=>'w50 m12')
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringAdminEmail'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail'],
-	'inputType'               => 'text',
-	'eval'                    => array('mandatory'=>true, 'rgxp'=>'email', 'tl_class'=>'w50')
+	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail'],
+	'inputType' => 'text',
+	'eval'      => array('mandatory'=>true, 'rgxp'=>'email', 'tl_class'=>'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringRedirectActive'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringRedirectActive'],
-	'inputType'               => 'checkbox',
-	'eval'                    => array('tl_class'=>'w50 clr')
+	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['monitoringRedirectActive'],
+	'inputType' => 'checkbox',
+	'eval'      => array('tl_class'=>'w50 clr')
 );
 
 ?>

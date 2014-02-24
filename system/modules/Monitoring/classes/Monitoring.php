@@ -43,222 +43,221 @@ namespace Monitoring;
  */
 class Monitoring extends \Backend
 {
-    const STATUS_OKAY       = 'OKAY';
-    const STATUS_ERROR      = 'ERROR';
-    const STATUS_INCOMPLETE = 'INCOMPLETE';
-    const STATUS_UNTESTED   = 'UNTESTED';
-    
-    const EMAIL_SUBJECT       = 'Montoring errors detected';
-    const EMAIL_MESSAGE_START = "Scheduled monitoring check ended with errors.\n\nThe following checks ended erroneous:\n\n";
-    const EMAIL_MESSAGE_ENTRY = "- %s %s %s (%s)\n";
-    const EMAIL_MESSAGE_END   = "\nPlease check your system for further information: %s\n\nThis is an automatically generated email by Contao extension [Monitoring].";
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+	const STATUS_OKAY = 'OKAY';
+	const STATUS_ERROR = 'ERROR';
+	const STATUS_INCOMPLETE = 'INCOMPLETE';
+	const STATUS_UNTESTED = 'UNTESTED';
 
-    /**
-     * Executes a check
-     */
-    public function checkOne ()
-    {
-        $this->checkSingle(\Input::get('id'));
-        $this->returnToList(\Input::get('do'));
-    }
+	const EMAIL_SUBJECT = 'Montoring errors detected';
+	const EMAIL_MESSAGE_START = "Scheduled monitoring check ended with errors.\n\nThe following checks ended erroneous:\n\n";
+	const EMAIL_MESSAGE_ENTRY = "- %s %s %s (%s)\n";
+	const EMAIL_MESSAGE_END = "\nPlease check your system for further information: %s\n\nThis is an automatically generated email by Contao extension [Monitoring].";
 
+	/**
+	 * Constructor
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
-    /**
-     * Check all monitoring entries
-     */
-    public function checkAll ()
-    {
-        $this->checkMultiple();
-        $this->returnToList(\Input::get('do'));
-    }
+	/**
+	 * Executes a check
+	 */
+	public function checkOne()
+	{
+		$this->checkSingle(\Input::get('id'));
+		$this->returnToList(\Input::get('do'));
+	}
 
-    /**
-     * Check all monitoring entries triggered by cron
-     */
-    public function checkScheduled ()
-    {
-        $blnNoErrors = $this->checkMultiple();
-        if (!$blnNoErrors)
-        {
-            $errorMsg = self::EMAIL_MESSAGE_START . $this->getErroneousCheckEntriesAsString();
-            $this->log($errorMsg, __METHOD__, TL_ERROR);
-            if ($GLOBALS['TL_CONFIG']['monitoringMailingActive'] && $GLOBALS['TL_CONFIG']['monitoringAdminEmail'] != '')
-            {
-                $objEmail = new \Email();
-                $objEmail->subject = self::EMAIL_SUBJECT;
-                $objEmail->text = $errorMsg . sprintf(self::EMAIL_MESSAGE_END, \Environment::get('base') . "contao");
-                $objEmail->sendTo($GLOBALS['TL_CONFIG']['monitoringAdminEmail']); 
-            }
-            else
-            {
-                $this->log('No email send ... check monitoring settings.', __METHOD__, TL_GENERAL);
-            }
-        }
-    }
+	/**
+	 * Check all monitoring entries
+	 */
+	public function checkAll()
+	{
+		$this->checkMultiple();
+		$this->returnToList(\Input::get('do'));
+	}
 
-    /**
-     * Executes a check
-     */
-    private function checkSingle ($id)
-    {
-        $data = $this->loadMonitoringEntry($id);
+	/**
+	 * Check all monitoring entries triggered by cron
+	 */
+	public function checkScheduled()
+	{
+		$blnNoErrors = $this->checkMultiple();
+		if (!$blnNoErrors)
+		{
+			$errorMsg = self::EMAIL_MESSAGE_START . $this->getErroneousCheckEntriesAsString();
+			$this->log($errorMsg, __METHOD__, TL_ERROR);
+			if ($GLOBALS['TL_CONFIG']['monitoringMailingActive'] && $GLOBALS['TL_CONFIG']['monitoringAdminEmail'] != '')
+			{
+				$objEmail = new \Email();
+				$objEmail->subject = self::EMAIL_SUBJECT;
+				$objEmail->text = $errorMsg . sprintf(self::EMAIL_MESSAGE_END, \Environment::get('base') . "contao");
+				$objEmail->sendTo($GLOBALS['TL_CONFIG']['monitoringAdminEmail']);
+			}
+			else
+			{
+				$this->log('No email send ... check monitoring settings.', __METHOD__, TL_GENERAL);
+			}
+		}
+	}
 
-        if($data)
-        {
-            $url = $this->valString($data['url'], false);
-            $testString = $this->valString($data['test_string'], true);
-            $responseString = $this->loadSite($url);
+	/**
+	 * Executes a check
+	 */
+	private function checkSingle($id)
+	{
+		$data = $this->loadMonitoringEntry($id);
 
-            $arrSet['date']            = date('d.m.Y');
-            $arrSet['time']            = date('H:i:s');
-            $arrSet['response_string'] = substr($responseString, 0, 255);
-            $arrSet['status']          = $this->compareSite($responseString, $testString);
+		if ($data)
+		{
+			$url = $this->valString($data['url'], false);
+			$testString = $this->valString($data['test_string'], true);
+			$responseString = $this->loadSite($url);
 
-            $this->saveMonitoringEntry($id, $arrSet);
-            
-            return ($arrSet['status'] == self::STATUS_OKAY);
-        }
-        // no data, no test ... no error !!!
-        return true;
-    }
+			$arrSet['date'] = date('d.m.Y');
+			$arrSet['time'] = date('H:i:s');
+			$arrSet['response_string'] = substr($responseString, 0, 255);
+			$arrSet['status'] = $this->compareSite($responseString, $testString);
 
-    /**
-     * Check all monitoring entries
-     */
-    private function checkMultiple ()
-    {
-        $blnNoErrors = true;
-        $result = $this->Database->prepare("SELECT id FROM tl_monitoring WHERE disable = ''")
-                                 ->execute();
-        
-        while($result->next())
-        {
-            $id = $result->id;
-            if (!$this->checkSingle($id))
-            {
-                $blnNoErrors = false;
-            }
-        }
-        return $blnNoErrors;
-    }
-    
-    /**
-     * Return the list of erroneous check entries
-     */
-    private function getErroneousCheckEntries ()
-    {
-        $result = $this->Database->prepare("SELECT * FROM tl_monitoring WHERE disable = '' AND (status = 'ERROR' OR status = 'INCOMPLETE')")
-                                 ->execute();
-        
-        return $result->fetchAllAssoc();
-    }
-    
-    /**
-     * Return the list of erroneous check entries as string
-     */
-    private function getErroneousCheckEntriesAsString ()
-    {
-        $strReturn = '';
-        foreach ($this->getErroneousCheckEntries() as $entry)
-        {
-            $strReturn .= sprintf(self::EMAIL_MESSAGE_ENTRY, $entry['customer'], $entry['website'], $entry['system'], $entry['status']);
-        }
-        
-        return $strReturn;
-    }
-    
-    /**
-     * Save data of entry to database
-     */
-    private function saveMonitoringEntry ($id, $arrSet)
-    {
-        $this->Database->prepare("UPDATE tl_monitoring %s WHERE id=?")
-                       ->set($arrSet)
-                       ->execute($id); 
-    }
+			$this->saveMonitoringEntry($id, $arrSet);
 
-    /**
-     * Load entry from database
-     */
-    private function loadMonitoringEntry ($id)
-    {
-        $result = $this->Database->prepare('SELECT * FROM tl_monitoring WHERE id = ?')
-                                 ->execute($id);
-        if($result)
-        {
-            return $result->fetchAssoc();
-        }
-        return false;
-    }
+			return ($arrSet['status'] == self::STATUS_OKAY);
+		}
+		// no data, no test ... no error !!!
+		return true;
+	}
 
-    /**
-     * Load the url and return the response text
-     */
-    private function loadSite ($url)
-    {
-        if ($url != '' && !preg_match('@^https?://@', $url))
-        {
-            $url = 'http://' . $url;
-        }
+	/**
+	 * Check all monitoring entries
+	 */
+	private function checkMultiple()
+	{
+		$blnNoErrors = true;
+		$result = $this->Database->prepare("SELECT id FROM tl_monitoring WHERE disable = ''")
+								 ->execute();
 
-        if($responseText = @file_get_contents($url))
-        {
-            return $this->valString($responseText, true);
-        }
-        return false;
-    }
+		while ($result->next())
+		{
+			$id = $result->id;
+			if (!$this->checkSingle($id))
+			{
+				$blnNoErrors = false;
+			}
+		}
+		return $blnNoErrors;
+	}
 
-    /**
-     * Check the test string against the server response
-     */
-    private function compareSite ($source, $search)
-    {
-        if($source != '' AND $search != '')
-        {
-            if(substr_count($source, $search) != 0)
-            {
-                return self::STATUS_OKAY;
-            }
-            else
-            {
-                return self::STATUS_INCOMPLETE;
-            }
-        }
-        return self::STATUS_ERROR;
-    }
+	/**
+	 * Return the list of erroneous check entries
+	 */
+	private function getErroneousCheckEntries()
+	{
+		$result = $this->Database->prepare("SELECT * FROM tl_monitoring WHERE disable = '' AND (status = 'ERROR' OR status = 'INCOMPLETE')")
+								 ->execute();
 
-    /**
-     * Validate the given string.
-     */
-    private function valString ($str, $toLower)
-    {
-        if ($toLower)
-        {
-            $str = strtolower($str);
-        }
-        $str = strip_tags($str);
-        $str = str_replace(' ', '', $str);
-        $str = str_replace("\n", '', $str);
-        $str = \String::decodeEntities($str);
+		return $result->fetchAllAssoc();
+	}
 
-        return $str;
-    }
+	/**
+	 * Return the list of erroneous check entries as string
+	 */
+	private function getErroneousCheckEntriesAsString()
+	{
+		$strReturn = '';
+		foreach ($this->getErroneousCheckEntries() as $entry)
+		{
+			$strReturn .= sprintf(self::EMAIL_MESSAGE_ENTRY, $entry['customer'], $entry['website'], $entry['system'], $entry['status']);
+		}
 
-    /**
-     * Redirect to the list.
-     */
-    private function returnToList ($act)
-    {
-        $path = \Environment::get('base') . 'contao/main.php?do=' . $act;
-        $this->redirect($path, 301);
-    }
+		return $strReturn;
+	}
+
+	/**
+	 * Save data of entry to database
+	 */
+	private function saveMonitoringEntry($id, $arrSet)
+	{
+		$this->Database->prepare("UPDATE tl_monitoring %s WHERE id=?")
+					   ->set($arrSet)
+					   ->execute($id);
+	}
+
+	/**
+	 * Load entry from database
+	 */
+	private function loadMonitoringEntry($id)
+	{
+		$result = $this->Database->prepare('SELECT * FROM tl_monitoring WHERE id = ?')
+								 ->execute($id);
+		if ($result)
+		{
+			return $result->fetchAssoc();
+		}
+		return false;
+	}
+
+	/**
+	 * Load the url and return the response text
+	 */
+	private function loadSite($url)
+	{
+		if ($url != '' && !preg_match('@^https?://@', $url))
+		{
+			$url = 'http://' . $url;
+		}
+
+		if ($responseText = @file_get_contents($url))
+		{
+			return $this->valString($responseText, true);
+		}
+		return false;
+	}
+
+	/**
+	 * Check the test string against the server response
+	 */
+	private function compareSite($source, $search)
+	{
+		if ($source != '' AND $search != '')
+		{
+			if (substr_count($source, $search) != 0)
+			{
+				return self::STATUS_OKAY;
+			}
+			else
+			{
+				return self::STATUS_INCOMPLETE;
+			}
+		}
+		return self::STATUS_ERROR;
+	}
+
+	/**
+	 * Validate the given string.
+	 */
+	private function valString($str, $toLower)
+	{
+		if ($toLower)
+		{
+			$str = strtolower($str);
+		}
+		$str = strip_tags($str);
+		$str = str_replace(' ', '', $str);
+		$str = str_replace("\n", '', $str);
+		$str = \String::decodeEntities($str);
+
+		return $str;
+	}
+
+	/**
+	 * Redirect to the list.
+	 */
+	private function returnToList($act)
+	{
+		$path = \Environment::get('base') . 'contao/main.php?do=' . $act;
+		$this->redirect($path, 301);
+	}
 }
 ?>
