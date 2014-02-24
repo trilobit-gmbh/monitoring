@@ -204,7 +204,7 @@ class Monitoring extends \Backend
      */
     private function loadSite ($url)
     {
-        if(substr_count($url, 'http://') == 0)
+        if ($url != '' && !preg_match('@^https?://@', $url))
         {
             $url = 'http://' . $url;
         }

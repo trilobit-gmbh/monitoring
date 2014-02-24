@@ -103,6 +103,12 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
                 'href'                => 'act=show',
                 'icon'                => 'show.gif'
             ),
+            'open_url' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['open_url'],
+                'icon'                => 'system/modules/es_webcheck/html/open_url.png',
+                'button_callback'     => array('tl_monitoring', 'getOpenUrlButton')
+            ),
             'check' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['check'],
@@ -180,7 +186,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
             'exclude'                 => true,
             'search'                  => true,
             'inputType'               => 'text',
-            'save_callback'           => array(array('tl_monitoring', 'saveSettings')),
+            'save_callback'           => array(array('tl_monitoring', 'storeUrl')),
             'eval'                    => array('tl_class'=>'long', 'mandatory'=>true, 'rgxp'=>'url'),
             'sql'                     => "text NOT NULL"
         ),
@@ -281,18 +287,26 @@ class tl_monitoring extends Backend
     /**
      * Empties test values when editing the url
      */
-    public function saveSettings($value)
+    public function storeUrl($value, DataContainer $dc)
     {
-        $arrSet = array();
-        $arrSet['response_string'] = '';
-        $arrSet['date'] = '';
-        $arrSet['time'] = '';
-        $arrSet['status'] = Monitoring::STATUS_UNTESTED;
+        if ($value != $dc->activeRecord->url)
+        {
+            // url is new ... set unchecked
+            $arrSet = array();
+            $arrSet['response_string'] = '';
+            $arrSet['date'] = '';
+            $arrSet['time'] = '';
+            $arrSet['status'] = Monitoring::STATUS_UNTESTED;
+            
+            $this->Database->prepare("UPDATE tl_monitoring %s WHERE id=?")
+                           ->set($arrSet)
+                           ->execute(\Input::get('id'));
+        }
         
-        $this->Database->prepare("UPDATE tl_monitoring %s WHERE id=?")
-                       ->set($arrSet)
-                       ->execute(\Input::get('id'));
-
+        if ($value != '' && !preg_match('@^https?://@', $value))
+        {
+            $value = 'http://' . $value;
+        }
         return $value;
     }
 
@@ -327,7 +341,15 @@ class tl_monitoring extends Backend
             }
         }
 
-        return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
+        return '<a href="' . $this->addToUrl($href) . '" title="' . specialchars($title) . '"' . $attributes . '>' . $this->generateImage($icon, $label) . '</a>';
+    }
+    
+    /**
+     * Returns the link and icon for each test entry
+     */
+    public function getOpenUrlButton($arrRow, $href, $label, $title, $icon, $attributes, $strTable, $arrRootIds, $arrChildRecordIds, $blnCircularReference, $strPrevious, $strNext)
+    {
+        return '<a href="' . $arrRow['url'] . '" title="' . specialchars($title) . '" target="_blank" ' . $attributes . '>' . $this->generateImage('system/modules/Monitoring/assets/open_url.png', $label) . '</a>';
     }
 }
 ?>
