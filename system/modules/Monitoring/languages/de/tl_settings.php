@@ -30,9 +30,10 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive']  = array('Mailing aktivieren', 'Wählen Sie ob Mailing aktiviert sein soll.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']     = array('Monitoring Admin E-Mail', 'Die E-Mail Adresse des Monitoring Admin.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringRedirectActive'] = array('Monitoring als Startseite', 'Wählen Sie Benutzer nach dem Login auf die Monitoring Seite weitergeleitet werden sollen.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive']        = array('Mailing aktivieren', 'Wählen Sie ob Mailing aktiviert sein soll.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']           = array('Monitoring Admin E-Mail', 'Die E-Mail Adresse des Monitoring Admin.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculation']      = array('Test Zirkulation', 'Wählen Sie wie oft ein Test wiederholt werden soll, wenn er fehl schlägt.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculationDelay'] = array('Test Zirkulation Verzögerung', 'Wählen Sie wie viele Sekunden zwischen den Test Zyklen vergehen soll.');
 
 /**
  * Legenden

@@ -30,9 +30,9 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive']  = array('Activate mailing', 'Select if mailing should be active.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']     = array('Monitoring admin email', 'The email address aof the monitoring admin.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringRedirectActive'] = array('Start with monitoring page', 'Select if user should be redirected to monitoring page after login.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive']   = array('Activate mailing', 'Select if mailing should be active.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']      = array('Monitoring admin email', 'The email address aof the monitoring admin.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculation'] = array('Test circulation delay', 'Select how many seconds should elapse between the test cycles.');
 
 /**
  * Legenden

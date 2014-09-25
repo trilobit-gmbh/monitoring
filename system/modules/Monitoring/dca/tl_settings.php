@@ -31,7 +31,7 @@
  * Add to palette
  */
 $GLOBALS['TL_DCA']['tl_settings']['palettes']['__selector__'][] = 'monitoringMailingActive';
-$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{monitoring_legend},monitoringMailingActive,monitoringRedirectActive;';
+$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{monitoring_legend},monitoringMailingActive,monitoringTestCirculation,monitoringTestCirculationDelay;';
 $GLOBALS['TL_DCA']['tl_settings']['subpalettes']['monitoringMailingActive'] = 'monitoringAdminEmail'; 
 
 /**
@@ -51,11 +51,20 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringAdminEmail'] = array
 	'eval'      => array('mandatory'=>true, 'rgxp'=>'email', 'tl_class'=>'w50')
 );
 
-$GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringRedirectActive'] = array
+$GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringTestCirculation'] = array
 (
-	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['monitoringRedirectActive'],
-	'inputType' => 'checkbox',
-	'eval'      => array('tl_class'=>'w50 clr')
+	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculation'],
+	'inputType' => 'select',
+	'default'   => 1,
+	'options'   => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+	'eval'      => array('mandatory'=>true, 'tl_class'=>'w50 clr')
+);
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringTestCirculationDelay'] = array
+(
+	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculationDelay'],
+	'inputType' => 'text',
+	'eval'      => array('mandatory'=>true, 'tl_class'=>'w50', 'minlength'=>1, 'maxlength'=>2, 'rgxp'=>'digit')
 );
 
 ?>

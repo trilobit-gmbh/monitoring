@@ -114,12 +114,36 @@ class Monitoring extends \Backend
 		{
 			$url = $this->valString($data['url'], false);
 			$testString = $this->valString($data['test_string'], true);
-			$responseString = $this->loadSite($url);
+			
+			$repitition = 0;
+			$maxRepititions = $GLOBALS['TL_CONFIG']['monitoringTestCirculation'];
+			if (!is_int($maxRepititions) || $maxRepititions < 1)
+			{
+				$maxRepititions = 1;
+			}
+			$delay = $GLOBALS['TL_CONFIG']['monitoringTestCirculationDelay'];
+			if (!is_int($delay) || $delay < 1 || $delay > 99)
+			{
+				$delay = 10;
+			}
+			
+			$arrSet = array();
+			do
+			{
+				if ($repitition > 0)
+				{
+					sleep($delay);
+				}
+				
+				$responseString = $this->loadSite($url);
 
-			$arrSet['date'] = date('d.m.Y');
-			$arrSet['time'] = date('H:i:s');
-			$arrSet['response_string'] = substr($responseString, 0, 255);
-			$arrSet['status'] = $this->compareSite($responseString, $testString);
+				$arrSet['date'] = date('d.m.Y');
+				$arrSet['time'] = date('H:i:s');
+				$arrSet['response_string'] = substr($responseString, 0, 255);
+				$arrSet['status'] = $this->compareSite($responseString, $testString);
+				
+				$repitition++;
+			} while ($arrSet['status'] != self::STATUS_OKAY && $repitition < $maxRepititions);
 
 			$this->saveMonitoringEntry($id, $arrSet);
 
