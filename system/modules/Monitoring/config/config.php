@@ -34,7 +34,7 @@
 $GLOBALS['BE_MOD']['system']['monitoring'] = array
 (
 	'icon'       => 'system/modules/Monitoring/assets/icon.png',
-	'tables'     => array('tl_monitoring'),
+	'tables'     => array('tl_monitoring', 'tl_monitoring_test'),
 	'stylesheet' => 'system/modules/Monitoring/assets/styles.css',
 	'check'      => array('Monitoring', 'checkOne'),
 	'checkall'   => array('Monitoring', 'checkAll')
@@ -45,11 +45,5 @@ $GLOBALS['BE_MOD']['system']['monitoring'] = array
  */
 // Hourly cron job to check all server
 $GLOBALS['TL_CRON']['hourly'][] = array('Monitoring', 'checkScheduled');
-
-/**
- * Hooks
- */
-// Set monitoring as start page
-$GLOBALS['TL_HOOKS']['postLogin'][] = array('MonitoringHook', 'redirectToMonitoring');
 
 ?>
