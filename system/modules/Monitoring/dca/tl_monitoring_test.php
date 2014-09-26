@@ -167,7 +167,7 @@ $GLOBALS['TL_DCA']['tl_monitoring_test'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring_test']['repetitions'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('tl_class'=>'w50', 'minlength'=>1, 'maxlength'=>2, 'rgxp'=>'digit'),
+			'eval'                    => array('tl_class'=>'w50', 'readonly'=>true, 'rgxp'=>'digit'),
 			'sql'                     => "varchar(2) NOT NULL default '1'"
 		),
 		'response_string' => array
