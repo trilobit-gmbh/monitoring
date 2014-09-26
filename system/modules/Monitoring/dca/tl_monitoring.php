@@ -34,7 +34,9 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 	'config' => array
 	(
 		'dataContainer'               => 'Table',
-		'enableVersioning'            => false,
+		'ctable'                      => array('tl_monitoring_test'),
+		'switchToEdit'                => true,
+		'enableVersioning'            => true,
 		'sql' => array
 		(
 			'keys' => array
@@ -56,13 +58,13 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 		),
 		'label' => array
 		(
-			'fields'                  => array('customer', 'website', 'system', 'date', 'time', 'status'),
+			'fields'                  => array('customer', 'website', 'system', 'last_test_date', 'last_test_status'),
 			'showColumns'             => true,
-			'label_callback'          => array('tl_monitoring', 'getLable')
+			'label_callback'          => array('tl_monitoring', 'getLabel')
 		),
 		'global_operations' => array
 		(
-			 'checkall' => array
+			'checkall' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['checkall'],
 				'href'                => 'key=checkall',
@@ -81,8 +83,14 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 			'edit' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['edit'],
-				'href'                => 'act=edit',
+				'href'                => 'table=tl_monitoring_test',
 				'icon'                => 'edit.gif'
+			),
+			'editheader' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['editheader'],
+				'href'                => 'act=edit',
+				'icon'                => 'header.gif'
 			),
 			'copy' => array
 			(
@@ -122,7 +130,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'                     => '{website_legend},name,customer,website,system,added;{test_legend},url,test_string,disable'
+		'default'                     => '{website_legend},customer,website,system,added;{test_legend},url,test_string,disable;{lats_test_legend},last_test_date,last_test_status'
 	),
 
 	// Fields
@@ -173,12 +181,12 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['added'],
 			'exclude'                 => true,
-			'search'                  => true,
 			'filter'                  => true,
+			'sorting'                 => true,
 			'inputType'               => 'text',
 			'load_callback'           => array(array('tl_monitoring', 'setDate')),
-			'eval'                    => array('maxlength'=>20, 'mandatory'=>true, 'tl_class'=>'w50', 'doNotCopy'=>true),
-			'sql'                     => "varchar(20) NOT NULL default ''"
+			'eval'                    => array('tl_class'=>'w50', 'doNotCopy'=>true, 'readonly'=>true, 'rgxp'=>'datim'),
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'url' => array
 		(
@@ -198,43 +206,6 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 			'eval'                    => array('tl_class'=>'long clr', 'mandatory'=>true),
 			'sql'                     => "text NOT NULL"
 		),
-		'response_string' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['response_string'],
-			'inputType'               => 'hidden',
-			'eval'                    => array('readonly'=>true, 'doNotCopy'=>true),
-			'sql'                     => "text NOT NULL"
-		),
-		'date' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['date'],
-			'search'                  => true,
-			'filter'                  => true,
-			'sorting'                 => true,
-			'inputType'               => 'hidden',
-			'eval'                    => array('readonly'=>true, 'doNotCopy'=>true),
-			'sql'                     => "varchar(10) NOT NULL default ''"
-		),
-		'time' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['time'],
-			'search'                  => true,
-			'sorting'                 => true,
-			'inputType'               => 'hidden',
-			'eval'                    => array('readonly'=>true, 'doNotCopy'=>true),
-			'sql'                     => "varchar(8) NOT NULL default ''"
-		),
-		'status' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['status'],
-			'filter'                  => true,
-			'sorting'                 => true,
-			'inputType'               => 'hidden',
-			'default'                 => Monitoring::STATUS_UNTESTED,
-			'reference'               => &$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'],
-			'eval'                    => array('readonly'=>true, 'doNotCopy'=>true),
-			'sql'                     => "varchar(64) NOT NULL default '" . Monitoring::STATUS_UNTESTED . "'"
-		),
 		'disable' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['disable'],
@@ -242,6 +213,31 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 			'filter'                  => true,
 			'inputType'               => 'checkbox',
 			'sql'                     => "char(1) NOT NULL default ''"
+		),
+		'last_test_date' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['last_test_date'],
+			'exclude'                 => true,
+			'filter'                  => true,
+			'sorting'                 => true,
+			'default'                 => '',
+			'inputType'               => 'text',
+			'flag'                    => 6,
+			'eval'                    => array('tl_class'=>'w50', 'readonly'=>true, 'rgxp'=>'datim', 'doNotCopy'=>true),
+			'sql'                     => "varchar(10) NOT NULL default ''"
+		),
+		'last_test_status' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['last_test_status'],
+			'exclude'                 => true,
+			'filter'                  => true,
+			'sorting'                 => true,
+			'inputType'               => 'select',
+			'default'                 => Monitoring::STATUS_UNTESTED,
+			'options'                 => array(Monitoring::STATUS_UNTESTED, Monitoring::STATUS_OKAY, Monitoring::STATUS_INCOMPLETE, Monitoring::STATUS_ERROR),
+			'reference'               => &$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'],
+			'eval'                    => array('tl_class'=>'w50', 'readonly'=>true, 'helpwizard'=>true, 'doNotCopy'=>true),
+			'sql'                     => "varchar(64) NOT NULL default '" . Monitoring::STATUS_UNTESTED . "'"
 		)
 	)
 );
@@ -267,19 +263,22 @@ class tl_monitoring extends Backend
 	/**
 	 * Returns the date as formated string
 	 */
-	public function setDate()
+	public function setDate($varValue, DataContainer $dc)
 	{
-		return date('Y.m.d H:i:s');
+		if ($dc->activeRecord->tstamp == 0)
+		{
+			return time();
+		}
+		return $varValue;
 	}
 
 	/**
 	 * Returns the formatted row columns
 	 */
-	public function getLable($row, $label, DataContainer $dc, $args)
+	public function getLabel($row, $label, DataContainer $dc, $args)
 	{
-		$args[3] = '<span style="color:#b3b3b3;">' . $row['date'] . '</span>';
-		$args[4] = '<span style="color:#b3b3b3;">' . $row['time'] . '</span>';
-		$args[5] = '<span class="' . strtolower($row['status']) . '">' . $args[5] . '</span>';
+		//$args[3] = '<span style="color:#b3b3b3;">' . $row['last_test_date'] . '</span>';
+		$args[4] = '<span class="' . strtolower($row['last_test_status']) . '">' . $args[4] . '</span>';
 
 		return $args;
 	}
@@ -293,10 +292,8 @@ class tl_monitoring extends Backend
 		{
 			// url is new ... set unchecked
 			$arrSet = array();
-			$arrSet['response_string'] = '';
-			$arrSet['date'] = '';
-			$arrSet['time'] = '';
-			$arrSet['status'] = Monitoring::STATUS_UNTESTED;
+			$arrSet['last_test_date'] = 0;
+			$arrSet['last_test_status'] = Monitoring::STATUS_UNTESTED;
 
 			$this->Database->prepare("UPDATE tl_monitoring %s WHERE id=?")
 						   ->set($arrSet)
@@ -324,16 +321,15 @@ class tl_monitoring extends Backend
 
 		$href .= '&id=' . $arrRow['id'];
 		$now = time() - (60 * 60); // now - 60 min. * 60 sek. (last test not older than 60 min)
-		$last = strtotime($arrRow['date'] . ' ' . $arrRow['time']);
 
-		if ($arrRow['date'] == '' OR $last < $now)
+		if ($arrRow['last_test_date'] == '' OR $arrRow['last_test_date'] < $now)
 		{
 			// untested
 			$icon .= 'status_untested.png';
 		}
 		else
 		{
-			switch ($arrRow['status'])
+			switch ($arrRow['last_test_status'])
 			{
 				case Monitoring::STATUS_OKAY       : $icon .= 'status_okay.png'; break;
 				case Monitoring::STATUS_ERROR      : $icon .= 'status_error.png'; break;

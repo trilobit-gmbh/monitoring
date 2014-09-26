@@ -37,7 +37,6 @@ $GLOBALS['TL_LANG']['tl_monitoring']['system']          = array('System', 'The s
 $GLOBALS['TL_LANG']['tl_monitoring']['added']           = array('Created on', 'The creation date of the monitoring entry.');
 $GLOBALS['TL_LANG']['tl_monitoring']['url']             = array('URL', 'The adress of the page to be tested. Enter with protocol (e.g. http:// or https://)!');
 $GLOBALS['TL_LANG']['tl_monitoring']['test_string']     = array('Test string', 'The text to searched on the page to be tested (HTML tags will be deleted).');
-$GLOBALS['TL_LANG']['tl_monitoring']['response_string'] = array('Response string', 'The response string the server has sent for the request.');
 $GLOBALS['TL_LANG']['tl_monitoring']['date']            = array('Testdate', 'The date of the last test');
 $GLOBALS['TL_LANG']['tl_monitoring']['time']            = array('Testtime', 'The time of the last test.');
 $GLOBALS['TL_LANG']['tl_monitoring']['status']          = array('Status', 'The status of the last test.');
@@ -61,7 +60,8 @@ $GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'][Monitoring::STATUS_UNTESTED]
  * Buttons
  */
 $GLOBALS['TL_LANG']['tl_monitoring']['new']        = array('New monitoring entry', 'Create a new monitoring entry.');
-$GLOBALS['TL_LANG']['tl_monitoring']['edit']       = array('Edit monitoring entry', 'Edit the monitoring entry with ID %s.');
+$GLOBALS['TL_LANG']['tl_monitoring']['edit']       = array('Edit monitoring tests', 'Edit the monitoring tests with ID %s.');
+$GLOBALS['TL_LANG']['tl_monitoring']['editheader'] = array('Edit monitoring entry', 'Edit the monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['copy']       = array('Copy monitoring entry', 'Copy the monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['delete']     = array('Delete monitoring entry', 'Delete the monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['show']       = array('Show monitoring entry', 'Show infos of monitoring entry with ID %s.');

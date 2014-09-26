@@ -31,17 +31,15 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_monitoring']['customer']        = array('Kunde', 'Der Kunde der zu monitorenden Webseite.');
-$GLOBALS['TL_LANG']['tl_monitoring']['website']         = array('Webseite', 'Die zu monitorenden Webseite.');
-$GLOBALS['TL_LANG']['tl_monitoring']['system']          = array('System', 'Das System der zu monitorenden Webseite.');
-$GLOBALS['TL_LANG']['tl_monitoring']['added']           = array('Erstellt am', 'Das Erstellungsdatum des Monitoring Eintrags.');
-$GLOBALS['TL_LANG']['tl_monitoring']['url']             = array('URL', 'Die Adresse der zu testenden Seite. Eingabe <u>mit</u> Protokoll (z.B. http:// oder https://)!');
-$GLOBALS['TL_LANG']['tl_monitoring']['test_string']     = array('Teststring', 'Der Text, der auf der zu testenden Seite gesucht werden soll (HTML-Tags werden entfernt).');
-$GLOBALS['TL_LANG']['tl_monitoring']['response_string'] = array('Antwortstring', 'Der Antwortstring, den der Server auf die Anfrage gesendet hat.');
-$GLOBALS['TL_LANG']['tl_monitoring']['date']            = array('Testdatum', 'Das Datum des letzten Tests.');
-$GLOBALS['TL_LANG']['tl_monitoring']['time']            = array('Testzeit', 'Die Uhrzeit des letzten Tests.');
-$GLOBALS['TL_LANG']['tl_monitoring']['status']          = array('Status', 'Der Status des letzten Tests.');
-$GLOBALS['TL_LANG']['tl_monitoring']['disable']         = array('Deaktivieren', 'Den Monitoring Eintrag vorübergehend deaktivieren.');
+$GLOBALS['TL_LANG']['tl_monitoring']['customer']         = array('Kunde', 'Der Kunde der zu monitorenden Webseite.');
+$GLOBALS['TL_LANG']['tl_monitoring']['website']          = array('Webseite', 'Die zu monitorenden Webseite.');
+$GLOBALS['TL_LANG']['tl_monitoring']['system']           = array('System', 'Das System der zu monitorenden Webseite.');
+$GLOBALS['TL_LANG']['tl_monitoring']['added']            = array('Erstellt am', 'Das Erstellungsdatum des Monitoring Eintrags.');
+$GLOBALS['TL_LANG']['tl_monitoring']['url']              = array('URL', 'Die Adresse der zu testenden Seite. Eingabe <u>mit</u> Protokoll (z.B. http:// oder https://)!');
+$GLOBALS['TL_LANG']['tl_monitoring']['test_string']      = array('Teststring', 'Der Text, der auf der zu testenden Seite gesucht werden soll (HTML-Tags werden entfernt).');
+$GLOBALS['TL_LANG']['tl_monitoring']['disable']          = array('Deaktivieren', 'Den Monitoring Eintrag vorübergehend deaktivieren.');
+$GLOBALS['TL_LANG']['tl_monitoring']['last_test_date']   = array('Letzter Test', 'Das Datum des letzten Tests.');
+$GLOBALS['TL_LANG']['tl_monitoring']['last_test_status'] = array('Letzter Status', 'Der Status des letzten Tests.');
 
 /**
  * Legenden
@@ -61,7 +59,8 @@ $GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'][Monitoring::STATUS_UNTESTED]
  * Buttons
  */
 $GLOBALS['TL_LANG']['tl_monitoring']['new']        = array('Neuer Monitoring Eintrag', 'Eine neuen Monitoring Eintrag erstellen.');
-$GLOBALS['TL_LANG']['tl_monitoring']['edit']       = array('Monitoring Eintrag bearbeiten', 'Monitoring Eintrag mit der ID %s bearbeiten.');
+$GLOBALS['TL_LANG']['tl_monitoring']['edit']       = array('Monitoring Eintrag bearbeiten', 'Monitoring Tests für die ID %s bearbeiten.');
+$GLOBALS['TL_LANG']['tl_monitoring']['editheader'] = array('Monitoring Eintrag bearbeiten', 'Monitoring Eintrag mit der ID %s bearbeiten.');
 $GLOBALS['TL_LANG']['tl_monitoring']['copy']       = array('Monitoring Eintrag kopieren', 'Monitoring Eintrag mit der ID %s  kopieren.');
 $GLOBALS['TL_LANG']['tl_monitoring']['delete']     = array('Monitoring Eintrag löschen', 'Monitoring Eintrag mit der ID %s löschen.');
 $GLOBALS['TL_LANG']['tl_monitoring']['show']       = array('Monitoring Eintrag anzeigen', 'Monitoring Eintrag mit der ID %s anzeigen.');

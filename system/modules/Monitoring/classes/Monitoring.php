@@ -44,9 +44,12 @@ namespace Monitoring;
 class Monitoring extends \Backend
 {
 	const STATUS_OKAY = 'OKAY';
-	const STATUS_ERROR = 'ERROR';
 	const STATUS_INCOMPLETE = 'INCOMPLETE';
+	const STATUS_ERROR = 'ERROR';
 	const STATUS_UNTESTED = 'UNTESTED';
+	
+	const CHECK_TYPE_MANUAL = 'MANUAL';
+	const CHECK_TYPE_AUTOMATIC = 'AUTOMATIC';
 
 	const EMAIL_SUBJECT = 'Montoring errors detected';
 	const EMAIL_MESSAGE_START = "Scheduled monitoring check ended with errors.\n\nThe following checks ended erroneous:\n\n";
@@ -66,8 +69,16 @@ class Monitoring extends \Backend
 	 */
 	public function checkOne()
 	{
-		$this->checkSingle(\Input::get('id'));
-		$this->returnToList(\Input::get('do'));
+		$this->checkSingle(\Input::get('id'), self::CHECK_TYPE_MANUAL);
+		
+		$urlParam = \Input::get('do');
+		
+		if (\Input::get('table') == "tl_monitoring_test" && \Input::get('id'))
+		{
+			$urlParam .= "&table=tl_monitoring_test&id=" . \Input::get('id');
+		}
+		
+		$this->returnToList($urlParam);
 	}
 
 	/**
@@ -75,7 +86,7 @@ class Monitoring extends \Backend
 	 */
 	public function checkAll()
 	{
-		$this->checkMultiple();
+		$this->checkMultiple(self::CHECK_TYPE_MANUAL);
 		$this->returnToList(\Input::get('do'));
 	}
 
@@ -84,7 +95,7 @@ class Monitoring extends \Backend
 	 */
 	public function checkScheduled()
 	{
-		$blnNoErrors = $this->checkMultiple();
+		$blnNoErrors = $this->checkMultiple(self::CHECK_TYPE_AUTOMATIC);
 		if (!$blnNoErrors)
 		{
 			$errorMsg = self::EMAIL_MESSAGE_START . $this->getErroneousCheckEntriesAsString();
@@ -106,12 +117,14 @@ class Monitoring extends \Backend
 	/**
 	 * Executes a check
 	 */
-	private function checkSingle($id)
+	private function checkSingle($id, $checkType)
 	{
 		$data = $this->loadMonitoringEntry($id);
 
 		if ($data)
 		{
+			$status = self::STATUS_UNTESTED;
+			
 			$url = $this->valString($data['url'], false);
 			$testString = $this->valString($data['test_string'], true);
 			
@@ -127,7 +140,8 @@ class Monitoring extends \Backend
 				$delay = 10;
 			}
 			
-			$arrSet = array();
+			$arrSetEntry = array();
+			$arrSetTest = array();
 			do
 			{
 				if ($repitition > 0)
@@ -136,18 +150,31 @@ class Monitoring extends \Backend
 				}
 				
 				$responseString = $this->loadSite($url);
-
-				$arrSet['date'] = date('d.m.Y');
-				$arrSet['time'] = date('H:i:s');
-				$arrSet['response_string'] = substr($responseString, 0, 255);
-				$arrSet['status'] = $this->compareSite($responseString, $testString);
 				
+				$time = time();
+				$status = $this->compareSite($responseString, $testString);
 				$repitition++;
-			} while ($arrSet['status'] != self::STATUS_OKAY && $repitition < $maxRepititions);
 
-			$this->saveMonitoringEntry($id, $arrSet);
+				$arrSetEntry['tstamp'] = $time;
+				$arrSetEntry['last_test_date'] = $time;
+				$arrSetEntry['last_test_status'] = $status;
+				
+				$arrSetTest['pid'] = $id;
+				$arrSetTest['tstamp'] = $time;
+				$arrSetTest['date'] = $time;
+				$arrSetTest['type'] = $checkType;
+				$arrSetTest['status'] = $status;
+				$arrSetTest['repetitions'] = $repitition;
+				$arrSetTest['response_string'] = $responseString; //substr($responseString, 0, 255);
+				
+			} while ($status != self::STATUS_OKAY && $repitition < $maxRepititions);
+			
 
-			return ($arrSet['status'] == self::STATUS_OKAY);
+
+			$this->saveMonitoringEntry($id, $arrSetEntry);
+			$this->saveMonitoringTest($arrSetTest);
+
+			return ($status == self::STATUS_OKAY);
 		}
 		// no data, no test ... no error !!!
 		return true;
@@ -156,7 +183,7 @@ class Monitoring extends \Backend
 	/**
 	 * Check all monitoring entries
 	 */
-	private function checkMultiple()
+	private function checkMultiple($checkType)
 	{
 		$blnNoErrors = true;
 		$result = $this->Database->prepare("SELECT id FROM tl_monitoring WHERE disable = ''")
@@ -165,7 +192,7 @@ class Monitoring extends \Backend
 		while ($result->next())
 		{
 			$id = $result->id;
-			if (!$this->checkSingle($id))
+			if (!$this->checkSingle($id, $checkType))
 			{
 				$blnNoErrors = false;
 			}
@@ -201,11 +228,23 @@ class Monitoring extends \Backend
 	/**
 	 * Save data of entry to database
 	 */
-	private function saveMonitoringEntry($id, $arrSet)
+	private function saveMonitoringEntry($intId, $arrSet)
 	{
 		$this->Database->prepare("UPDATE tl_monitoring %s WHERE id=?")
 					   ->set($arrSet)
-					   ->execute($id);
+					   ->execute($intId);
+					   
+		$this->createNewVersion('tl_monitoring', $intId);
+	}
+
+	/**
+	 * Save data of test to database
+	 */
+	private function saveMonitoringTest($arrSet)
+	{
+		$this->Database->prepare("INSERT INTO tl_monitoring_test %s")
+					   ->set($arrSet)
+					   ->execute();
 	}
 
 	/**
