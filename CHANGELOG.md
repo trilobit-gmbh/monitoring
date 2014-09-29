@@ -6,6 +6,7 @@ Version 1.3.1 (2014-09-29)
 --------------------------
 - removed creating new entry version after test (see #8)
 - added debug mode and messages
+- added id to seach fields
 
 Version 1.3.0 (2014-09-26)
 --------------------------

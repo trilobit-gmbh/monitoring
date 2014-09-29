@@ -138,6 +138,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 	(
 		'id' => array
 		(
+			'label'                   => "ID",
 			'search'                  => true,
 			'sql'                     => "int(10) unsigned NOT NULL auto_increment"
 		),
