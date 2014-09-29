@@ -53,7 +53,7 @@ class Monitoring extends \Backend
 
 	const EMAIL_SUBJECT = 'Montoring errors detected';
 	const EMAIL_MESSAGE_START = "Scheduled monitoring check ended with errors.\n\nThe following checks ended erroneous:\n\n";
-	const EMAIL_MESSAGE_ENTRY = "- %s %s %s (%s)\n";
+	const EMAIL_MESSAGE_ENTRY = "- %s %s %s [%s] (%s)\n";
 	const EMAIL_MESSAGE_END = "\nPlease check your system for further information: %s\n\nThis is an automatically generated email by Contao extension [Monitoring].";
 
 	/**
@@ -234,7 +234,7 @@ class Monitoring extends \Backend
 		$strReturn = '';
 		foreach ($this->getErroneousCheckEntries() as $entry)
 		{
-			$strReturn .= sprintf(self::EMAIL_MESSAGE_ENTRY, $entry['customer'], $entry['website'], $entry['system'], $entry['status']);
+			$strReturn .= sprintf(self::EMAIL_MESSAGE_ENTRY, $entry['customer'], $entry['website'], $entry['system'], $entry['last_test_status'], $entry['url']);
 		}
 
 		return $strReturn;
