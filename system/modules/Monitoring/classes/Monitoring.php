@@ -87,8 +87,8 @@ class Monitoring extends \Backend
 	 */
 	public function checkAll()
 	{
-		$blnHasErrors = $this->checkMultiple(self::CHECK_TYPE_MANUAL);
-		$this->logDebugMsg("Checking all monitoring entries ended with " . ($blnHasErrors ? "" : "no ") . "errors.", __METHOD__);
+		$status = $this->checkMultiple(self::CHECK_TYPE_MANUAL);
+		$this->logDebugMsg("Checking all monitoring entries  ended with status: " . $status, __METHOD__);
 		$this->returnToList(\Input::get('do'));
 	}
 
@@ -97,9 +97,9 @@ class Monitoring extends \Backend
 	 */
 	public function checkScheduled()
 	{
-		$blnHasErrors = $this->checkMultiple(self::CHECK_TYPE_AUTOMATIC);
-		$this->logDebugMsg("Sheduled checking all monitoring entries ended with " . ($blnHasErrors ? "" : "no ") . "errors.", __METHOD__);
-		if ($blnHasErrors)
+		$status = $this->checkMultiple(self::CHECK_TYPE_AUTOMATIC);
+		$this->logDebugMsg("Scheduled checking all monitoring entries  ended with status: " . $status, __METHOD__);
+		if ($status != self::STATUS_OKAY)
 		{
 			$errorMsg = self::EMAIL_MESSAGE_START . $this->getErroneousCheckEntriesAsString();
 			$this->log($errorMsg, __METHOD__, TL_ERROR);
@@ -193,7 +193,7 @@ class Monitoring extends \Backend
 	 */
 	private function checkMultiple($checkType)
 	{
-		$blnHasErrors = false;
+		$status = self::STATUS_OKAY;
 		$result = $this->Database->prepare("SELECT id FROM tl_monitoring WHERE disable = ''")
 								 ->execute();
 
@@ -201,11 +201,18 @@ class Monitoring extends \Backend
 		{
 			$id = $result->id;
 			
-			$status = $this->checkSingle($id, $checkType);
-			$blnHasErrors = $blnHasErrors || ($status != self::STATUS_OKAY);
+			$tmpStatus = $this->checkSingle($id, $checkType);
+			if ($tmpStatus == self::STATUS_ERROR)
+			{
+				$status = self::STATUS_ERROR;
+			}
+			else if ($tmpStatus == self::STATUS_INCOMPLETE && $status != self::STATUS_ERROR)
+			{
+				$status = self::STATUS_ERROR;
+			}
 		}
-		$this->logDebugMsg("Multiple checking monitoring entries ended with " . ($blnHasErrors ? "" : "no ") . "errors.", __METHOD__);
-		return $blnHasErrors;
+		$this->logDebugMsg("Multiple checking monitoring entries ended with status: " . $status, __METHOD__);
+		return $status;
 	}
 
 	/**
