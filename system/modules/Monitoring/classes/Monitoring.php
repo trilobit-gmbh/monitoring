@@ -209,6 +209,7 @@ class Monitoring extends \Backend
 			{
 				$status = self::STATUS_ERROR;
 			}
+			$this->logDebugMsg("Multiple checking status is: " . $status, __METHOD__);
 		}
 		$this->logDebugMsg("Multiple checking monitoring entries ended with status: " . $status, __METHOD__);
 		return $status;
