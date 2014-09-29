@@ -87,8 +87,9 @@ class Monitoring extends \Backend
 	 */
 	public function checkAll()
 	{
-		$status = $this->checkMultiple(self::CHECK_TYPE_MANUAL);
-		$this->logDebugMsg("Checking all monitoring entries ended with status: " . $status, __METHOD__);
+		$this->checkScheduled();
+		//$status = $this->checkMultiple(self::CHECK_TYPE_MANUAL);
+		//$this->logDebugMsg("Checking all monitoring entries ended with status: " . $status, __METHOD__);
 		$this->returnToList(\Input::get('do'));
 	}
 
@@ -101,6 +102,7 @@ class Monitoring extends \Backend
 		$this->logDebugMsg("Scheduled checking all monitoring entries ended with status: " . $status, __METHOD__);
 		if ($status != self::STATUS_OKAY)
 		{
+			$this->logDebugMsg("Error detected, sending email ....", __METHOD__);
 			$errorMsg = self::EMAIL_MESSAGE_START . $this->getErroneousCheckEntriesAsString();
 			$this->log($errorMsg, __METHOD__, TL_ERROR);
 			if ($GLOBALS['TL_CONFIG']['monitoringMailingActive'] && $GLOBALS['TL_CONFIG']['monitoringAdminEmail'] != '')
