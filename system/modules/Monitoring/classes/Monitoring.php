@@ -138,13 +138,12 @@ class Monitoring extends \Backend
 			{
 				$maxRepititions = 1;
 			}
-			$this->logDebugMsg("Using max repetitions for failed checks: " . $maxRepititions, __METHOD__);
+
 			$delay = $GLOBALS['TL_CONFIG']['monitoringTestCirculationDelay'];
 			if (!is_int($delay) || $delay < 1 || $delay > 99)
 			{
 				$delay = 10;
 			}
-			$this->logDebugMsg("Using repetitions delay for failed checks: " . $delay, __METHOD__);
 			
 			$arrSetEntry = array();
 			$arrSetTest = array();
@@ -152,7 +151,7 @@ class Monitoring extends \Backend
 			{
 				if ($repitition > 0)
 				{
-					$this->logDebugMsg("Repeting single check for entry with ID " . $id . " because status was: " . $status, __METHOD__);
+					$this->logDebugMsg("Repeating single check for entry with ID " . $id . " because status was: " . $status, __METHOD__);
 					sleep($delay);
 				}
 				
