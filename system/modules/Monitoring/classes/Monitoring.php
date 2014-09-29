@@ -95,8 +95,8 @@ class Monitoring extends \Backend
 	 */
 	public function checkScheduled()
 	{
-		$blnNoErrors = $this->checkMultiple(self::CHECK_TYPE_AUTOMATIC);
-		if (!$blnNoErrors)
+		$blnHasErrors = $this->checkMultiple(self::CHECK_TYPE_AUTOMATIC);
+		if ($blnHasErrors)
 		{
 			$errorMsg = self::EMAIL_MESSAGE_START . $this->getErroneousCheckEntriesAsString();
 			$this->log($errorMsg, __METHOD__, TL_ERROR);
@@ -170,7 +170,6 @@ class Monitoring extends \Backend
 			} while ($status != self::STATUS_OKAY && $repitition < $maxRepititions);
 			
 
-
 			$this->saveMonitoringEntry($id, $arrSetEntry);
 			$this->saveMonitoringTest($arrSetTest);
 
@@ -185,19 +184,19 @@ class Monitoring extends \Backend
 	 */
 	private function checkMultiple($checkType)
 	{
-		$blnNoErrors = true;
+		$blnHasErrors = false;
 		$result = $this->Database->prepare("SELECT id FROM tl_monitoring WHERE disable = ''")
 								 ->execute();
 
 		while ($result->next())
 		{
 			$id = $result->id;
-			if (!$this->checkSingle($id, $checkType))
+			if ($this->checkSingle($id, $checkType) === FALSE)
 			{
-				$blnNoErrors = false;
+				$blnHasErrors = true;
 			}
 		}
-		return $blnNoErrors;
+		return $blnHasErrors;
 	}
 
 	/**
@@ -233,8 +232,6 @@ class Monitoring extends \Backend
 		$this->Database->prepare("UPDATE tl_monitoring %s WHERE id=?")
 					   ->set($arrSet)
 					   ->execute($intId);
-					   
-		$this->createNewVersion('tl_monitoring', $intId);
 	}
 
 	/**

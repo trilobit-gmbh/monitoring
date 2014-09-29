@@ -45,8 +45,9 @@ $GLOBALS['TL_LANG']['tl_monitoring']['disable']         = array('Deactivate', 'T
 /**
  * Legenden
  */
-$GLOBALS['TL_LANG']['tl_monitoring']['website_legend'] = 'Website';
-$GLOBALS['TL_LANG']['tl_monitoring']['test_legend']    = 'Test';
+$GLOBALS['TL_LANG']['tl_monitoring']['website_legend']   = 'Website';
+$GLOBALS['TL_LANG']['tl_monitoring']['test_legend']      = 'Test';
+$GLOBALS['TL_LANG']['tl_monitoring']['last_test_legend'] = 'Last test result';
 
 /**
  * References

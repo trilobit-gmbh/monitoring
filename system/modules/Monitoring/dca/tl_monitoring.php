@@ -130,7 +130,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'                     => '{website_legend},customer,website,system,added;{test_legend},url,test_string,disable;{lats_test_legend},last_test_date,last_test_status'
+		'default'                     => '{website_legend},customer,website,system,added;{test_legend},url,test_string,disable;{last_test_legend},last_test_date,last_test_status'
 	),
 
 	// Fields
