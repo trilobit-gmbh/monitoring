@@ -70,7 +70,7 @@ class Monitoring extends \Backend
 	public function checkOne()
 	{
 		$status = $this->checkSingle(\Input::get('id'), self::CHECK_TYPE_MANUAL);
-		$this->logDebugMsg("Checking one monitoring entry for ID: " . \Input::get('id') . " ended with status: " . $status, __METHOD__);
+		$this->logDebugMsg("Checking one monitoring entry for ID " . \Input::get('id') . " ended with status: " . $status, __METHOD__);
 		
 		$urlParam = \Input::get('do');
 		
@@ -88,7 +88,7 @@ class Monitoring extends \Backend
 	public function checkAll()
 	{
 		$status = $this->checkMultiple(self::CHECK_TYPE_MANUAL);
-		$this->logDebugMsg("Checking all monitoring entries  ended with status: " . $status, __METHOD__);
+		$this->logDebugMsg("Checking all monitoring entries ended with status: " . $status, __METHOD__);
 		$this->returnToList(\Input::get('do'));
 	}
 
@@ -98,7 +98,7 @@ class Monitoring extends \Backend
 	public function checkScheduled()
 	{
 		$status = $this->checkMultiple(self::CHECK_TYPE_AUTOMATIC);
-		$this->logDebugMsg("Scheduled checking all monitoring entries  ended with status: " . $status, __METHOD__);
+		$this->logDebugMsg("Scheduled checking all monitoring entries ended with status: " . $status, __METHOD__);
 		if ($status != self::STATUS_OKAY)
 		{
 			$errorMsg = self::EMAIL_MESSAGE_START . $this->getErroneousCheckEntriesAsString();
@@ -209,7 +209,7 @@ class Monitoring extends \Backend
 			{
 				$status = self::STATUS_ERROR;
 			}
-			$this->logDebugMsg("Multiple checking status is: " . $status, __METHOD__);
+			$this->logDebugMsg("Multiple checking status after entry ID " . $id . " is: " . $status, __METHOD__);
 		}
 		$this->logDebugMsg("Multiple checking monitoring entries ended with status: " . $status, __METHOD__);
 		return $status;
