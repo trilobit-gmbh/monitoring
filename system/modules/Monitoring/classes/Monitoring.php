@@ -69,7 +69,8 @@ class Monitoring extends \Backend
 	 */
 	public function checkOne()
 	{
-		$this->checkSingle(\Input::get('id'), self::CHECK_TYPE_MANUAL);
+		$status = $this->checkSingle(\Input::get('id'), self::CHECK_TYPE_MANUAL);
+		$this->logDebugMsg("Checking one monitoring entry for ID: " . \Input::get('id') . " ended with status: " . $status, __METHOD__);
 		
 		$urlParam = \Input::get('do');
 		
@@ -86,7 +87,8 @@ class Monitoring extends \Backend
 	 */
 	public function checkAll()
 	{
-		$this->checkMultiple(self::CHECK_TYPE_MANUAL);
+		$blnHasErrors = $this->checkMultiple(self::CHECK_TYPE_MANUAL);
+		$this->logDebugMsg("Checking all monitoring entries ended with " . ($blnHasErrors ? "" : "no ") . "errors.", __METHOD__);
 		$this->returnToList(\Input::get('do'));
 	}
 
@@ -96,6 +98,7 @@ class Monitoring extends \Backend
 	public function checkScheduled()
 	{
 		$blnHasErrors = $this->checkMultiple(self::CHECK_TYPE_AUTOMATIC);
+		$this->logDebugMsg("Sheduled checking all monitoring entries ended with " . ($blnHasErrors ? "" : "no ") . "errors.", __METHOD__);
 		if ($blnHasErrors)
 		{
 			$errorMsg = self::EMAIL_MESSAGE_START . $this->getErroneousCheckEntriesAsString();
@@ -106,6 +109,7 @@ class Monitoring extends \Backend
 				$objEmail->subject = self::EMAIL_SUBJECT;
 				$objEmail->text = $errorMsg . sprintf(self::EMAIL_MESSAGE_END, \Environment::get('base') . "contao");
 				$objEmail->sendTo($GLOBALS['TL_CONFIG']['monitoringAdminEmail']);
+				$this->logDebugMsg("Scheduled monitoring check ended with errors. Monitoring admin informed via email (" . $GLOBALS['TL_CONFIG']['monitoringAdminEmail'] . ").", __METHOD__);
 			}
 			else
 			{
@@ -134,11 +138,13 @@ class Monitoring extends \Backend
 			{
 				$maxRepititions = 1;
 			}
+			$this->logDebugMsg("Using max repetitions for failed checks: " . $maxRepititions, __METHOD__);
 			$delay = $GLOBALS['TL_CONFIG']['monitoringTestCirculationDelay'];
 			if (!is_int($delay) || $delay < 1 || $delay > 99)
 			{
 				$delay = 10;
 			}
+			$this->logDebugMsg("Using repetitions delay for failed checks: " . $delay, __METHOD__);
 			
 			$arrSetEntry = array();
 			$arrSetTest = array();
@@ -146,6 +152,7 @@ class Monitoring extends \Backend
 			{
 				if ($repitition > 0)
 				{
+					$this->logDebugMsg("Repeting single check for entry with ID " . $id . " because status was: " . $status, __METHOD__);
 					sleep($delay);
 				}
 				
@@ -172,11 +179,13 @@ class Monitoring extends \Backend
 
 			$this->saveMonitoringEntry($id, $arrSetEntry);
 			$this->saveMonitoringTest($arrSetTest);
+			
+			$this->logDebugMsg("Returning status for entry with ID " . $id . " after single check is: " . $status, __METHOD__);
 
-			return ($status == self::STATUS_OKAY);
+			return $status;
 		}
 		// no data, no test ... no error !!!
-		return true;
+		return null;
 	}
 
 	/**
@@ -191,11 +200,11 @@ class Monitoring extends \Backend
 		while ($result->next())
 		{
 			$id = $result->id;
-			if ($this->checkSingle($id, $checkType) === FALSE)
-			{
-				$blnHasErrors = true;
-			}
+			
+			$status = $this->checkSingle($id, $checkType);
+			$blnHasErrors = $blnHasErrors || ($status != self::STATUS_OKAY);
 		}
+		$this->logDebugMsg("Multiple checking monitoring entries ended with " . ($blnHasErrors ? "" : "no ") . "errors.", __METHOD__);
 		return $blnHasErrors;
 	}
 
@@ -318,6 +327,17 @@ class Monitoring extends \Backend
 	{
 		$path = \Environment::get('base') . 'contao/main.php?do=' . $act;
 		$this->redirect($path, 301);
+	}
+
+	/**
+	 * Logs the given message if the debug mode is anabled.
+	 */
+	private function logDebugMsg($msg, $origin)
+	{
+		if ($GLOBALS['TL_CONFIG']['monitoringDebugMode'] === TRUE)
+		{
+			$this->log($msg, $origin, TL_INFO);
+		}
 	}
 }
 ?>

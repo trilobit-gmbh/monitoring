@@ -34,6 +34,7 @@ $GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive']        = array('Ma
 $GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']           = array('Monitoring Admin E-Mail', 'Die E-Mail Adresse des Monitoring Admin.');
 $GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculation']      = array('Test Zirkulation', 'Wählen Sie wie oft ein Test wiederholt werden soll, wenn er fehl schlägt.');
 $GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculationDelay'] = array('Test Zirkulation Verzögerung', 'Wählen Sie wie viele Sekunden zwischen den Test Zyklen vergehen soll.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringDebugMode']            = array('Debugmodus aktivieren', 'Wenn der Debugmodus aktiviert ist, werden zusätzliche Informationen im System-Log protokolliert.');
 
 /**
  * Legenden
