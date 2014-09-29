@@ -87,9 +87,8 @@ class Monitoring extends \Backend
 	 */
 	public function checkAll()
 	{
-		$this->checkScheduled();
-		//$status = $this->checkMultiple(self::CHECK_TYPE_MANUAL);
-		//$this->logDebugMsg("Checking all monitoring entries ended with status: " . $status, __METHOD__);
+		$status = $this->checkMultiple(self::CHECK_TYPE_MANUAL);
+		$this->logDebugMsg("Checking all monitoring entries ended with status: " . $status, __METHOD__);
 		$this->returnToList(\Input::get('do'));
 	}
 
@@ -102,7 +101,6 @@ class Monitoring extends \Backend
 		$this->logDebugMsg("Scheduled checking all monitoring entries ended with status: " . $status, __METHOD__);
 		if ($status != self::STATUS_OKAY)
 		{
-			$this->logDebugMsg("Error detected, sending email ....", __METHOD__);
 			$errorMsg = self::EMAIL_MESSAGE_START . $this->getErroneousCheckEntriesAsString();
 			$this->log($errorMsg, __METHOD__, TL_ERROR);
 			if ($GLOBALS['TL_CONFIG']['monitoringMailingActive'] && $GLOBALS['TL_CONFIG']['monitoringAdminEmail'] != '')
@@ -222,7 +220,7 @@ class Monitoring extends \Backend
 	 */
 	private function getErroneousCheckEntries()
 	{
-		$result = $this->Database->prepare("SELECT * FROM tl_monitoring WHERE disable = '' AND (status = 'ERROR' OR status = 'INCOMPLETE')")
+		$result = $this->Database->prepare("SELECT * FROM tl_monitoring WHERE disable = '' AND (last_test_status = 'ERROR' OR last_test_status = 'INCOMPLETE')")
 								 ->execute();
 
 		return $result->fetchAllAssoc();
