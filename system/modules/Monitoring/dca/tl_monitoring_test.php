@@ -125,7 +125,6 @@ $GLOBALS['TL_DCA']['tl_monitoring_test'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring_test']['date'],
 			'exclude'                 => true,
-			'search'                  => true,
 			'filter'                  => true,
 			'sorting'                 => true,
 			'default'                 => time(),
@@ -138,7 +137,6 @@ $GLOBALS['TL_DCA']['tl_monitoring_test'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring_test']['type'],
 			'exclude'                 => true,
-			'search'                  => true,
 			'filter'                  => true,
 			'sorting'                 => true,
 			'inputType'               => 'select',
@@ -152,7 +150,6 @@ $GLOBALS['TL_DCA']['tl_monitoring_test'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring_test']['status'],
 			'exclude'                 => true,
-			'search'                  => true,
 			'filter'                  => true,
 			'sorting'                 => true,
 			'inputType'               => 'select',
@@ -166,6 +163,8 @@ $GLOBALS['TL_DCA']['tl_monitoring_test'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring_test']['repetitions'],
 			'exclude'                 => true,
+			'filter'                  => true,
+			'sorting'                 => true,
 			'inputType'               => 'text',
 			'eval'                    => array('tl_class'=>'w50', 'readonly'=>true, 'rgxp'=>'digit'),
 			'sql'                     => "varchar(2) NOT NULL default '1'"
@@ -173,6 +172,7 @@ $GLOBALS['TL_DCA']['tl_monitoring_test'] = array
 		'response_string' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring_test']['response_string'],
+			'search'                  => true,
 			'inputType'               => 'textarea',
 			'eval'                    => array('tl_class'=>'long clr', 'readonly'=>true, 'doNotCopy'=>true),
 			'sql'                     => "text NOT NULL"
@@ -180,6 +180,7 @@ $GLOBALS['TL_DCA']['tl_monitoring_test'] = array
 		'comment' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring_test']['comment'],
+			'search'                  => true,
 			'exclude'                 => true,
 			'inputType'               => 'textarea',
 			'eval'                    => array('tl_class'=>'long clr'),

@@ -185,6 +185,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 			'exclude'                 => true,
 			'filter'                  => true,
 			'sorting'                 => true,
+			'flag'                    => 6,
 			'inputType'               => 'text',
 			'load_callback'           => array(array('tl_monitoring', 'setDate')),
 			'eval'                    => array('tl_class'=>'w50', 'doNotCopy'=>true, 'readonly'=>true, 'rgxp'=>'datim'),
