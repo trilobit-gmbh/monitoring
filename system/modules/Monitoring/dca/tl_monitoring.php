@@ -37,6 +37,10 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 		'ctable'                      => array('tl_monitoring_test'),
 		'switchToEdit'                => true,
 		'enableVersioning'            => true,
+		'onsubmit_callback' => array
+		(
+			array('tl_monitoring', 'storeDateAdded'),
+		),
 		'sql' => array
 		(
 			'keys' => array
@@ -274,6 +278,39 @@ class tl_monitoring extends Backend
 		}
 		return $varValue;
 	}
+	
+	/**
+	 * Store the date when the entry has been added
+	 * @param object
+	 */
+	public function storeDateAdded($dc)
+	{
+		// Front end call
+		if (!$dc instanceof \DataContainer)
+		{
+			return;
+		}
+
+		// Return if there is no active record (override all)
+		if (!$dc->activeRecord)
+		{
+			return;
+		}
+
+		// Fallback solution for existing accounts
+		if ($dc->activeRecord->added > 0)
+		{
+			$time = $dc->activeRecord->added;
+		}
+		else
+		{
+			$time = time();
+		}
+
+		$this->Database->prepare("UPDATE tl_monitoring SET added=? WHERE id=?")
+					   ->execute($time, $dc->id);
+	}
+ 
 
 	/**
 	 * Returns the formatted row columns
