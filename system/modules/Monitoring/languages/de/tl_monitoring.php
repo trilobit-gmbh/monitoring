@@ -31,22 +31,31 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_monitoring']['customer']         = array('Kunde', 'Der Kunde der zu monitorenden Webseite.');
-$GLOBALS['TL_LANG']['tl_monitoring']['website']          = array('Webseite', 'Die zu monitorenden Webseite.');
-$GLOBALS['TL_LANG']['tl_monitoring']['system']           = array('System', 'Das System der zu monitorenden Webseite.');
-$GLOBALS['TL_LANG']['tl_monitoring']['added']            = array('Erstellt am', 'Das Erstellungsdatum des Monitoring Eintrags.');
-$GLOBALS['TL_LANG']['tl_monitoring']['url']              = array('URL', 'Die Adresse der zu testenden Seite. Eingabe <u>mit</u> Protokoll (z.B. http:// oder https://)!');
-$GLOBALS['TL_LANG']['tl_monitoring']['test_string']      = array('Teststring', 'Der Text, der auf der zu testenden Seite gesucht werden soll (HTML-Tags werden entfernt).');
-$GLOBALS['TL_LANG']['tl_monitoring']['disable']          = array('Deaktivieren', 'Den Monitoring Eintrag vorübergehend deaktivieren.');
-$GLOBALS['TL_LANG']['tl_monitoring']['last_test_date']   = array('Letzter Test', 'Das Datum des letzten Tests.');
-$GLOBALS['TL_LANG']['tl_monitoring']['last_test_status'] = array('Letzter Status', 'Der Status des letzten Tests.');
+$GLOBALS['TL_LANG']['tl_monitoring']['customer']                    = array('Kunde', 'Der Kunde der zu monitorenden Webseite.');
+$GLOBALS['TL_LANG']['tl_monitoring']['website']                     = array('Webseite', 'Die zu monitorenden Webseite.');
+$GLOBALS['TL_LANG']['tl_monitoring']['system']                      = array('System', 'Das System der zu monitorenden Webseite.');
+$GLOBALS['TL_LANG']['tl_monitoring']['added']                       = array('Erstellt am', 'Das Erstellungsdatum des Monitoring Eintrags.');
+$GLOBALS['TL_LANG']['tl_monitoring']['url']                         = array('URL', 'Die Adresse der zu testenden Seite. Eingabe <u>mit</u> Protokoll (z.B. http:// oder https://)!');
+$GLOBALS['TL_LANG']['tl_monitoring']['test_string']                 = array('Teststring', 'Der Text, der auf der zu testenden Seite gesucht werden soll (HTML-Tags werden entfernt).');
+$GLOBALS['TL_LANG']['tl_monitoring']['disable']                     = array('Deaktivieren', 'Den Monitoring Eintrag vorübergehend deaktivieren.');
+$GLOBALS['TL_LANG']['tl_monitoring']['last_test_date']              = array('Letzter Test', 'Das Datum des letzten Tests.');
+$GLOBALS['TL_LANG']['tl_monitoring']['last_test_status']            = array('Letzter Status', 'Der Status des letzten Tests.');
+$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_actuality']   = array('Aktualität', 'Geben Sie zu diesem Monitoring Eintrag was aktuell oder veraltet ist.');
+$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_contact']     = array('Kontakt Informationen', 'Geben Sie die Daten zur Kontaktaufname für diesen Monitoring Eintrag an.');
+$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_contao']      = array('Contao Konfiguration', 'Geben Sie die Konfigurationsdaten für Contao zu diesen Monitoring Eintrag an.');
+$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_maintenance'] = array('Wartungskonfiguration', 'Geben Sie die Daten zur Wartungskonfiguration für diesen Monitoring Eintrag an.');
+$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_system']      = array('Systemkonfiguration', 'Geben Sie die Daten zum Web System für diesen Monitoring Eintrag an.');
+$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_field']       = array('Feld', 'Wählen Sie ein Feld aus.');
+$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_actual']      = array('Ja oder nein', 'Geben Sie an ob die Feldbedingung zutrifft.');
+$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_value']       = array('Wert', 'Geben Sie einen Wert für das Feld ein.');
 
 /**
  * Legenden
  */
-$GLOBALS['TL_LANG']['tl_monitoring']['website_legend']  = 'Webseite';
-$GLOBALS['TL_LANG']['tl_monitoring']['test_legend']     = 'Testen';
-$GLOBALS['TL_LANG']['tl_monitoring']['last_test_legend']= 'Letztes Testergebnis';
+$GLOBALS['TL_LANG']['tl_monitoring']['website_legend']         = 'Webseite';
+$GLOBALS['TL_LANG']['tl_monitoring']['test_legend']            = 'Testen';
+$GLOBALS['TL_LANG']['tl_monitoring']['last_test_legend']       = 'Letztes Testergebnis';
+$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_legend'] = 'Zusätzliche Informationen';
 
 /**
  * References

@@ -30,15 +30,28 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive']        = array('Mailing aktivieren', 'Wählen Sie ob Mailing aktiviert sein soll.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']           = array('Monitoring Admin E-Mail', 'Die E-Mail Adresse des Monitoring Admin.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculation']      = array('Test Zirkulation', 'Wählen Sie wie oft ein Test wiederholt werden soll, wenn er fehl schlägt.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculationDelay'] = array('Test Zirkulation Verzögerung', 'Wählen Sie wie viele Sekunden zwischen den Test Zyklen vergehen soll.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringDebugMode']            = array('Debugmodus aktivieren', 'Wenn der Debugmodus aktiviert ist, werden zusätzliche Informationen im System-Log protokolliert.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive']                = array('Mailing aktivieren', 'Wählen Sie ob Mailing aktiviert sein soll.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']                   = array('Monitoring Admin E-Mail', 'Die E-Mail Adresse des Monitoring Admin.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculation']              = array('Test Zirkulation', 'Wählen Sie wie oft ein Test wiederholt werden soll, wenn er fehl schlägt.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculationDelay']         = array('Test Zirkulation Verzögerung', 'Wählen Sie wie viele Sekunden zwischen den Test Zyklen vergehen soll.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringDebugMode']                    = array('Debugmodus aktivieren', 'Wenn der Debugmodus aktiviert ist, werden zusätzliche Informationen im System-Log protokolliert.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFields']         = array('Zusätzliche Infofelder', 'Legen sie zusätzliche Infofelder für die Monitoringeinträge fest.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategory'] = array('Kategorie', 'Die Kategorie in der das Feld erscheinen soll.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsName']     = array('Feldname', 'Der name des Feldes.');
 
 /**
- * Legenden
+ * Legends
  */
 $GLOBALS['TL_LANG']['tl_settings']['monitoring_legend'] = 'Monitoring';
+
+
+/**
+ * Options
+ */
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategoryOptions'][AdditionalInfoField::CATEGORY_ACTUALITY]   = array('Aktualität', 'Felder in dieser Kategorie werden als <u>Checkboxen</u> angezeigt. Sie werden verwendet um zu definieren ob etwas aktuell oder veraltet ist.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategoryOptions'][AdditionalInfoField::CATEGORY_CONTACT]     = array('Kontakt Informationen', 'Felder in dieser Kategorie werden als <u>Textfelder</u> angezeigt. Sie werden für Daten zur Kontaktaufname verwendet.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategoryOptions'][AdditionalInfoField::CATEGORY_CONTAO]      = array('Contao Konfiguration', 'Felder in dieser Kategorie werden als <u>Textfelder</u> angezeigt. Sie werden für Konfigurationsdaten für Contao verwendet.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategoryOptions'][AdditionalInfoField::CATEGORY_MAINTENANCE] = array('Wartungskonfiguration', 'Felder in dieser Kategorie werden als <u>Checkboxen</u> angezeigt. Sie werden verwendet um Daten zur Wartungskonfiguration zu erfassen.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategoryOptions'][AdditionalInfoField::CATEGORY_SYSTEM]      = array('Systemkonfiguration', 'Felder in dieser Kategorie werden als <u>Textfelder</u> angezeigt. Sie werden verwendet um Daten zum Web System zu erfassen.');
 
 ?>
