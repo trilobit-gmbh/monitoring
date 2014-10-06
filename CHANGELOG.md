@@ -2,6 +2,10 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.3.2 (2014-10-07)
+--------------------------
+- adding additional info fields (see #3)
+
 Version 1.3.1 (2014-09-30)
 --------------------------
 - removed creating new entry version after test (see #8)
