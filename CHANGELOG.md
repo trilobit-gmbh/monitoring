@@ -2,6 +2,11 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.3.3 (2014-11-13)
+--------------------------
+- modified status colors
+- modified icon
+
 Version 1.3.2 (2014-10-07)
 --------------------------
 - adding additional info fields (see #3)
