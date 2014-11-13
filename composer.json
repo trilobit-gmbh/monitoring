@@ -17,8 +17,8 @@
 	],
 	"support":{
 		"email":"contao@cliff-parnitzky.de",
-		"issues":"https://github.com/cliffparnitzky/Monitoring/issues",
-		"source":"https://github.com/cliffparnitzky/Monitoring"
+		"issues":"https://github.com/ContaoMonitoring/monitoring/issues",
+		"source":"https://github.com/ContaoMonitoring/monitoring"
 	},
 	"require":{
 		"php":">=5.3",
