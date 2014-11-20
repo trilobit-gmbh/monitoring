@@ -20,7 +20,7 @@ Installation
 ------------
 
 The extension is not published in contao extension repository.
-Install it manually or via [composer](https://packagist.org/packages/contao-monitoring/monitoring).
+Install it manually or via composer: [contao-monitoring/monitoring](https://packagist.org/packages/contao-monitoring/monitoring).
 
 
 Tracker
