@@ -1,5 +1,5 @@
 {
-	"name":"cliffparnitzky/monitoring",
+	"name":"contao-monitoring/monitoring",
 	"description":"Monitoring extension for checking availability of websites.",
 	"keywords":["contao","monitoring"],
 	"type":"contao-module",

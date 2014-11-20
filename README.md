@@ -1,6 +1,6 @@
-[![Latest Version on Packagist](http://img.shields.io/packagist/v/cliffparnitzky/monitoring.svg?style=flat)](https://packagist.org/packages/cliffparnitzky/monitoring)
-[![Installations via composer per month](http://img.shields.io/packagist/dm/cliffparnitzky/monitoring.svg?style=flat)](https://packagist.org/packages/cliffparnitzky/monitoring)
-[![Installations via composer total](http://img.shields.io/packagist/dt/cliffparnitzky/monitoring.svg?style=flat)](https://packagist.org/packages/cliffparnitzky/monitoring)
+[![Latest Version on Packagist](http://img.shields.io/packagist/v/contao-monitoring/monitoring.svg?style=flat)](https://packagist.org/packages/contao-monitoring/monitoring)
+[![Installations via composer per month](http://img.shields.io/packagist/dm/contao-monitoring/monitoring.svg?style=flat)](https://packagist.org/packages/contao-monitoring/monitoring)
+[![Installations via composer total](http://img.shields.io/packagist/dt/contao-monitoring/monitoring.svg?style=flat)](https://packagist.org/packages/contao-monitoring/monitoring)
 
 Contao Extension: Monitoring
 ============================
@@ -20,7 +20,7 @@ Installation
 ------------
 
 The extension is not published in contao extension repository.
-Install it manually or via [composer](https://packagist.org/packages/cliffparnitzky/monitoring).
+Install it manually or via [composer](https://packagist.org/packages/contao-monitoring/monitoring).
 
 
 Tracker
