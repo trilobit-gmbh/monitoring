@@ -134,7 +134,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'                     => '{website_legend},customer,website,system,added;{test_legend},url,test_string,disable;{last_test_legend},last_test_date,last_test_status;{additional_info_legend},additional_info_actuality,additional_info_contact,additional_info_contao,additional_info_maintenance,additional_info_system'
+		'default'                     => '{website_legend},customer,website,system,added;{test_legend},url,test_string,disable;{last_test_legend},last_test_date,last_test_status'
 	),
 
 	// Fields
@@ -245,46 +245,6 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 			'reference'               => &$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'],
 			'eval'                    => array('tl_class'=>'w50', 'readonly'=>true, 'helpwizard'=>true, 'doNotCopy'=>true),
 			'sql'                     => "varchar(64) NOT NULL default '" . Monitoring::STATUS_UNTESTED . "'"
-		),
-		'additional_info_actuality' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_actuality'],
-			'exclude'                 => true,
-			'inputType'               => 'multiColumnWizard',
-			'eval'                    => array('columnsCallback'=>array('AdditionalInfoField', 'getAdditionalInfoFieldsForActuality')),
-			'sql'                     => "blob NULL"
-		),
-		'additional_info_contact' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_contact'],
-			'exclude'                 => true,
-			'inputType'               => 'multiColumnWizard',
-			'eval'                    => array('columnsCallback'=>array('AdditionalInfoField', 'getAdditionalInfoFieldsForContact')),
-			'sql'                     => "blob NULL"
-		),
-		'additional_info_contao' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_contao'],
-			'exclude'                 => true,
-			'inputType'               => 'multiColumnWizard',
-			'eval'                    => array('columnsCallback'=>array('AdditionalInfoField', 'getAdditionalInfoFieldsForContao')),
-			'sql'                     => "blob NULL"
-		),
-		'additional_info_maintenance' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_maintenance'],
-			'exclude'                 => true,
-			'inputType'               => 'multiColumnWizard',
-			'eval'                    => array('columnsCallback'=>array('AdditionalInfoField', 'getAdditionalInfoFieldsForMaintenance')),
-			'sql'                     => "blob NULL"
-		),
-		'additional_info_system' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['additional_info_system'],
-			'exclude'                 => true,
-			'inputType'               => 'multiColumnWizard',
-			'eval'                    => array('columnsCallback'=>array('AdditionalInfoField', 'getAdditionalInfoFieldsForSystem')),
-			'sql'                     => "blob NULL"
 		)
 	)
 );
@@ -357,8 +317,11 @@ class tl_monitoring extends Backend
 	 */
 	public function getLabel($row, $label, DataContainer $dc, $args)
 	{
-		//$args[3] = '<span style="color:#b3b3b3;">' . $row['last_test_date'] . '</span>';
-		$args[4] = '<span class="' . strtolower($row['last_test_status']) . '">' . $args[4] . '</span>';
+		$intLastTestStatusIndex = array_search("last_test_status", $GLOBALS['TL_DCA']['tl_monitoring']['list']['label']['fields']);
+		if ($intLastTestStatusIndex !== FALSE)
+		{
+			$args[$intLastTestStatusIndex] = '<span class="' . strtolower($row['last_test_status']) . '">' . $args[$intLastTestStatusIndex] . '</span>';
+		}
 
 		return $args;
 	}

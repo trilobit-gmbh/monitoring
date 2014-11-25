@@ -31,7 +31,7 @@
  * Add to palette
  */
 $GLOBALS['TL_DCA']['tl_settings']['palettes']['__selector__'][] = 'monitoringMailingActive';
-$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{monitoring_legend},monitoringMailingActive,monitoringTestCirculation,monitoringTestCirculationDelay,monitoringDebugMode,monitoringAdditionalInfoFields';
+$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{monitoring_legend},monitoringMailingActive,monitoringTestCirculation,monitoringTestCirculationDelay,monitoringDebugMode';
 $GLOBALS['TL_DCA']['tl_settings']['subpalettes']['monitoringMailingActive'] = 'monitoringAdminEmail'; 
 
 /**
@@ -72,51 +72,6 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringDebugMode'] = array
 	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['monitoringDebugMode'],
 	'inputType' => 'checkbox',
 	'eval'      => array('tl_class'=>'w50 m12')
-);
-
-$GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringAdditionalInfoFields'] = array
-(
-	'label'         => &$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFields'],
-	'exclude'       => true,
-	'inputType'     => 'multiColumnWizard',
-	'eval'          => array
-	(
-		'tl_class'     => 'clr',
-		'helpwizard'   => true,
-		'columnFields' => array
-		(
-			'category' => array
-			(
-				'label'         => &$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategory'],
-				'exclude'       => true,
-				'inputType'     => 'select',
-				'eval'          => array
-				(
-					'style'                     => 'width:250px',
-					'includeBlankOption'        => true,
-					'mandatory'                 => true,
-					
-				),
-				'options'       => array
-				(
-					AdditionalInfoField::CATEGORY_ACTUALITY,
-					AdditionalInfoField::CATEGORY_CONTACT,
-					AdditionalInfoField::CATEGORY_CONTAO,
-					AdditionalInfoField::CATEGORY_MAINTENANCE,
-					AdditionalInfoField::CATEGORY_SYSTEM
-				),
-				'reference'     => &$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategoryOptions']
-			),
-			'name' => array
-			(
-				'label'         => &$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsName'],
-				'exclude'       => true,
-				'inputType'     => 'text',
-				'eval'          => array('mandatory'=>true)
-			)
-		)
-	),
-	'reference'      => &$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategoryOptions']
 );
 
 ?>

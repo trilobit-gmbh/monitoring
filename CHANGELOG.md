@@ -2,6 +2,11 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.4.0 (2014-11-26)
+--------------------------
+- extracted additional fields to a separate package ([contao-monitoring/monitoring-additional-infos](https://packagist.org/packages/contao-monitoring/monitoring-additional-infos))
+- added hook to modify header for entries in child view
+
 Version 1.3.3 (2014-11-13)
 --------------------------
 - modified status colors

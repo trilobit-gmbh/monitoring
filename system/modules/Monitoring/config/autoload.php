@@ -26,6 +26,5 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Classes
-	'Monitoring\AdditionalInfoField' => 'system/modules/Monitoring/classes/AdditionalInfoField.php',
 	'Monitoring\Monitoring'          => 'system/modules/Monitoring/classes/Monitoring.php',
 ));

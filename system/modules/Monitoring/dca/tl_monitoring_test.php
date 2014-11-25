@@ -54,6 +54,7 @@ $GLOBALS['TL_DCA']['tl_monitoring_test'] = array
 			'mode'                    => 4,
 			'fields'                  => array('date DESC'),
 			'headerFields'            => array('customer', 'website', 'system', 'url'),
+		    'header_callback'         => array('tl_monitoring_test', 'extendHeader'),
 			'child_record_callback'   => array('tl_monitoring_test', 'getTestLabel'),
 			'panelLayout'             => 'filter;sort,search,limit',
 			'child_record_class'      => 'no_padding' 
@@ -227,6 +228,33 @@ class tl_monitoring_test extends Backend
 </div>';
 		$label .="\n";
 		return $label;
+	}
+	
+	/**
+	 * Extend the header ... 
+	 * @param  $arrHeaderFields  the headerfields given from list->sorting
+	 * @param  DataContainer $dc a DataContainer Object
+	 * @return Array             The manipulated headerfields
+	 */
+	public function extendHeader($arrHeaderFields, DataContainer $dc)
+	{
+	    $strUrlFieldLabel = $GLOBALS['TL_LANG']['tl_monitoring']['url'][0];
+	    if (array_key_exists($strUrlFieldLabel, $arrHeaderFields) )
+	    {
+	        $arrHeaderFields[$strUrlFieldLabel] = '<a href="' . $arrHeaderFields[$strUrlFieldLabel] . '" target="_blank">' . $arrHeaderFields[$strUrlFieldLabel] . '</a>';
+	    }
+	    
+	    // HOOK: modify the header
+		if (isset($GLOBALS['TL_HOOKS']['monitoringExtendEntryHeader']) && is_array($GLOBALS['TL_HOOKS']['monitoringExtendEntryHeader']))
+		{
+			foreach ($GLOBALS['TL_HOOKS']['monitoringExtendEntryHeader'] as $callback)
+			{
+				$this->import($callback[0]);
+				$arrHeaderFields = $this->$callback[0]->$callback[1]($arrHeaderFields, $dc);
+			}
+		}
+	
+	    return $arrHeaderFields;
 	}
 }
 

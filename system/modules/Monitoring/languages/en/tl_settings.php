@@ -35,22 +35,10 @@ $GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']                   = a
 $GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculation']              = array('Test circulation', 'Select how often the test should be repeated if it fails.');
 $GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculationDelay']         = array('Test circulation delay', 'Select how many seconds should elapse between the test cycles.');
 $GLOBALS['TL_LANG']['tl_settings']['monitoringDebugMode']                    = array('Enable debug mode', 'If the debug mode is enabled, additional information will be logged in the system log.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFields']         = array('Additional info fields', 'Define additional info fields which should be available for the monitoring entries.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategory'] = array('Category', 'The category, the field should appear.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsName']     = array('Field name', 'The name of the field.');
 
 /**
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_settings']['monitoring_legend'] = 'Monitoring';
-
-/**
- * Options
- */
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategoryOptions'][AdditionalInfoField::CATEGORY_ACTUALITY]   = array('Actuality', 'Fields in this category will be shown as <u>checkboxes</u>. They are used to define if something is actual or outdated.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategoryOptions'][AdditionalInfoField::CATEGORY_CONTACT]     = array('Contact information', 'Fields in this category will be shown as <u>text fields</u>. They are used to define data for contacting someone.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategoryOptions'][AdditionalInfoField::CATEGORY_CONTAO]      = array('Contao configuration', 'Fields in this category will be shown as <u>text fields</u>. They are used to define Contao configuration data.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategoryOptions'][AdditionalInfoField::CATEGORY_MAINTENANCE] = array('Maintenance configuration', 'Fields in this category will be shown as <u>checkboxes</u>. They are used to define maintenance data.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdditionalInfoFieldsCategoryOptions'][AdditionalInfoField::CATEGORY_SYSTEM]      = array('System configuration', 'Fields in this category will be shown as <u>text fields</u>. They are used to define data of the web system.');
 
 ?>
