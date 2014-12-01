@@ -60,8 +60,8 @@ $GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'][Monitoring::STATUS_UNTESTED]
  * Buttons
  */
 $GLOBALS['TL_LANG']['tl_monitoring']['new']        = array('New monitoring entry', 'Create a new monitoring entry.');
-$GLOBALS['TL_LANG']['tl_monitoring']['edit']       = array('Edit monitoring tests', 'Edit the monitoring tests with ID %s.');
-$GLOBALS['TL_LANG']['tl_monitoring']['editheader'] = array('Edit monitoring entry', 'Edit the monitoring entry with ID %s.');
+$GLOBALS['TL_LANG']['tl_monitoring']['edit']       = array('Edit monitoring entry', 'Edit the monitoring entry with ID %s.');
+$GLOBALS['TL_LANG']['tl_monitoring']['tests']      = array('Show monitoring tests', 'Show the tests for monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['copy']       = array('Copy monitoring entry', 'Copy the monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['delete']     = array('Delete monitoring entry', 'Delete the monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['show']       = array('Show monitoring entry', 'Show infos of monitoring entry with ID %s.');

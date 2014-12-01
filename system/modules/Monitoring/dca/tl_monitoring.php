@@ -87,14 +87,14 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 			'edit' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['edit'],
-				'href'                => 'table=tl_monitoring_test',
-				'icon'                => 'edit.gif'
-			),
-			'editheader' => array
-			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['editheader'],
 				'href'                => 'act=edit',
 				'icon'                => 'header.gif'
+			),
+			'tests' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['tests'],
+				'href'                => 'table=tl_monitoring_test',
+				'icon'                => 'system/modules/Monitoring/assets/tests.png',
 			),
 			'copy' => array
 			(
@@ -118,14 +118,12 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 			'open_url' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['open_url'],
-				'icon'                => 'system/modules/es_webcheck/html/open_url.png',
 				'button_callback'     => array('tl_monitoring', 'getOpenUrlButton')
 			),
 			'check' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['check'],
 				'href'                => 'key=check',
-				'icon'                => 'system/modules/es_webcheck/html/server_grey.png',
 				'button_callback'     => array('tl_monitoring', 'getStatusIcon')
 			)
 		)
