@@ -54,7 +54,7 @@ $GLOBALS['TL_DCA']['tl_monitoring_test'] = array
 			'mode'                    => 4,
 			'fields'                  => array('date DESC'),
 			'headerFields'            => array('customer', 'website', 'system', 'url'),
-		    'header_callback'         => array('tl_monitoring_test', 'extendHeader'),
+			'header_callback'         => array('tl_monitoring_test', 'extendHeader'),
 			'child_record_callback'   => array('tl_monitoring_test', 'getTestLabel'),
 			'panelLayout'             => 'filter;sort,search,limit',
 			'child_record_class'      => 'no_padding' 
@@ -219,12 +219,12 @@ class tl_monitoring_test extends Backend
 
 		$label = '
 <div>
-  <ul>
-    <li><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['date'][0] . ':</span>' . \Date::parse($GLOBALS['TL_CONFIG']['datimFormat'], $arrRow['date']) . '</li>
-    <li><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['type'][0] . ':</span>' . $GLOBALS['TL_LANG']['tl_monitoring_test']['types'][$arrRow['type']][0] . '</li>
-    <li><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['status'][0] . ':</span><span class="' . $cssClass . '">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['statusTypes'][$arrRow['status']][0] . '</span></li>
-    <li><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['repetitions'][0] . ':</span>' . $arrRow['repetitions'] . '</li>
-  </ul>
+  <table>
+    <tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['date'][0] . ':</span></td><td>' . \Date::parse($GLOBALS['TL_CONFIG']['datimFormat'], $arrRow['date']) . '</td></tr>
+    <tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['type'][0] . ':</span></td><td>' . $GLOBALS['TL_LANG']['tl_monitoring_test']['types'][$arrRow['type']][0] . '</td></tr>
+    <tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['status'][0] . ':</span></td><td><span class="' . $cssClass . '">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['statusTypes'][$arrRow['status']][0] . '</span></td></tr>
+    <tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['repetitions'][0] . ':</span></td><td>' . $arrRow['repetitions'] . '</td></tr>
+  </table>
 </div>';
 		$label .="\n";
 		return $label;

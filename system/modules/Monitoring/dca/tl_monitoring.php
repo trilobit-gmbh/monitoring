@@ -309,16 +309,25 @@ class tl_monitoring extends Backend
 					   ->execute($time, $dc->id);
 	}
  
-
 	/**
 	 * Returns the formatted row columns
 	 */
 	public function getLabel($row, $label, DataContainer $dc, $args)
 	{
-		$intLastTestStatusIndex = array_search("last_test_status", $GLOBALS['TL_DCA']['tl_monitoring']['list']['label']['fields']);
+	    $intLastTestStatusIndex = array_search("last_test_status", $GLOBALS['TL_DCA']['tl_monitoring']['list']['label']['fields']);
 		if ($intLastTestStatusIndex !== FALSE)
 		{
 			$args[$intLastTestStatusIndex] = '<span class="' . strtolower($row['last_test_status']) . '">' . $args[$intLastTestStatusIndex] . '</span>';
+		}
+		
+		// HOOK: format list
+		if (isset($GLOBALS['TL_HOOKS']['monitoringFormatList']) && is_array($GLOBALS['TL_HOOKS']['monitoringFormatList']))
+		{
+		    foreach ($GLOBALS['TL_HOOKS']['monitoringFormatList'] as $callback)
+		    {
+		        $this->import($callback[0]);
+		        $args = $this->$callback[0]->$callback[1]($row, $dc, $args);
+		    }
 		}
 
 		return $args;

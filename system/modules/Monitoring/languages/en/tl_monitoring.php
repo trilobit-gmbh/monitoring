@@ -42,7 +42,7 @@ $GLOBALS['TL_LANG']['tl_monitoring']['last_test_date']              = array('Las
 $GLOBALS['TL_LANG']['tl_monitoring']['last_test_status']            = array('Last status', 'The status of the last test.');
 
 /**
- * Legenden
+ * Legends
  */
 $GLOBALS['TL_LANG']['tl_monitoring']['website_legend']         = 'Website';
 $GLOBALS['TL_LANG']['tl_monitoring']['test_legend']            = 'Test';

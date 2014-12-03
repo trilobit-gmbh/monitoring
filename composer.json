@@ -1,6 +1,6 @@
 {
 	"name":"contao-monitoring/monitoring",
-	"description":"Monitoring extension for checking availability of websites.",
+	"description":"Monitoring system for checking availability of websites.",
 	"keywords":["contao","monitoring"],
 	"type":"contao-module",
 	"license":"LGPL-3.0+",
@@ -32,7 +32,7 @@
 			}
 		},
 		"branch-alias": {
-			"dev-master": "1.4.x-dev"
+			"dev-master": "1.6.x-dev"
 		}
 	}
 }

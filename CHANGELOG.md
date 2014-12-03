@@ -2,6 +2,11 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.5.0 (2014-12-03)
+--------------------------
+- added hook to format the monitoring list
+- changed displaying test results from unordered list to table
+
 Version 1.4.0 (2014-12-01)
 --------------------------
 - extracted additional fields to a separate package ([contao-monitoring/monitoring-additional-infos](https://packagist.org/packages/contao-monitoring/monitoring-additional-infos))

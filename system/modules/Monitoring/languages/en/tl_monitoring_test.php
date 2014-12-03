@@ -38,7 +38,7 @@ $GLOBALS['TL_LANG']['tl_monitoring_test']['response_string'] = array('Response s
 $GLOBALS['TL_LANG']['tl_monitoring_test']['comment']         = array('Comment', 'Enter a comment for this test.');
 
 /**
- * Legenden
+ * Legends
  */
 $GLOBALS['TL_LANG']['tl_monitoring_test']['result_legend']  = 'Test result';
 $GLOBALS['TL_LANG']['tl_monitoring_test']['comment_legend'] = 'Comment';
