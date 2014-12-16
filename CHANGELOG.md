@@ -2,6 +2,14 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.6.0 (2014-12-16)
+--------------------------
+- refactored some code
+- changed some icons
+- added check messages
+- added toggling of deactivation for monitoring entrie
+- added status icons
+
 Version 1.5.0 (2014-12-03)
 --------------------------
 - added hook to format the monitoring list

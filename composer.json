@@ -1,6 +1,6 @@
 {
 	"name":"contao-monitoring/monitoring",
-	"description":"Monitoring system for checking availability of websites.",
+	"description":"Contao Monitoring system for checking availability of websites.",
 	"keywords":["contao","monitoring"],
 	"type":"contao-module",
 	"license":"LGPL-3.0+",

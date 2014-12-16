@@ -62,6 +62,7 @@ class Monitoring extends \Backend
 	public function __construct()
 	{
 		parent::__construct();
+		$this->loadLanguageFile("tl_monitoring");
 	}
 
 	/**
@@ -79,6 +80,8 @@ class Monitoring extends \Backend
 			$urlParam .= "&table=tl_monitoring_test&id=" . \Input::get('id');
 		}
 		
+		$this->addCheckMessage(\Input::get('id'), $status);
+		
 		$this->returnToList($urlParam);
 	}
 
@@ -87,7 +90,7 @@ class Monitoring extends \Backend
 	 */
 	public function checkAll()
 	{
-		$status = $this->checkMultiple(self::CHECK_TYPE_MANUAL);
+		$status = $this->checkMultiple(self::CHECK_TYPE_MANUAL, true);
 		$this->logDebugMsg("Checking all monitoring entries ended with status: " . $status, __METHOD__);
 		$this->returnToList(\Input::get('do'));
 	}
@@ -190,7 +193,7 @@ class Monitoring extends \Backend
 	/**
 	 * Check all monitoring entries
 	 */
-	private function checkMultiple($checkType)
+	private function checkMultiple($checkType, $blnAddTestMessage=false)
 	{
 		$status = self::STATUS_OKAY;
 		$result = $this->Database->prepare("SELECT id FROM tl_monitoring WHERE disable = ''")
@@ -210,6 +213,10 @@ class Monitoring extends \Backend
 				$status = self::STATUS_ERROR;
 			}
 			$this->logDebugMsg("Multiple checking status after entry ID " . $id . " is: " . $status, __METHOD__);
+			if ($blnAddTestMessage)
+			{
+				$this->addCheckMessage($id, $tmpStatus);
+			}
 		}
 		$this->logDebugMsg("Multiple checking monitoring entries ended with status: " . $status, __METHOD__);
 		return $status;
@@ -345,6 +352,14 @@ class Monitoring extends \Backend
 		{
 			$this->log($msg, $origin, TL_INFO);
 		}
+	}
+	
+	/**
+	 * Logs the given message if the debug mode is anabled.
+	 */
+	private function addCheckMessage($intEntryId, $strStatus)
+	{
+		$this->addRawMessage('<p class="tl_message_monitoring_status tl_message_monitoring_status_' . strtolower($strStatus) . '">' . sprintf($GLOBALS['TL_LANG']['MSC']['monitoringCheckResult'], $intEntryId, $GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'][$strStatus][0]) . '</p>');
 	}
 }
 ?>

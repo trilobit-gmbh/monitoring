@@ -61,11 +61,11 @@ $GLOBALS['TL_DCA']['tl_monitoring_test'] = array
 		),
 		'global_operations' => array
 		(
-			'check' => array
+			'checkOne' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring_test']['check'],
-				'href'                => 'key=check',
-				'class'               => 'header_icon check'
+				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring_test']['checkOne'],
+				'href'                => 'key=checkOne',
+				'class'               => 'header_icon tl_monitoring_check_one'
 			),
 			'all' => array
 			(
@@ -215,14 +215,14 @@ class tl_monitoring_test extends Backend
 	 */
 	public function getTestLabel($arrRow)
 	{
-		$cssClass = strtolower($arrRow['status']);
+		$cssClass = "tl_message_monitoring_status_" . strtolower($arrRow['status']);
 
 		$label = '
 <div>
   <table>
     <tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['date'][0] . ':</span></td><td>' . \Date::parse($GLOBALS['TL_CONFIG']['datimFormat'], $arrRow['date']) . '</td></tr>
     <tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['type'][0] . ':</span></td><td>' . $GLOBALS['TL_LANG']['tl_monitoring_test']['types'][$arrRow['type']][0] . '</td></tr>
-    <tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['status'][0] . ':</span></td><td><span class="' . $cssClass . '">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['statusTypes'][$arrRow['status']][0] . '</span></td></tr>
+    <tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['status'][0] . ':</span></td><td><img src="system/modules/Monitoring/assets/status_' . strtolower($arrRow['status']) . '_small.png" alt="' . $GLOBALS['TL_LANG']['tl_monitoring_test']['statusTypes'][$arrRow['status']][0] . '" title="' . $GLOBALS['TL_LANG']['tl_monitoring_test']['statusTypes'][$arrRow['status']][0] . '" class="tl_monitoring_test_status" /> <span class="' . $cssClass . '">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['statusTypes'][$arrRow['status']][0] . '</span></td></tr>
     <tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_monitoring_test']['repetitions'][0] . ':</span></td><td>' . $arrRow['repetitions'] . '</td></tr>
   </table>
 </div>';

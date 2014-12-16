@@ -25,17 +25,11 @@
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
- * @filesource [eS_Webcheck] by Patrick Froch
  */
 
 /**
- * Define name and tooltip for preferences (inactive modules)
+ * Misc messages
  */
-$GLOBALS['TL_LANG']['MOD']['Monitoring'] = 'Contao Monitoring system for checking availability of websites.';
-
-/**
- * Backend modules
- */
-$GLOBALS['TL_LANG']['MOD']['monitoring'] = array('Monitoring', 'The Contao Monitoring system is used for checking the availability of websites.');
+$GLOBALS['TL_LANG']['MSC']['monitoringCheckResult'] = 'The availability check for monitoring entry ID %s endet with status <b>%s</b>.';
 
 ?>

@@ -56,9 +56,9 @@ $GLOBALS['TL_LANG']['tl_monitoring_test']['types'][Monitoring::CHECK_TYPE_AUTOMA
 /**
  * Buttons
  */
-$GLOBALS['TL_LANG']['tl_monitoring_test']['edit']   = array('Monitoring Test bearbeiten', 'Monitoring Test mit der ID %s bearbeiten.');
-$GLOBALS['TL_LANG']['tl_monitoring_test']['delete'] = array('Monitoring Test löschen', 'Monitoring Test mit der ID %s löschen.');
-$GLOBALS['TL_LANG']['tl_monitoring_test']['show']   = array('Monitoring Test anzeigen', 'Monitoring Test mit der ID %s anzeigen.');
-$GLOBALS['TL_LANG']['tl_monitoring_test']['check']  = array('Server testen', 'Prüft die Erreichbarkeit des Servers.');
+$GLOBALS['TL_LANG']['tl_monitoring_test']['edit']     = array('Monitoring Test bearbeiten', 'Monitoring Test mit der ID %s bearbeiten.');
+$GLOBALS['TL_LANG']['tl_monitoring_test']['delete']   = array('Monitoring Test löschen', 'Monitoring Test mit der ID %s löschen.');
+$GLOBALS['TL_LANG']['tl_monitoring_test']['show']     = array('Monitoring Test anzeigen', 'Monitoring Test mit der ID %s anzeigen.');
+$GLOBALS['TL_LANG']['tl_monitoring_test']['checkOne'] = array('Erreichbarkeit prüfen', 'Erreichbarkeit für diesen Monitoring Eintrag prüfen.');
 
 ?>

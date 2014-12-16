@@ -47,7 +47,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 			(
 				'id' => 'primary'
 			)
-		) 
+		)
 	),
 
 	// List
@@ -62,17 +62,17 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 		),
 		'label' => array
 		(
-			'fields'                  => array('customer', 'website', 'system', 'last_test_date', 'last_test_status'),
+			'fields'                  => array('icon', 'customer', 'website', 'system', 'last_test_date', 'last_test_status'),
 			'showColumns'             => true,
 			'label_callback'          => array('tl_monitoring', 'getLabel')
 		),
 		'global_operations' => array
 		(
-			'checkall' => array
+			'checkAll' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['checkall'],
-				'href'                => 'key=checkall',
-				'class'               => 'header_icon checkall'
+				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['checkAll'],
+				'href'                => 'key=checkAll',
+				'class'               => 'header_icon tl_monitoring_check_all'
 			),
 			'all' => array
 			(
@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['tests'],
 				'href'                => 'table=tl_monitoring_test',
-				'icon'                => 'system/modules/Monitoring/assets/tests.png',
+				'icon'                => 'system/modules/Monitoring/assets/icon_tests.png',
 			),
 			'copy' => array
 			(
@@ -109,21 +109,31 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 				'icon'                => 'delete.gif',
 				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
 			),
+			'toggle' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['toggle'],
+				'icon'                => 'visible.gif',
+				'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
+				'button_callback'     => array('tl_monitoring', 'toggleIcon')
+			),
 			'show' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['show'],
 				'href'                => 'act=show',
 				'icon'                => 'show.gif'
 			),
-			'open_url' => array
+			'showPage' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['open_url'],
-				'button_callback'     => array('tl_monitoring', 'getOpenUrlButton')
+				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['showPage'],
+				'button_callback'     => array('tl_monitoring', 'getShowPageButton'),
+			    'icon'                => 'system/modules/Monitoring/assets/show_page.png',
+				'attributes'          => 'target="_blank" onclick="Backend.openModalIframe({\'width\':765,\'title\':\'' . $GLOBALS['TL_LANG']['tl_monitoring']['showPage'][0] . '\',\'url\':this.href});return false"'
 			),
-			'check' => array
+			'checkOne' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['check'],
-				'href'                => 'key=check',
+				'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['checkOne'],
+				'href'                => 'key=checkOne',
+				'icon'                => 'system/modules/Monitoring/assets/check_one.png',
 				'button_callback'     => array('tl_monitoring', 'getStatusIcon')
 			)
 		)
@@ -132,7 +142,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'                     => '{website_legend},customer,website,system,added;{test_legend},url,test_string,disable;{last_test_legend},last_test_date,last_test_status'
+		'default'                     => '{website_legend},customer,website,system,added;{test_legend},url,test_string;{last_test_legend},last_test_date,last_test_status;{disable_legend},disable'
 	),
 
 	// Fields
@@ -147,7 +157,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 		'tstamp' => array
 		(
 			'sql'                     => "int(10) unsigned NOT NULL default '0'"
-		), 
+		),
 		'customer' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['customer'],
@@ -211,14 +221,6 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 			'eval'                    => array('tl_class'=>'long clr', 'mandatory'=>true),
 			'sql'                     => "text NOT NULL"
 		),
-		'disable' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['disable'],
-			'exclude'                 => true,
-			'filter'                  => true,
-			'inputType'               => 'checkbox',
-			'sql'                     => "char(1) NOT NULL default ''"
-		),
 		'last_test_date' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['last_test_date'],
@@ -243,6 +245,14 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 			'reference'               => &$GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'],
 			'eval'                    => array('tl_class'=>'w50', 'readonly'=>true, 'helpwizard'=>true, 'doNotCopy'=>true),
 			'sql'                     => "varchar(64) NOT NULL default '" . Monitoring::STATUS_UNTESTED . "'"
+		),
+		'disable' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['disable'],
+			'exclude'                 => true,
+			'filter'                  => true,
+			'inputType'               => 'checkbox',
+			'sql'                     => "char(1) NOT NULL default ''"
 		)
 	)
 );
@@ -263,6 +273,7 @@ class tl_monitoring extends Backend
 	public function __construct()
 	{
 		parent::__construct();
+		$this->import('BackendUser', 'User');
 	}
 
 	/**
@@ -276,7 +287,7 @@ class tl_monitoring extends Backend
 		}
 		return $varValue;
 	}
-	
+
 	/**
 	 * Store the date when the entry has been added
 	 * @param object
@@ -308,18 +319,25 @@ class tl_monitoring extends Backend
 		$this->Database->prepare("UPDATE tl_monitoring SET added=? WHERE id=?")
 					   ->execute($time, $dc->id);
 	}
- 
+
 	/**
 	 * Returns the formatted row columns
 	 */
 	public function getLabel($row, $label, DataContainer $dc, $args)
 	{
-	    $intLastTestStatusIndex = array_search("last_test_status", $GLOBALS['TL_DCA']['tl_monitoring']['list']['label']['fields']);
+		$image = 'icon_monitoring';
+		if ($row['disable'])
+		{
+			$image .= '_';
+		}
+		$args[0] = sprintf('<div class="list_icon_new" style="background-image:url(\'system/modules/Monitoring/assets/%s.png\')">&nbsp;</div>', $image);
+		
+		$intLastTestStatusIndex = array_search("last_test_status", $GLOBALS['TL_DCA']['tl_monitoring']['list']['label']['fields']);
 		if ($intLastTestStatusIndex !== FALSE)
 		{
-			$args[$intLastTestStatusIndex] = '<span class="' . strtolower($row['last_test_status']) . '">' . $args[$intLastTestStatusIndex] . '</span>';
+			$args[$intLastTestStatusIndex] = '<img src="system/modules/Monitoring/assets/status_' . strtolower($row['last_test_status']) . '.png" alt="' . $args[$intLastTestStatusIndex] . '" title="' . $args[$intLastTestStatusIndex] . '"/>';
 		}
-		
+
 		// HOOK: format list
 		if (isset($GLOBALS['TL_HOOKS']['monitoringFormatList']) && is_array($GLOBALS['TL_HOOKS']['monitoringFormatList']))
 		{
@@ -362,41 +380,97 @@ class tl_monitoring extends Backend
 	 */
 	public function getStatusIcon($arrRow, $href, $label, $title, $icon, $attributes, $strTable, $arrRootIds, $arrChildRecordIds, $blnCircularReference, $strPrevious, $strNext)
 	{
-		$icon = 'system/modules/Monitoring/assets/';
-
-		if ($arrRow['disable'] == '1')
-		{
-			return $this->generateImage($icon .= 'status_disabled.png', $GLOBALS['TL_LANG']['tl_monitoring']['disabled'][0], 'title="' . $GLOBALS['TL_LANG']['tl_monitoring']['disabled'][1] . '"');
-		}
-
 		$href .= '&id=' . $arrRow['id'];
-		$now = time() - (60 * 60); // now - 60 min. * 60 sek. (last test not older than 60 min)
 
-		if ($arrRow['last_test_date'] == '' OR $arrRow['last_test_date'] < $now)
-		{
-			// untested
-			$icon .= 'status_untested.png';
-		}
-		else
-		{
-			switch ($arrRow['last_test_status'])
-			{
-				case Monitoring::STATUS_OKAY       : $icon .= 'status_okay.png'; break;
-				case Monitoring::STATUS_ERROR      : $icon .= 'status_error.png'; break;
-				case Monitoring::STATUS_INCOMPLETE : $icon .= 'status_incomplete.png'; break;
-			}
-		}
-
-		return '<a href="' . $this->addToUrl($href) . '" title="' . specialchars($title) . '"' . $attributes . '>' . $this->generateImage($icon, $label) . '</a>';
+		return '<a href="' . $this->addToUrl($href) . '" title="' . specialchars($title) . '"' . $attributes . '>' . $this->generateImage($icon, $label) . '</a> ';
 	}
 
 	/**
 	 * Returns the link and icon for each test entry
 	 */
-	public function getOpenUrlButton($arrRow, $href, $label, $title, $icon, $attributes, $strTable, $arrRootIds, $arrChildRecordIds, $blnCircularReference, $strPrevious, $strNext)
+	public function getShowPageButton($arrRow, $href, $label, $title, $icon, $attributes, $strTable, $arrRootIds, $arrChildRecordIds, $blnCircularReference, $strPrevious, $strNext)
 	{
-		return '<a href="' . $arrRow['url'] . '" title="' . specialchars($title) . '" target="_blank" ' . $attributes . '>' . $this->generateImage('system/modules/Monitoring/assets/open_url.png', $label) . '</a>';
+		return '<a href="' . $arrRow['url'] . '" title="' . specialchars($title) . '"  ' . $attributes . '>' . $this->generateImage($icon, $label) . '</a> ';
 	}
+	
+		/**
+	 * Return the "toggle visibility" button
+	 * @param array
+	 * @param string
+	 * @param string
+	 * @param string
+	 * @param string
+	 * @param string
+	 * @return string
+	 */
+	public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
+	{
+		if (strlen(Input::get('tid')))
+		{
+			$this->toggleVisibility(Input::get('tid'), (Input::get('state') == 1), (@func_get_arg(12) ?: null));
+			$this->redirect($this->getReferer());
+		}
+
+		// Check permissions AFTER checking the tid, so hacking attempts are logged
+		if (!$this->User->isAdmin && !$this->User->hasAccess('tl_monitoring::disable', 'alexf'))
+		{
+			return '';
+		}
+
+		$href .= '&amp;tid='.$row['id'].'&amp;state='.$row['disable'];
+
+		if ($row['disable'])
+		{
+			$icon = 'invisible.gif';
+		}
+
+		return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label).'</a> ';
+	}
+
+	/**
+	 * Disable/enable an entry
+	 * @param integer
+	 * @param boolean
+	 * @param \DataContainer
+	 */
+	public function toggleVisibility($intId, $blnVisible, DataContainer $dc=null)
+	{
+		// Check permissions
+		if (!$this->User->isAdmin && !$this->User->hasAccess('tl_monitoring::disable', 'alexf'))
+		{
+			$this->log('Not enough permissions to activate/deactivate monitoring entry ID "'.$intId.'"', __METHOD__, TL_ERROR);
+			$this->redirect('contao/main.php?act=error');
+		}
+
+		$objVersions = new Versions('tl_monitoring', $intId);
+		$objVersions->initialize();
+
+		// Trigger the save_callback
+		if (is_array($GLOBALS['TL_DCA']['tl_monitoring']['fields']['disable']['save_callback']))
+		{
+			foreach ($GLOBALS['TL_DCA']['tl_monitoring']['fields']['disable']['save_callback'] as $callback)
+			{
+				if (is_array($callback))
+				{
+					$this->import($callback[0]);
+					$blnVisible = $this->$callback[0]->$callback[1]($blnVisible, ($dc ?: $this));
+				}
+				elseif (is_callable($callback))
+				{
+					$blnVisible = $callback($blnVisible, ($dc ?: $this));
+				}
+			}
+		}
+
+		$time = time();
+
+		// Update the database
+		$this->Database->prepare("UPDATE tl_monitoring SET tstamp=$time, disable='" . ($blnVisible ? '' : 1) . "' WHERE id=?")
+					   ->execute($intId);
+
+		$objVersions->create();
+		$this->log('A new version of record "tl_monitoring.id='.$intId.'" has been created'.$this->getParentEntries('tl_monitoring', $intId), __METHOD__, TL_GENERAL);
+	} 
 }
 
 ?>

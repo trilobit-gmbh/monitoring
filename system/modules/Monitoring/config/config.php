@@ -33,11 +33,11 @@
  */
 $GLOBALS['BE_MOD']['system']['monitoring'] = array
 (
-	'icon'       => 'system/modules/Monitoring/assets/icon.png',
+	'icon'       => 'system/modules/Monitoring/assets/icon_monitoring.png',
 	'tables'     => array('tl_monitoring', 'tl_monitoring_test'),
 	'stylesheet' => 'system/modules/Monitoring/assets/styles.css',
-	'check'      => array('Monitoring', 'checkOne'),
-	'checkall'   => array('Monitoring', 'checkAll')
+	'checkOne'   => array('Monitoring', 'checkOne'),
+	'checkAll'   => array('Monitoring', 'checkAll')
 );
 
 /**

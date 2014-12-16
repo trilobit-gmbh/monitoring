@@ -56,9 +56,9 @@ $GLOBALS['TL_LANG']['tl_monitoring_test']['types'][Monitoring::CHECK_TYPE_AUTOMA
 /**
  * Buttons
  */
-$GLOBALS['TL_LANG']['tl_monitoring_test']['edit']   = array('Edit monitoring test', 'Edit the monitoring test with ID %s.');
-$GLOBALS['TL_LANG']['tl_monitoring_test']['delete'] = array('Delete monitoring test', 'Delete the monitoring test with ID %s.');
-$GLOBALS['TL_LANG']['tl_monitoring_test']['show']   = array('Show monitoring test', 'Show infos of monitoring test with ID %s.');
-$GLOBALS['TL_LANG']['tl_monitoring_test']['check']  = array('Check server', 'Tests the availability of the server.');
+$GLOBALS['TL_LANG']['tl_monitoring_test']['edit']     = array('Edit monitoring test', 'Edit the monitoring test with ID %s.');
+$GLOBALS['TL_LANG']['tl_monitoring_test']['delete']   = array('Delete monitoring test', 'Delete the monitoring test with ID %s.');
+$GLOBALS['TL_LANG']['tl_monitoring_test']['show']     = array('Show monitoring test', 'Show infos of monitoring test with ID %s.');
+$GLOBALS['TL_LANG']['tl_monitoring_test']['checkOne'] = array('Check availability', 'Check availability for this monitoring entry.');
 
 ?>
