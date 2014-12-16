@@ -2,6 +2,10 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.7.0 (2015-01-xx)
+--------------------------
+- added hook to modify test result output
+
 Version 1.6.0 (2014-12-16)
 --------------------------
 - refactored some code

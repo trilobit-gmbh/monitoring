@@ -188,7 +188,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 			'filter'                  => true,
 			'sorting'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('tl_class'=>'w50', 'mandatory'=>true),
+			'eval'                    => array('tl_class'=>'clr w50', 'mandatory'=>true),
 			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'added' => array
@@ -252,6 +252,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
 			'exclude'                 => true,
 			'filter'                  => true,
 			'inputType'               => 'checkbox',
+			'eval'                    => array('tl_class'=>'w50'),
 			'sql'                     => "char(1) NOT NULL default ''"
 		)
 	)
@@ -331,7 +332,7 @@ class tl_monitoring extends Backend
 			$image .= '_';
 		}
 		$args[0] = sprintf('<div class="list_icon_new" style="background-image:url(\'system/modules/Monitoring/assets/%s.png\')">&nbsp;</div>', $image);
-		
+
 		$intLastTestStatusIndex = array_search("last_test_status", $GLOBALS['TL_DCA']['tl_monitoring']['list']['label']['fields']);
 		if ($intLastTestStatusIndex !== FALSE)
 		{
@@ -392,7 +393,7 @@ class tl_monitoring extends Backend
 	{
 		return '<a href="' . $arrRow['url'] . '" title="' . specialchars($title) . '"  ' . $attributes . '>' . $this->generateImage($icon, $label) . '</a> ';
 	}
-	
+
 		/**
 	 * Return the "toggle visibility" button
 	 * @param array
@@ -470,7 +471,7 @@ class tl_monitoring extends Backend
 
 		$objVersions->create();
 		$this->log('A new version of record "tl_monitoring.id='.$intId.'" has been created'.$this->getParentEntries('tl_monitoring', $intId), __METHOD__, TL_GENERAL);
-	} 
+	}
 }
 
 ?>
