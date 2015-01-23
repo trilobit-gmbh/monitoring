@@ -5,13 +5,15 @@ Contao Extension "Monitoring"
 Version 1.7.0 (2015-01-xx)
 --------------------------
 - added hook to modify test result output
+- added `MonitoringModel` with misc functions to get monitoring entries
+- added missing translation for toggle button
 
 Version 1.6.0 (2014-12-16)
 --------------------------
 - refactored some code
 - changed some icons
 - added check messages
-- added toggling of deactivation for monitoring entrie
+- added toggling of deactivation for monitoring entries
 - added status icons
 
 Version 1.5.0 (2014-12-03)
