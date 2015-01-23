@@ -65,6 +65,7 @@ $GLOBALS['TL_LANG']['tl_monitoring']['edit']     = array('Monitoring Eintrag bea
 $GLOBALS['TL_LANG']['tl_monitoring']['tests']    = array('Monitoring Tests anzeigen', 'Tests für Monitoring Eintrag mit der ID %s anzeigen.');
 $GLOBALS['TL_LANG']['tl_monitoring']['copy']     = array('Monitoring Eintrag kopieren', 'Monitoring Eintrag mit der ID %s  kopieren.');
 $GLOBALS['TL_LANG']['tl_monitoring']['delete']   = array('Monitoring Eintrag löschen', 'Monitoring Eintrag mit der ID %s löschen.');
+$GLOBALS['TL_LANG']['tl_monitoring']['toggle']   = array('Monitoring Eintrag aktivieren/deaktivieren', 'Monitoring Eintrag ID %s aktivieren/deaktivieren');
 $GLOBALS['TL_LANG']['tl_monitoring']['show']     = array('Monitoring Eintrag anzeigen', 'Monitoring Eintrag mit der ID %s anzeigen.');
 $GLOBALS['TL_LANG']['tl_monitoring']['showPage'] = array('Testseite anzeigen', 'Die Testseite für den Monitoring Eintrag mit der ID %s anzeigen.');
 $GLOBALS['TL_LANG']['tl_monitoring']['checkOne'] = array('Erreichbarkeit prüfen', 'Erreichbarkeit für den Monitoring Eintrag mit der ID %s prüfen.');

@@ -65,6 +65,7 @@ $GLOBALS['TL_LANG']['tl_monitoring']['edit']     = array('Edit monitoring entry'
 $GLOBALS['TL_LANG']['tl_monitoring']['tests']    = array('Show monitoring tests', 'Show the tests for monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['copy']     = array('Copy monitoring entry', 'Copy the monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['delete']   = array('Delete monitoring entry', 'Delete the monitoring entry with ID %s.');
+$GLOBALS['TL_LANG']['tl_monitoring']['toggle']   = array('Activate/deactivate monitoring entry', 'Activate/deactivate monitoring entry ID %s');
 $GLOBALS['TL_LANG']['tl_monitoring']['show']     = array('Show monitoring entry', 'Show infos of monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['showPage'] = array('Show test page', 'Show the test page for monitoring entry with ID %s.');
 $GLOBALS['TL_LANG']['tl_monitoring']['checkOne'] = array('Check availability', 'Check availability for monitoring entry with ID %s.');
