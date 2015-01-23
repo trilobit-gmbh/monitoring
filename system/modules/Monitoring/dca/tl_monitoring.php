@@ -342,11 +342,11 @@ class tl_monitoring extends Backend
 		// HOOK: format list
 		if (isset($GLOBALS['TL_HOOKS']['monitoringFormatList']) && is_array($GLOBALS['TL_HOOKS']['monitoringFormatList']))
 		{
-		    foreach ($GLOBALS['TL_HOOKS']['monitoringFormatList'] as $callback)
-		    {
-		        $this->import($callback[0]);
-		        $args = $this->$callback[0]->$callback[1]($row, $dc, $args);
-		    }
+			foreach ($GLOBALS['TL_HOOKS']['monitoringFormatList'] as $callback)
+			{
+				$this->import($callback[0]);
+				$args = $this->$callback[0]->$callback[1]($row, $dc, $args);
+			}
 		}
 
 		return $args;
@@ -411,20 +411,20 @@ class tl_monitoring extends Backend
 			$this->toggleVisibility(Input::get('tid'), (Input::get('state') == 1), (@func_get_arg(12) ?: null));
 			$this->redirect($this->getReferer());
 		}
-
+		
 		// Check permissions AFTER checking the tid, so hacking attempts are logged
 		if (!$this->User->isAdmin && !$this->User->hasAccess('tl_monitoring::disable', 'alexf'))
 		{
 			return '';
 		}
-
+		
 		$href .= '&amp;tid='.$row['id'].'&amp;state='.$row['disable'];
-
+		
 		if ($row['disable'])
 		{
 			$icon = 'invisible.gif';
 		}
-
+		
 		return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label).'</a> ';
 	}
 
@@ -442,10 +442,10 @@ class tl_monitoring extends Backend
 			$this->log('Not enough permissions to activate/deactivate monitoring entry ID "'.$intId.'"', __METHOD__, TL_ERROR);
 			$this->redirect('contao/main.php?act=error');
 		}
-
+		
 		$objVersions = new Versions('tl_monitoring', $intId);
 		$objVersions->initialize();
-
+		
 		// Trigger the save_callback
 		if (is_array($GLOBALS['TL_DCA']['tl_monitoring']['fields']['disable']['save_callback']))
 		{
@@ -462,13 +462,13 @@ class tl_monitoring extends Backend
 				}
 			}
 		}
-
+		
 		$time = time();
-
+		
 		// Update the database
 		$this->Database->prepare("UPDATE tl_monitoring SET tstamp=$time, disable='" . ($blnVisible ? '' : 1) . "' WHERE id=?")
 					   ->execute($intId);
-
+		
 		$objVersions->create();
 		$this->log('A new version of record "tl_monitoring.id='.$intId.'" has been created'.$this->getParentEntries('tl_monitoring', $intId), __METHOD__, TL_GENERAL);
 	}

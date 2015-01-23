@@ -47,7 +47,7 @@ class Monitoring extends \Backend
 	const STATUS_INCOMPLETE = 'INCOMPLETE';
 	const STATUS_ERROR = 'ERROR';
 	const STATUS_UNTESTED = 'UNTESTED';
-	
+
 	const CHECK_TYPE_MANUAL = 'MANUAL';
 	const CHECK_TYPE_AUTOMATIC = 'AUTOMATIC';
 
@@ -72,16 +72,16 @@ class Monitoring extends \Backend
 	{
 		$status = $this->checkSingle(\Input::get('id'), self::CHECK_TYPE_MANUAL);
 		$this->logDebugMsg("Checking one monitoring entry for ID " . \Input::get('id') . " ended with status: " . $status, __METHOD__);
-		
+
 		$urlParam = \Input::get('do');
-		
+
 		if (\Input::get('table') == "tl_monitoring_test" && \Input::get('id'))
 		{
 			$urlParam .= "&table=tl_monitoring_test&id=" . \Input::get('id');
 		}
-		
+
 		$this->addCheckMessage(\Input::get('id'), $status);
-		
+
 		$this->returnToList($urlParam);
 	}
 
@@ -126,15 +126,15 @@ class Monitoring extends \Backend
 	 */
 	private function checkSingle($id, $checkType)
 	{
-		$data = $this->loadMonitoringEntry($id);
+		$objMonitoringEntry = \MonitoringModel::findByPk($id);
 
-		if ($data)
+		if ($objMonitoringEntry !== null)
 		{
 			$status = self::STATUS_UNTESTED;
-			
-			$url = $this->valString($data['url'], false);
-			$testString = $this->valString($data['test_string'], true);
-			
+
+			$url = $this->valString($objMonitoringEntry->url, false);
+			$testString = $this->valString($objMonitoringEntry->test_string, true);
+
 			$repitition = 0;
 			$maxRepititions = $GLOBALS['TL_CONFIG']['monitoringTestCirculation'];
 			if (!is_int($maxRepititions) || $maxRepititions < 1)
@@ -147,7 +147,7 @@ class Monitoring extends \Backend
 			{
 				$delay = 10;
 			}
-			
+
 			$arrSetEntry = array();
 			$arrSetTest = array();
 			do
@@ -157,9 +157,9 @@ class Monitoring extends \Backend
 					$this->logDebugMsg("Repeating single check for entry with ID " . $id . " because status was: " . $status, __METHOD__);
 					sleep($delay);
 				}
-				
+
 				$responseString = $this->loadSite($url);
-				
+
 				$time = time();
 				$status = $this->compareSite($responseString, $testString);
 				$repitition++;
@@ -167,7 +167,7 @@ class Monitoring extends \Backend
 				$arrSetEntry['tstamp'] = $time;
 				$arrSetEntry['last_test_date'] = $time;
 				$arrSetEntry['last_test_status'] = $status;
-				
+
 				$arrSetTest['pid'] = $id;
 				$arrSetTest['tstamp'] = $time;
 				$arrSetTest['date'] = $time;
@@ -175,13 +175,13 @@ class Monitoring extends \Backend
 				$arrSetTest['status'] = $status;
 				$arrSetTest['repetitions'] = $repitition;
 				$arrSetTest['response_string'] = $responseString; //substr($responseString, 0, 255);
-				
+
 			} while ($status != self::STATUS_OKAY && $repitition < $maxRepititions);
-			
+
 
 			$this->saveMonitoringEntry($id, $arrSetEntry);
 			$this->saveMonitoringTest($arrSetTest);
-			
+
 			$this->logDebugMsg("Returning status for entry with ID " . $id . " after single check is: " . $status, __METHOD__);
 
 			return $status;
@@ -195,28 +195,34 @@ class Monitoring extends \Backend
 	 */
 	private function checkMultiple($checkType, $blnAddTestMessage=false)
 	{
-		$status = self::STATUS_OKAY;
-		$result = $this->Database->prepare("SELECT id FROM tl_monitoring WHERE disable = ''")
-								 ->execute();
+		$status = self::STATUS_UNTESTED;
+		$objMonitoringEntry = \MonitoringModel::findAllActive();
 
-		while ($result->next())
+		if ($objMonitoringEntry !== null)
 		{
-			$id = $result->id;
-			
-			$tmpStatus = $this->checkSingle($id, $checkType);
-			if ($tmpStatus == self::STATUS_ERROR)
-			{
-				$status = self::STATUS_ERROR;
-			}
-			else if ($tmpStatus == self::STATUS_INCOMPLETE && $status != self::STATUS_ERROR)
-			{
-				$status = self::STATUS_ERROR;
-			}
-			$this->logDebugMsg("Multiple checking status after entry ID " . $id . " is: " . $status, __METHOD__);
-			if ($blnAddTestMessage)
-			{
-				$this->addCheckMessage($id, $tmpStatus);
-			}
+    		while ($objMonitoringEntry->next())
+    		{
+    			$id = $objMonitoringEntry->id;
+
+    			$tmpStatus = $this->checkSingle($id, $checkType);
+    			if ($tmpStatus == self::STATUS_ERROR)
+    			{
+    				$status = self::STATUS_ERROR;
+    			}
+    			else if ($tmpStatus == self::STATUS_INCOMPLETE && $status != self::STATUS_ERROR)
+    			{
+    				$status = self::STATUS_ERROR;
+    			}
+    			else
+    			{
+    			    $status = self::STATUS_OKAY;
+    			}
+    			$this->logDebugMsg("Multiple checking status after entry ID " . $id . " is: " . $status, __METHOD__);
+    			if ($blnAddTestMessage)
+    			{
+    				$this->addCheckMessage($id, $tmpStatus);
+    			}
+    		}
 		}
 		$this->logDebugMsg("Multiple checking monitoring entries ended with status: " . $status, __METHOD__);
 		return $status;
@@ -227,8 +233,8 @@ class Monitoring extends \Backend
 	 */
 	private function getErroneousCheckEntries()
 	{
-		$result = $this->Database->prepare("SELECT * FROM tl_monitoring WHERE disable = '' AND (last_test_status = 'ERROR' OR last_test_status = 'INCOMPLETE')")
-								 ->execute();
+		$result = \Database::getInstance()->prepare("SELECT * FROM tl_monitoring WHERE disable = '' AND (last_test_status = 'ERROR' OR last_test_status = 'INCOMPLETE')")
+                                          ->execute();
 
 		return $result->fetchAllAssoc();
 	}
@@ -252,9 +258,9 @@ class Monitoring extends \Backend
 	 */
 	private function saveMonitoringEntry($intId, $arrSet)
 	{
-		$this->Database->prepare("UPDATE tl_monitoring %s WHERE id=?")
-					   ->set($arrSet)
-					   ->execute($intId);
+		\Database::getInstance()->prepare("UPDATE tl_monitoring %s WHERE id=?")
+                                ->set($arrSet)
+                                ->execute($intId);
 	}
 
 	/**
@@ -262,23 +268,9 @@ class Monitoring extends \Backend
 	 */
 	private function saveMonitoringTest($arrSet)
 	{
-		$this->Database->prepare("INSERT INTO tl_monitoring_test %s")
-					   ->set($arrSet)
-					   ->execute();
-	}
-
-	/**
-	 * Load entry from database
-	 */
-	private function loadMonitoringEntry($id)
-	{
-		$result = $this->Database->prepare('SELECT * FROM tl_monitoring WHERE id = ?')
-								 ->execute($id);
-		if ($result)
-		{
-			return $result->fetchAssoc();
-		}
-		return false;
+		\Database::getInstance()->prepare("INSERT INTO tl_monitoring_test %s")
+                                ->set($arrSet)
+                                ->execute();
 	}
 
 	/**
@@ -353,7 +345,7 @@ class Monitoring extends \Backend
 			$this->log($msg, $origin, TL_INFO);
 		}
 	}
-	
+
 	/**
 	 * Logs the given message if the debug mode is anabled.
 	 */
