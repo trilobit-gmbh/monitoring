@@ -7,6 +7,7 @@ Version 1.7.0 (2015-03-30)
 - added hook to modify test result output
 - added `MonitoringModel` with misc functions to get monitoring entries
 - added missing translation for toggle button
+- added restrictions to tests list (not copyable, not creatable, not sortable)
 
 Version 1.6.0 (2014-12-16)
 --------------------------
