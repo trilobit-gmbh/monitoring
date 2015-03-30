@@ -36,6 +36,9 @@ $GLOBALS['TL_DCA']['tl_monitoring_test'] = array
 		'ptable'                      => 'tl_monitoring',
 		'enableVersioning'            => false,
 		'closed'                      => true,
+		'notCopyable'                 => true,
+		'notCreatable'                => true,
+		'notSortable'                 => true,
 		'doNotCopyRecords'            => true,
 		'sql' => array
 		(
