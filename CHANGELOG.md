@@ -2,7 +2,7 @@
 Contao Extension "Monitoring"
 =============================
 
-Version 1.7.0 (2015-01-xx)
+Version 1.7.0 (2015-03-30)
 --------------------------
 - added hook to modify test result output
 - added `MonitoringModel` with misc functions to get monitoring entries
