@@ -282,8 +282,17 @@ class Monitoring extends \Backend
 		{
 			$url = 'http://' . $url;
 		}
+		
+		$opts = array
+		(
+			'http'=>array
+			(
+				'user_agent' => "ContaoMonitoringClient"
+			)
+		);
+		$context = stream_context_create($opts);
 
-		if ($responseText = @file_get_contents($url))
+		if ($responseText = @file_get_contents($url, false, $context))
 		{
 			return $this->valString($responseText, true);
 		}
