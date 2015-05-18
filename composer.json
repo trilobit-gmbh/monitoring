@@ -23,7 +23,7 @@
 	"require":{
 		"php":">=5.3",
 		"contao/core":">=3.0.0,<4.0.0-dev",
-		"contao-community-alliance/composer-installer":"*"
+		"contao-community-alliance/composer-plugin":"~2.0",
 	},
 	"extra":{
 		"contao":{
@@ -32,7 +32,7 @@
 			}
 		},
 		"branch-alias": {
-			"dev-master": "1.7.x-dev"
+			"dev-master": "1.8.x-dev"
 		}
 	}
 }
