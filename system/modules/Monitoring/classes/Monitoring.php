@@ -213,7 +213,7 @@ class Monitoring extends \Backend
     			{
     				$status = self::STATUS_ERROR;
     			}
-    			else
+    			else if ($tmpStatus == self::STATUS_OKAY && $status != self::STATUS_INCOMPLETE && $status != self::STATUS_ERROR)
     			{
     			    $status = self::STATUS_OKAY;
     			}
