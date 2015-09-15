@@ -42,9 +42,9 @@ Dependency
 - This extension is dependent on the following extensions: [[MultiColumnWizard]](https://contao.org/en/extension-list/view/MultiColumnWizard.html)
 
 
-Manual
-------
+Documentation
+-------------
 
 [Read the manual](https://cliffparnitzky.gitbooks.io/contaomonitoring)
 
-![EN](en/en.png) [English manual](https://cliffparnitzky.gitbooks.io/contaomonitoring/content/en/index.html) (direct entry)
+![EN](/ContaoMonitoring/documentation/blob/master/en/en.png) [English manual](https://cliffparnitzky.gitbooks.io/contaomonitoring/content/en/index.html)
