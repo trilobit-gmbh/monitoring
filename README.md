@@ -47,4 +47,4 @@ Documentation
 
 [Read the manual](https://cliffparnitzky.gitbooks.io/contaomonitoring)
 
-![EN](/ContaoMonitoring/documentation/blob/master/en/en.png) [English manual](https://cliffparnitzky.gitbooks.io/contaomonitoring/content/en/index.html)
+![EN](https://raw.githubusercontent.com/ContaoMonitoring/documentation/master/en/en.png) [English manual](https://cliffparnitzky.gitbooks.io/contaomonitoring/content/en/index.html)
