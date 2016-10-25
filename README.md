@@ -32,14 +32,15 @@ https://github.com/ContaoMonitoring/monitoring/issues
 Compatibility
 -------------
 
-- min. version: Contao 3.0.x
-- max. version: Contao 3.4.x
+- min. Contao version: >= 3.2.0
+- max. Contao version: <  3.6.0
 
 
 Dependency
 ----------
 
-- This extension is dependent on the following extensions: [[MultiColumnWizard]](https://contao.org/en/extension-list/view/MultiColumnWizard.html)
+This extension is dependent on the following extensions:
+- [[menatwork/contao-multicolumnwizard]](https://packagist.org/packages/menatwork/contao-multicolumnwizard)
 
 
 Documentation

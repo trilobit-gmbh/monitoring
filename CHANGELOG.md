@@ -2,6 +2,17 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.7.2 (2016-10-25)
+--------------------------
+- Contao 3.5 ready
+
+Version 1.7.1 (2015-06-16)
+--------------------------
+- Setting correct composer plugin dependency
+- Send special `user agent` to identify monitoring check (needed to avoid counting of visitors)
+- Remove trailing comma
+- Fixing probleme with sending emails (ERROR status was overwritten)
+
 Version 1.7.0 (2015-03-30)
 --------------------------
 - added hook to modify test result output
