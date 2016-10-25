@@ -5,6 +5,7 @@ Contao Extension "Monitoring"
 Version 1.7.2 (2016-10-25)
 --------------------------
 - Contao 3.5 ready
+- Adjust the code to be compatible with PHP7 (see #13)
 
 Version 1.7.1 (2015-06-16)
 --------------------------

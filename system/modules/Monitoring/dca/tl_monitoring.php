@@ -345,7 +345,7 @@ class tl_monitoring extends Backend
 			foreach ($GLOBALS['TL_HOOKS']['monitoringFormatList'] as $callback)
 			{
 				$this->import($callback[0]);
-				$args = $this->$callback[0]->$callback[1]($row, $dc, $args);
+				$args = $this->{$callback[0]}->{$callback[1]}($row, $dc, $args);
 			}
 		}
 
@@ -454,7 +454,7 @@ class tl_monitoring extends Backend
 				if (is_array($callback))
 				{
 					$this->import($callback[0]);
-					$blnVisible = $this->$callback[0]->$callback[1]($blnVisible, ($dc ?: $this));
+					$blnVisible = $this->{$callback[0]}->{$callback[1]}($blnVisible, ($dc ?: $this));
 				}
 				elseif (is_callable($callback))
 				{

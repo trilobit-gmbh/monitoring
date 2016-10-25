@@ -250,7 +250,7 @@ class tl_monitoring_test extends Backend
 		    foreach ($GLOBALS['TL_HOOKS']['monitoringExtendTestResultOutput'] as $callback)
 		    {
 		        $this->import($callback[0]);
-		        $arrOutputTable = $this->$callback[0]->$callback[1]($arrRow, $arrOutputTable);
+		        $arrOutputTable = $this->{$callback[0]}->{$callback[1]}($arrRow, $arrOutputTable);
 		    }
 		}
 
@@ -285,7 +285,7 @@ class tl_monitoring_test extends Backend
 			foreach ($GLOBALS['TL_HOOKS']['monitoringExtendEntryHeader'] as $callback)
 			{
 				$this->import($callback[0]);
-				$arrHeaderFields = $this->$callback[0]->$callback[1]($arrHeaderFields, $dc);
+				$arrHeaderFields = $this->{$callback[0]}->{$callback[1]}($arrHeaderFields, $dc);
 			}
 		}
 
