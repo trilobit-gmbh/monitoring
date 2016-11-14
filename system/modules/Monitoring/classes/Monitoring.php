@@ -330,7 +330,7 @@ class Monitoring extends \Backend
 		$str = strip_tags($str);
 		$str = str_replace(' ', '', $str);
 		$str = str_replace("\n", '', $str);
-		$str = \String::decodeEntities($str);
+		$str = \StringUtil::decodeEntities($str);
 
 		return $str;
 	}
