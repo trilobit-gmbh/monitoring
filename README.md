@@ -19,8 +19,9 @@ For news and infos follow [@CtoMonitoring](https://twitter.com/CtoMonitoring).
 Installation
 ------------
 
-The extension is not published in contao extension repository.
-Install it manually or via composer: [contao-monitoring/monitoring](https://packagist.org/packages/contao-monitoring/monitoring).
+Install the extension via composer: [contao-monitoring/monitoring](https://packagist.org/packages/contao-monitoring/monitoring).
+
+If you prefer to install it manually, download the latest release here: https://github.com/ContaoMonitoring/monitoring/releases
 
 
 Tracker
@@ -40,6 +41,7 @@ Dependency
 ----------
 
 This extension is dependent on the following extensions:
+
 - [[menatwork/contao-multicolumnwizard]](https://packagist.org/packages/menatwork/contao-multicolumnwizard)
 
 
