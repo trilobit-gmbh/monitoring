@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2014 Leo Feyer
+ * Copyright (C) 2005-2017 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014
+ * @copyright  Cliff Parnitzky 2014-2017
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -33,6 +33,7 @@
 $GLOBALS['TL_LANG']['tl_monitoring_test']['date']            = array('Datum', 'Der Zeitpunkt der Durchführung dieses Tests.');
 $GLOBALS['TL_LANG']['tl_monitoring_test']['type']            = array('Typ', 'Die Typ des Tests.');
 $GLOBALS['TL_LANG']['tl_monitoring_test']['status']          = array('Status', 'Der Status des Tests.');
+$GLOBALS['TL_LANG']['tl_monitoring_test']['response_time']   = array('Antwortzeit', 'Die Dauer bis zum Erhalt des Antwortstring (in Sekunden).');
 $GLOBALS['TL_LANG']['tl_monitoring_test']['repetitions']     = array('Wiederholungen', 'Anzahl der Wiederholungen dieses Tests.');
 $GLOBALS['TL_LANG']['tl_monitoring_test']['response_string'] = array('Antwortstring', 'Der Antwortstring, den der Server auf die Anfrage gesendet hat.');
 $GLOBALS['TL_LANG']['tl_monitoring_test']['comment']         = array('Kommentar', 'Geben Sie ein Kommentar zu diesem Test ein.');
@@ -60,5 +61,10 @@ $GLOBALS['TL_LANG']['tl_monitoring_test']['edit']     = array('Monitoring Test b
 $GLOBALS['TL_LANG']['tl_monitoring_test']['delete']   = array('Monitoring Test löschen', 'Monitoring Test mit der ID %s löschen.');
 $GLOBALS['TL_LANG']['tl_monitoring_test']['show']     = array('Monitoring Test anzeigen', 'Monitoring Test mit der ID %s anzeigen.');
 $GLOBALS['TL_LANG']['tl_monitoring_test']['checkOne'] = array('Erreichbarkeit prüfen', 'Erreichbarkeit für diesen Monitoring Eintrag prüfen.');
+
+/**
+ * Misc
+ */
+$GLOBALS['TL_LANG']['tl_monitoring_test']['response_time_format'] = '%s sek';
 
 ?>
