@@ -44,6 +44,10 @@ This extension is dependent on the following extensions:
 
 - [[menatwork/contao-multicolumnwizard]](https://packagist.org/packages/menatwork/contao-multicolumnwizard)
 
+The following extensions are recommended:
+
+- [[cliffparnitzky/backend-custom-startpage]](https://packagist.org/packages/cliffparnitzky/backend-custom-startpage): set Monitoring as default start page when logging in
+
 
 Documentation
 -------------
