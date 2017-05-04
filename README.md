@@ -23,6 +23,8 @@ Install the extension via composer: [contao-monitoring/monitoring](https://packa
 
 If you prefer to install it manually, download the latest release here: https://github.com/ContaoMonitoring/monitoring/releases
 
+After installation update the database and define Monitoring specific values in the system settings.
+
 
 Tracker
 -------
