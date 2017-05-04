@@ -249,7 +249,7 @@ class tl_monitoring_test extends Backend
       array
       (
         'col_0' => $GLOBALS['TL_LANG']['tl_monitoring_test']['response_time'][0],
-        'col_1' => sprintf($GLOBALS['TL_LANG']['tl_monitoring_test']['response_time_format'], $arrRow['response_time'])
+        'col_1' => (doubleval($arrRow['response_time']) > 0.0) ? sprintf($GLOBALS['TL_LANG']['tl_monitoring_test']['response_time_format'], $arrRow['response_time']) : '-'
       ),
       array
       (
@@ -257,6 +257,7 @@ class tl_monitoring_test extends Backend
         'col_1' => $arrRow['repetitions']
       )
     );
+    
 
     // HOOK: modify the test label
     if (isset($GLOBALS['TL_HOOKS']['monitoringExtendTestResultOutput']) && is_array($GLOBALS['TL_HOOKS']['monitoringExtendTestResultOutput']))
