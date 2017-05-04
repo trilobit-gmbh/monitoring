@@ -46,7 +46,7 @@ This extension is dependent on the following extensions:
 
 The following extensions are recommended:
 
-- [[cliffparnitzky/backend-custom-startpage]](https://packagist.org/packages/cliffparnitzky/backend-custom-startpage): set Monitoring as default start page when logging in
+- [[cliffparnitzky/backend-custom-startpage]](https://packagist.org/packages/cliffparnitzky/backend-custom-startpage): set Monitoring as default start page at login
 
 
 Documentation
