@@ -5,6 +5,8 @@ Contao Extension "Monitoring"
 Version 1.8.0 (2017-05-xx)
 --------------------------
 - added response time recording (see #15)
+- moved to own backend group
+- added `MonitoringTestModel`
 
 Version 1.7.2 (2016-10-25)
 --------------------------
