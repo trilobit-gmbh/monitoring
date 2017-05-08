@@ -36,6 +36,7 @@ $GLOBALS['TL_LANG']['MOD']['Monitoring'] = 'Contao Monitoring system for checkin
 /**
  * Backend modules
  */
+$GLOBALS['TL_LANG']['MOD']['ContaoMonitoring'] = 'Contao Monitoring';
 $GLOBALS['TL_LANG']['MOD']['monitoring'] = array('Monitoring', 'The Contao Monitoring system is used for checking the availability of websites.');
 
 ?>

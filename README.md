@@ -23,6 +23,8 @@ Install the extension via composer: [contao-monitoring/monitoring](https://packa
 
 If you prefer to install it manually, download the latest release here: https://github.com/ContaoMonitoring/monitoring/releases
 
+After installation update the database and define Monitoring specific values in the system settings.
+
 
 Tracker
 -------
@@ -43,6 +45,10 @@ Dependency
 This extension is dependent on the following extensions:
 
 - [[menatwork/contao-multicolumnwizard]](https://packagist.org/packages/menatwork/contao-multicolumnwizard)
+
+The following extensions are recommended:
+
+- [[cliffparnitzky/backend-custom-startpage]](https://packagist.org/packages/cliffparnitzky/backend-custom-startpage): set Monitoring as default start page at login
 
 
 Documentation
