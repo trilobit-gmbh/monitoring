@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2014 Leo Feyer
+ * Copyright (C) 2005-2017 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014
+ * @copyright  Cliff Parnitzky 2014-2017
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -31,14 +31,20 @@
 /**
  * Backend modules
  */
-$GLOBALS['BE_MOD']['system']['monitoring'] = array
+array_insert($GLOBALS['BE_MOD'], array_search('system', array_keys($GLOBALS['BE_MOD'])), array
 (
-	'icon'       => 'system/modules/Monitoring/assets/icon_monitoring.png',
-	'tables'     => array('tl_monitoring', 'tl_monitoring_test'),
-	'stylesheet' => 'system/modules/Monitoring/assets/styles.css',
-	'checkOne'   => array('Monitoring', 'checkOne'),
-	'checkAll'   => array('Monitoring', 'checkAll')
-);
+  'ContaoMonitoring' => array
+  (
+    'monitoring' => array
+    (
+      'icon'       => 'system/modules/Monitoring/assets/icon_monitoring.png',
+      'tables'     => array('tl_monitoring', 'tl_monitoring_test'),
+      'stylesheet' => 'system/modules/Monitoring/assets/styles.css',
+      'checkOne'   => array('Monitoring', 'checkOne'),
+      'checkAll'   => array('Monitoring', 'checkAll')
+    )
+  )
+));
 
 /**
  * Cron
