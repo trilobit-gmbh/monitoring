@@ -254,7 +254,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
       'default'                 => '0',
       'inputType'               => 'text',
       'eval'                    => array('tl_class'=>'w50', 'readonly'=>true, 'rgxp'=>'digit', 'doNotCopy'=>true),
-      'sql'                     => "double unsigned NOT NULL default '0'"
+      'sql'                     => "double NOT NULL default '0'" // see doctrine/dbal#1018
     ),
     'disable' => array
     (
