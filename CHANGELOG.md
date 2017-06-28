@@ -2,6 +2,10 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.8.1 (2017-xx-xx)
+--------------------------
+- Contao 4 ready
+
 Version 1.8.0 (2017-05-09)
 --------------------------
 - added response time recording (see #15)

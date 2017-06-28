@@ -170,7 +170,7 @@ $GLOBALS['TL_DCA']['tl_monitoring_test'] = array
       'sorting'                 => true,
       'inputType'               => 'text',
       'eval'                    => array('tl_class'=>'w50', 'readonly'=>true, 'rgxp'=>'digit'),
-      'sql'                     => "double unsigned NOT NULL default '0'"
+      'sql'                     => "double NOT NULL default '0'" // see doctrine/dbal#1018
     ),
     'repetitions' => array
     (
