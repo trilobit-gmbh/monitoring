@@ -2,7 +2,7 @@
 Contao Extension "Monitoring"
 =============================
 
-Version 1.8.1 (2017-xx-xx)
+Version 1.8.1 (2017-06-28)
 --------------------------
 - Contao 4 ready
 
