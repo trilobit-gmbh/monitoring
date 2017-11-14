@@ -293,7 +293,7 @@ class Monitoring extends \Backend
     (
       'http'=>array
       (
-        'user_agent' => "ContaoMonitoringClient"
+        'user_agent' => $GLOBALS['TL_CONFIG']['MONITORING_AGENT_NAME']
       )
     );
     $context = stream_context_create($opts);
