@@ -2,6 +2,10 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.9.0 (2017-12-xx)
+--------------------------
+- extracted user agent name for global use
+
 Version 1.8.1 (2017-06-28)
 --------------------------
 - Contao 4 ready
