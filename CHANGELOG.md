@@ -6,6 +6,7 @@ Version 1.9.0 (2017-12-xx)
 --------------------------
 - extracted user agent name for global use
 - replaced `$GLOBALS['TL_CONFIG']` access with `\Config::get()`
+- devided `storeUrl` function into `deleteLastTestValues` and `prepareUrl` to provide better reusage possibilities
 
 Version 1.8.1 (2017-06-28)
 --------------------------
