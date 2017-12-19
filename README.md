@@ -53,6 +53,6 @@ The following extensions are recommended:
 Documentation
 -------------
 
-[Read the manual](https://cliffparnitzky.gitbooks.io/contaomonitoring)
+[Read the manual](https://contaomonitoring.gitbooks.io/contaomonitoring)
 
-![EN](https://raw.githubusercontent.com/ContaoMonitoring/documentation/master/en/en.png) [English manual](https://cliffparnitzky.gitbooks.io/contaomonitoring/content/en/index.html)
+![EN](https://raw.githubusercontent.com/ContaoMonitoring/documentation/master/en/en.png) [English manual](https://contaomonitoring.gitbooks.io/contaomonitoring/en/index.html)
