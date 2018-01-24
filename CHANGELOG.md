@@ -2,6 +2,10 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.8.2 (2018-01-25)
+--------------------------
+- Fix bug when loading language files in Contao 4
+
 Version 1.8.1 (2017-06-28)
 --------------------------
 - Contao 4 ready
