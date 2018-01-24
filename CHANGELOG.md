@@ -2,11 +2,15 @@
 Contao Extension "Monitoring"
 =============================
 
-Version 1.9.0 (2017-12-xx)
+Version 1.9.0 (2018-01-xx)
 --------------------------
 - extracted user agent name for global use
 - replaced `$GLOBALS['TL_CONFIG']` access with `\Config::get()`
 - devided `storeUrl` function into `deleteLastTestValues` and `prepareUrl` to provide better reusage possibilities
+
+Version 1.8.2 (2018-01-25)
+--------------------------
+- Fix bug when loading language files in Contao 4
 
 Version 1.8.1 (2017-06-28)
 --------------------------

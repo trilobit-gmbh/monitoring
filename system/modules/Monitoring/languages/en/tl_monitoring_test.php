@@ -65,6 +65,6 @@ $GLOBALS['TL_LANG']['tl_monitoring_test']['checkOne'] = array('Check availabilit
 /**
  * Misc
  */
-$GLOBALS['TL_LANG']['tl_monitoring_test']['response_time_format'] = '%s sec'
+$GLOBALS['TL_LANG']['tl_monitoring_test']['response_time_format'] = '%s sec';
 
 ?>
