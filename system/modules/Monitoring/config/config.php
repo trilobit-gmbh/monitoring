@@ -57,4 +57,9 @@ if ('BE' === TL_MODE) {
 // Hourly cron job to check all server
 $GLOBALS['TL_CRON']['hourly'][] = array('Monitoring', 'checkScheduled');
 
+/**
+ * Global names
+ */
+$GLOBALS['TL_CONFIG']['MONITORING_AGENT_NAME'] = "ContaoMonitoringClient";
+
 ?>

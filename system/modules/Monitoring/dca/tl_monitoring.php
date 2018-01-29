@@ -209,7 +209,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
       'exclude'                 => true,
       'search'                  => true,
       'inputType'               => 'text',
-      'save_callback'           => array(array('tl_monitoring', 'storeUrl')),
+      'save_callback'           => array(array('tl_monitoring', 'deleteLastTestValues'), array('tl_monitoring', 'prepareUrl')),
       'eval'                    => array('tl_class'=>'long', 'mandatory'=>true, 'rgxp'=>'url'),
       'sql'                     => "text NOT NULL"
     ),
@@ -363,13 +363,13 @@ class tl_monitoring extends Backend
   }
 
   /**
-   * Empties test values when editing the url
+   * Empties the last test values when url has changed
    */
-  public function storeUrl($value, DataContainer $dc)
+  public function deleteLastTestValues($value, DataContainer $dc)
   {
     if ($value != $dc->activeRecord->url)
     {
-      // url is new ... set unchecked
+      // url is changed ... set unchecked
       $arrSet = array();
       $arrSet['last_test_date'] = 0;
       $arrSet['last_test_status'] = Monitoring::STATUS_UNTESTED;
@@ -380,6 +380,14 @@ class tl_monitoring extends Backend
                ->execute(\Input::get('id'));
     }
 
+    return $value;
+  }
+
+  /**
+   * Adds `http://` if not set
+   */
+  public function prepareUrl($value, DataContainer $dc)
+  {
     if ($value != '' && !preg_match('@^https?://@', $value))
     {
       $value = 'http://' . $value;
