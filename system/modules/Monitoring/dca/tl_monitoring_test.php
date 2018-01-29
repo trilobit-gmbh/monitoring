@@ -234,7 +234,7 @@ class tl_monitoring_test extends Backend
       array
       (
         'col_0' => $GLOBALS['TL_LANG']['tl_monitoring_test']['date'][0],
-        'col_1' => \Date::parse($GLOBALS['TL_CONFIG']['datimFormat'], $arrRow['date'])
+        'col_1' => \Date::parse(\Config::get('datimFormat'), $arrRow['date'])
       ),
       array
       (

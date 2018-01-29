@@ -106,13 +106,13 @@ class Monitoring extends \Backend
     {
       $errorMsg = self::EMAIL_MESSAGE_START . $this->getErroneousCheckEntriesAsString();
       $this->log($errorMsg, __METHOD__, TL_ERROR);
-      if ($GLOBALS['TL_CONFIG']['monitoringMailingActive'] && $GLOBALS['TL_CONFIG']['monitoringAdminEmail'] != '')
+      if (\Config::get('monitoringMailingActive') && \Config::get('monitoringAdminEmail') != '')
       {
         $objEmail = new \Email();
         $objEmail->subject = self::EMAIL_SUBJECT;
         $objEmail->text = $errorMsg . sprintf(self::EMAIL_MESSAGE_END, \Environment::get('base') . "contao");
-        $objEmail->sendTo($GLOBALS['TL_CONFIG']['monitoringAdminEmail']);
-        $this->logDebugMsg("Scheduled monitoring check ended with errors. Monitoring admin informed via email (" . $GLOBALS['TL_CONFIG']['monitoringAdminEmail'] . ").", __METHOD__);
+        $objEmail->sendTo(\Config::get('monitoringAdminEmail'));
+        $this->logDebugMsg("Scheduled monitoring check ended with errors. Monitoring admin informed via email (" . \Config::get('monitoringAdminEmail') . ").", __METHOD__);
       }
       else
       {
@@ -136,13 +136,13 @@ class Monitoring extends \Backend
       $testString = $this->valString($objMonitoringEntry->test_string, true);
 
       $repitition = 0;
-      $maxRepititions = $GLOBALS['TL_CONFIG']['monitoringTestCirculation'];
+      $maxRepititions = \Config::get('monitoringTestCirculation');
       if (!is_int($maxRepititions) || $maxRepititions < 1)
       {
         $maxRepititions = 1;
       }
 
-      $delay = $GLOBALS['TL_CONFIG']['monitoringTestCirculationDelay'];
+      $delay = \Config::get('monitoringTestCirculationDelay');
       if (!is_int($delay) || $delay < 1 || $delay > 99)
       {
         $delay = 10;
@@ -293,7 +293,7 @@ class Monitoring extends \Backend
     (
       'http'=>array
       (
-        'user_agent' => "ContaoMonitoringClient"
+        'user_agent' => \Config::get('MONITORING_AGENT_NAME')
       )
     );
     $context = stream_context_create($opts);
@@ -355,7 +355,7 @@ class Monitoring extends \Backend
    */
   private function logDebugMsg($msg, $origin)
   {
-    if ($GLOBALS['TL_CONFIG']['monitoringDebugMode'] === TRUE)
+    if (\Config::get('monitoringDebugMode') === TRUE)
     {
       $this->log($msg, $origin, TL_INFO);
     }
