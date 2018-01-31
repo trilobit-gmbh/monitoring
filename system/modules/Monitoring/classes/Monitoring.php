@@ -51,7 +51,7 @@ class Monitoring extends \Backend
   const CHECK_TYPE_MANUAL = 'MANUAL';
   const CHECK_TYPE_AUTOMATIC = 'AUTOMATIC';
 
-  const EMAIL_SUBJECT = 'Montoring errors detected';
+  const EMAIL_SUBJECT = 'Monitoring errors detected';
   const EMAIL_MESSAGE_START = "Scheduled monitoring check ended with errors.\n\nThe following checks ended erroneous:\n\n";
   const EMAIL_MESSAGE_ENTRY = "- %s %s %s [%s] (%s)\n";
   const EMAIL_MESSAGE_END = "\nPlease check your system for further information: %s\n\nThis is an automatically generated email by Contao extension [Monitoring].";
