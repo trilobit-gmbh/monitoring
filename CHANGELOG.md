@@ -2,7 +2,11 @@
 Contao Extension "Monitoring"
 =============================
 
-Version 1.9.0 (2018-01-xx)
+Version 1.9.1 (2018-02-15)
+--------------------------
+- fixed error with logging in debug mode
+
+Version 1.9.0 (2018-01-25)
 --------------------------
 - extracted user agent name for global use
 - replaced `$GLOBALS['TL_CONFIG']` access with `\Config::get()`
