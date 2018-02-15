@@ -2,6 +2,10 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.9.2 (2018-02-16)
+--------------------------
+- fixed missing `data-icon` definition in DCA for icon toggle
+
 Version 1.9.1 (2018-02-15)
 --------------------------
 - fixed error with logging in debug mode
