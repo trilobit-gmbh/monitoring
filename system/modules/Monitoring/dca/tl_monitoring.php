@@ -341,7 +341,7 @@ class tl_monitoring extends Backend
     {
       $image .= '_';
     }
-    $args[0] = sprintf('<div class="list_icon_new" style="background-image:url(\'system/modules/Monitoring/assets/%s.png\')">&nbsp;</div>', $image);
+    $args[0] = sprintf('<div class="list_icon_new" style="background-image:url(\'system/modules/Monitoring/assets/%s.png\')"data-icon="system/modules/Monitoring/assets/%s.png" data-icon-disabled="system/modules/Monitoring/assets/%s.png">&nbsp;</div>', $image, rtrim($image, '_'), rtrim($image, '_') . '_');
 
     $intLastTestStatusIndex = array_search("last_test_status", $GLOBALS['TL_DCA']['tl_monitoring']['list']['label']['fields']);
     if ($intLastTestStatusIndex !== FALSE)
