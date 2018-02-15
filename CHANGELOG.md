@@ -2,6 +2,10 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.10.0 (2018-02-xx)
+---------------------------
+- added sending an email, when test result changes to OKAY again (see #14)
+
 Version 1.9.2 (2018-02-16)
 --------------------------
 - fixed missing `data-icon` definition in DCA for icon toggle
