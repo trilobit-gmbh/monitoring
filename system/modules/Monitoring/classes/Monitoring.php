@@ -134,9 +134,9 @@ class Monitoring extends \Backend
     {
       $objEmail = new \Email();
       $objEmail->subject = self::EMAIL_SUBJECT_OKAY;
-      $objEmail->text = self::EMAIL_MESSAGE_START_OKAY . $this->getCheckEntriesAsString($againOkayCheckEntries) . sprintf(self::EMAIL_MESSAGE_END, \Environment::get('base') . "contao");
+      $objEmail->text = self::EMAIL_MESSAGE_START_OKAY . $this->getCheckEntriesAsString($againOkayCheckEntries, true) . sprintf(self::EMAIL_MESSAGE_END, \Environment::get('base') . "contao");
       $objEmail->sendTo(\Config::get('monitoringAdminEmail'));
-      $this->logDebugMsg("Scheduled monitoring check ended. Some checks are okay again. The monitoring admin was informed via email (" . \Config::get('monitoringAdminEmail') . ")." . $this->getCheckEntriesAsString($againOkayCheckEntries), __METHOD__);
+      $this->logDebugMsg("Scheduled monitoring check ended. Some checks are okay again. The monitoring admin was informed via email (" . \Config::get('monitoringAdminEmail') . ").", __METHOD__);
     }
   }
 
@@ -275,12 +275,12 @@ class Monitoring extends \Backend
   /**
    * Return the list of erroneous check entries as string
    */
-  private function getCheckEntriesAsString($arrErroneousCheckEntries)
+  private function getCheckEntriesAsString($arrErroneousCheckEntries, $blnOverwriteStatus=false)
   {
     $strReturn = '';
     foreach ($arrErroneousCheckEntries as $entry)
     {
-      $strReturn .= sprintf(self::EMAIL_MESSAGE_ENTRY, $entry->customer, $entry->website, $entry->system, $entry->last_test_status, $entry->url);
+      $strReturn .= sprintf(self::EMAIL_MESSAGE_ENTRY, $entry->customer, $entry->website, $entry->system, $blnOverwriteStatus ? self::STATUS_OKAY : $entry->last_test_status, $entry->url);
     }
 
     return $strReturn;
