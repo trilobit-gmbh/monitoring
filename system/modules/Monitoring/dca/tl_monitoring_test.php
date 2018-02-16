@@ -188,7 +188,7 @@ $GLOBALS['TL_DCA']['tl_monitoring_test'] = array
       'search'                  => true,
       'inputType'               => 'textarea',
       'eval'                    => array('tl_class'=>'long clr', 'readonly'=>true, 'doNotCopy'=>true),
-      'sql'                     => "text NOT NULL"
+      'sql'                     => "text NULL"
     ),
     'comment' => array
     (
