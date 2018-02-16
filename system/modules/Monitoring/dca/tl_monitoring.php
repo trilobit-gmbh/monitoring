@@ -210,8 +210,8 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
       'search'                  => true,
       'inputType'               => 'text',
       'save_callback'           => array(array('tl_monitoring', 'deleteLastTestValues'), array('tl_monitoring', 'prepareUrl')),
-      'eval'                    => array('tl_class'=>'long', 'mandatory'=>true, 'rgxp'=>'url'),
-      'sql'                     => "text NOT NULL"
+      'eval'                    => array('tl_class'=>'long', 'mandatory'=>true, 'rgxp'=>'url', 'maxlength'=>512, 'decodeEntities'=>true),
+      'sql'                     => "varchar(512) NOT NULL default ''"
     ),
     'test_string' => array
     (
@@ -219,7 +219,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
       'exclude'                 => true,
       'inputType'               => 'textarea',
       'eval'                    => array('tl_class'=>'long clr', 'mandatory'=>true),
-      'sql'                     => "text NOT NULL"
+      'sql'                     => "text NULL"
     ),
     'last_test_date' => array
     (
