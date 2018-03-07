@@ -1,6 +1,10 @@
-=============================
 Contao Extension "Monitoring"
 =============================
+
+Version 1.10.0 (2018-03-??)
+--------------------------
+- added sending an email, when test result changes to OKAY again (see #14)
+- added setting defaults for test circulation parameters (see #19)
 
 Version 1.9.3 (2018-02-16)
 --------------------------

@@ -57,6 +57,9 @@ class Monitoring extends \Backend
   const EMAIL_MESSAGE_START_OKAY = "Scheduled monitoring check ended.\n\nThe following checks are okay again:\n\n";
   const EMAIL_MESSAGE_ENTRY = "- %s %s %s [%s] (%s)\n";
   const EMAIL_MESSAGE_END = "\nPlease check your system for further information: %s\n\nThis is an automatically generated email by Contao extension [Monitoring].";
+  
+  const TEST_CIRCULATION = 1;
+  const TEST_CIRCULATION_DELAY = 10;
 
   /**
    * Constructor
@@ -158,13 +161,13 @@ class Monitoring extends \Backend
       $maxRepititions = \Config::get('monitoringTestCirculation');
       if (!is_int($maxRepititions) || $maxRepititions < 1)
       {
-        $maxRepititions = 1;
+        $maxRepititions = self::TEST_CIRCULATION;
       }
 
       $delay = \Config::get('monitoringTestCirculationDelay');
       if (!is_int($delay) || $delay < 1 || $delay > 99)
       {
-        $delay = 10;
+        $delay = self::TEST_CIRCULATION_DELAY;
       }
 
       $arrSetEntry = array();

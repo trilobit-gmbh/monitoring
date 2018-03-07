@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2014 Leo Feyer
+ * Copyright (C) 2005-2018 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014
+ * @copyright  Cliff Parnitzky 2014-2018
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -39,39 +39,94 @@ $GLOBALS['TL_DCA']['tl_settings']['subpalettes']['monitoringMailingActive'] = 'm
  */
 $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringMailingActive'] = array
 (
-	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive'],
-	'inputType' => 'checkbox',
-	'eval'      => array('submitOnChange'=>true, 'tl_class'=>'w50 m12')
+  'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive'],
+  'inputType'               => 'checkbox',
+  'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'w50 m12')
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringAdminEmail'] = array
 (
-	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail'],
-	'inputType' => 'text',
-	'eval'      => array('mandatory'=>true, 'rgxp'=>'email', 'tl_class'=>'w50')
+  'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail'],
+  'inputType'               => 'text',
+  'eval'                    => array('mandatory'=>true, 'rgxp'=>'email', 'tl_class'=>'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringTestCirculation'] = array
 (
-	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculation'],
-	'inputType' => 'select',
-	'default'   => 1,
-	'options'   => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-	'eval'      => array('mandatory'=>true, 'tl_class'=>'w50 clr')
+  'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculation'],
+  'inputType'               => 'select',
+  'default'                 => \Monitoring::TEST_CIRCULATION,
+  'options'                 => array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+  'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50 clr'),
+  'load_callback'           => array(array('tl_settings_Monitoring', 'generateDefaultTestCirculation'))
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringTestCirculationDelay'] = array
 (
-	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculationDelay'],
-	'inputType' => 'text',
-	'eval'      => array('mandatory'=>true, 'tl_class'=>'w50', 'minlength'=>1, 'maxlength'=>2, 'rgxp'=>'digit')
+  'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculationDelay'],
+  'default'                 => \Monitoring::TEST_CIRCULATION_DELAY,
+  'inputType'               => 'text',
+  'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50', 'minlength'=>1, 'maxlength'=>2, 'rgxp'=>'digit'),
+  'load_callback'           => array(array('tl_settings_Monitoring', 'generateDefaultTestCirculationDelay'))
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringDebugMode'] = array
 (
-	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['monitoringDebugMode'],
-	'inputType' => 'checkbox',
-	'eval'      => array('tl_class'=>'w50 m12 clr')
+  'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringDebugMode'],
+  'inputType'               => 'checkbox',
+  'eval'                    => array('tl_class'=>'w50 m12 clr')
 );
+
+/**
+ * Class tl_settings_Monitoring
+ *
+ * Provide miscellaneous methods that are used by the data configuration array.
+ * PHP version 5
+ * @copyright  Cliff Parnitzky 2018-2018
+ * @author     Cliff Parnitzky
+ * @package    Controller
+ */
+class tl_settings_Monitoring extends Backend
+{
+  /**
+   * Import the back end user object
+   */
+  public function __construct()
+  {
+    parent::__construct();
+  }
+  
+  /**
+   * Generate a default value for test circulation.
+   * @param mixed
+   * @param object
+   * @return string
+   */
+  public function generateDefaultTestCirculation($varValue, DataContainer $dc)
+  {
+    if (strlen($varValue) == 0)
+    {
+      $varValue = \Monitoring::TEST_CIRCULATION;
+      \Config::persist('monitoringTestCirculation', $varValue);
+    }
+    return $varValue;
+  }
+  
+  /**
+   * Generate a default value for test circulation delay.
+   * @param mixed
+   * @param object
+   * @return string
+   */
+  public function generateDefaultTestCirculationDelay($varValue, DataContainer $dc)
+  {
+    if (strlen($varValue) == 0)
+    {
+      $varValue = \Monitoring::TEST_CIRCULATION_DELAY;
+      \Config::persist('monitoringTestCirculationDelay', $varValue);
+    }
+    return $varValue;
+  }
+}
 
 ?>
