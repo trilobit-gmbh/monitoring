@@ -106,6 +106,8 @@ class Monitoring extends \Backend
   public function checkScheduled()
   {
     $oldErroneousCheckEntries = $this->getErroneousCheckEntries();
+    // remove all where mailing is deactivated
+    $oldErroneousCheckEntries = array_filter($oldErroneousCheckEntries, "isMailingActive");
     
     $status = $this->checkMultiple(self::CHECK_TYPE_AUTOMATIC);
     $this->logDebugMsg("Scheduled checking all monitoring entries ended with status: " . $status, __METHOD__);
@@ -117,7 +119,10 @@ class Monitoring extends \Backend
     {
       $errorMsg = self::EMAIL_MESSAGE_START_ERROR . $this->getCheckEntriesAsString($newErroneousCheckEntries);
       $this->log($errorMsg, __METHOD__, TL_ERROR);
-      if (\Config::get('monitoringMailingActive') && \Config::get('monitoringAdminEmail') != '')
+      
+      // remove all where mailing is deactivated
+      $newErroneousCheckEntries = array_filter($newErroneousCheckEntries, "isMailingActive");
+      if (!empty($newErroneousCheckEntries) && \Config::get('monitoringMailingActive') && \Config::get('monitoringAdminEmail') != '')
       {
         $objEmail = new \Email();
         $objEmail->subject = self::EMAIL_SUBJECT_ERROR;
@@ -127,7 +132,7 @@ class Monitoring extends \Backend
       }
       else
       {
-        $this->log('No email send ... check monitoring settings.', __METHOD__, TL_GENERAL);
+        $this->logDebugMsg('No "error" email send ... check monitoring settings.', __METHOD__);
       }
     }
     
@@ -141,6 +146,15 @@ class Monitoring extends \Backend
       $objEmail->sendTo(\Config::get('monitoringAdminEmail'));
       $this->logDebugMsg("Scheduled monitoring check ended. Some checks are okay again. The monitoring admin was informed via email (" . \Config::get('monitoringAdminEmail') . ").", __METHOD__);
     }
+    else
+    {
+      $this->logDebugMsg('No "again okay" email send ... check monitoring settings.', __METHOD__);
+    }
+  }
+  
+  private function isMailingActive($entry)
+  {
+    return $entry->disableMailing == "";
   }
 
   /**
