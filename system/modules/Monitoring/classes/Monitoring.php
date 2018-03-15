@@ -105,28 +105,25 @@ class Monitoring extends \Backend
    */
   public function checkScheduled()
   {
-    $oldErroneousCheckEntries = $this->getErroneousCheckEntries();
-    // remove all where mailing is deactivated
-    $oldErroneousCheckEntries = array_filter($oldErroneousCheckEntries, "isMailingActive", ARRAY_FILTER_USE_BOTH);
+    $oldErroneousCheckEntries = $this->removeMailingDeactivatedEntries($this->getErroneousCheckEntries());
     
     $status = $this->checkMultiple(self::CHECK_TYPE_AUTOMATIC);
     $this->logDebugMsg("Scheduled checking all monitoring entries ended with status: " . $status, __METHOD__);
     
-    $newErroneousCheckEntries = $this->getErroneousCheckEntries();
+    $allErroneousCheckEntries = $this->getErroneousCheckEntries();
+    $newErroneousCheckEntries = $this->removeMailingDeactivatedEntries($allErroneousCheckEntries);
     
     // only needed when there where errors detected
     if ($status != self::STATUS_OKAY)
     {
-      $errorMsg = self::EMAIL_MESSAGE_START_ERROR . $this->getCheckEntriesAsString($newErroneousCheckEntries);
+      $errorMsg = self::EMAIL_MESSAGE_START_ERROR . $this->getCheckEntriesAsString($allErroneousCheckEntries);
       $this->log($errorMsg, __METHOD__, TL_ERROR);
       
-      // remove all where mailing is deactivated
-      $newErroneousCheckEntries = array_filter($newErroneousCheckEntries, "isMailingActive", ARRAY_FILTER_USE_BOTH);
       if (!empty($newErroneousCheckEntries) && \Config::get('monitoringMailingActive') && \Config::get('monitoringAdminEmail') != '')
       {
         $objEmail = new \Email();
         $objEmail->subject = self::EMAIL_SUBJECT_ERROR;
-        $objEmail->text = $errorMsg . sprintf(self::EMAIL_MESSAGE_END, \Environment::get('base') . "contao");
+        $objEmail->text = self::EMAIL_MESSAGE_START_ERROR . $this->getCheckEntriesAsString($newErroneousCheckEntries) . sprintf(self::EMAIL_MESSAGE_END, \Environment::get('base') . "contao");
         $objEmail->sendTo(\Config::get('monitoringAdminEmail'));
         $this->logDebugMsg("Scheduled monitoring check ended. Some checks ended erroneous. The monitoring admin was informed via email (" . \Config::get('monitoringAdminEmail') . ").", __METHOD__);
       }
@@ -137,10 +134,7 @@ class Monitoring extends \Backend
     }
     
     // send an email, if previously erroneous checks are okay again
-    $this->log("OldErroneousCheckEntries: " . print_r($oldErroneousCheckEntries, true), __METHOD__, TL_INFO);
-    $this->log("NewErroneousCheckEntries: " . print_r($newErroneousCheckEntries, true), __METHOD__, TL_INFO);
-    $againOkayCheckEntries = array_diff_assoc($oldErroneousCheckEntries, $newErroneousCheckEntries);
-    $this->log("AgainOkayCheckEntries: " . print_r($againOkayCheckEntries, true), __METHOD__, TL_INFO);
+    $againOkayCheckEntries = array_diff_key($oldErroneousCheckEntries, $newErroneousCheckEntries);
     if (!empty($againOkayCheckEntries) && \Config::get('monitoringMailingActive') && \Config::get('monitoringAdminEmail') != '')
     {
       $objEmail = new \Email();
@@ -155,9 +149,18 @@ class Monitoring extends \Backend
     }
   }
   
-  private function isMailingActive($entry, $key)
+  /**
+   * Remove all entries from the array, that have mailing deactivated.
+   */
+  private function removeMailingDeactivatedEntries($arrEntries)
   {
-    return $entry->disableMailing == "";
+    return array_filter(
+      $arrEntries,
+      function ($entry)
+      {
+        return $entry->disableMailing == "";
+      }
+    );
   }
 
   /**
@@ -285,7 +288,7 @@ class Monitoring extends \Backend
     {
         while ($objMonitoringEntry->next())
         {
-          $arrResult[$objMonitoringEntry->id] = $objMonitoringEntry;
+          $arrResult[$objMonitoringEntry->id] = $objMonitoringEntry->current();
         }
     }
     
@@ -298,7 +301,7 @@ class Monitoring extends \Backend
   private function getCheckEntriesAsString($arrErroneousCheckEntries, $blnOverwriteStatus=false)
   {
     $strReturn = '';
-    foreach ($arrErroneousCheckEntries as $entry)
+    foreach ($arrErroneousCheckEntries as $key=>$entry)
     {
       $strReturn .= sprintf(self::EMAIL_MESSAGE_ENTRY, $entry->customer, $entry->website, $entry->system, $blnOverwriteStatus ? self::STATUS_OKAY : $entry->last_test_status, $entry->url);
     }
