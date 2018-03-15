@@ -107,7 +107,7 @@ class Monitoring extends \Backend
   {
     $oldErroneousCheckEntries = $this->getErroneousCheckEntries();
     // remove all where mailing is deactivated
-    $oldErroneousCheckEntries = array_filter($oldErroneousCheckEntries, "isMailingActive");
+    $oldErroneousCheckEntries = array_filter($oldErroneousCheckEntries, "isMailingActive", ARRAY_FILTER_USE_BOTH);
     
     $status = $this->checkMultiple(self::CHECK_TYPE_AUTOMATIC);
     $this->logDebugMsg("Scheduled checking all monitoring entries ended with status: " . $status, __METHOD__);
@@ -121,7 +121,7 @@ class Monitoring extends \Backend
       $this->log($errorMsg, __METHOD__, TL_ERROR);
       
       // remove all where mailing is deactivated
-      $newErroneousCheckEntries = array_filter($newErroneousCheckEntries, "isMailingActive");
+      $newErroneousCheckEntries = array_filter($newErroneousCheckEntries, "isMailingActive", ARRAY_FILTER_USE_BOTH);
       if (!empty($newErroneousCheckEntries) && \Config::get('monitoringMailingActive') && \Config::get('monitoringAdminEmail') != '')
       {
         $objEmail = new \Email();
@@ -137,9 +137,9 @@ class Monitoring extends \Backend
     }
     
     // send an email, if previously erroneous checks are okay again
-    $againOkayCheckEntries = array_diff_assoc($oldErroneousCheckEntries, $newErroneousCheckEntries);
     $this->log("OldErroneousCheckEntries: " . print_r($oldErroneousCheckEntries, true), __METHOD__, TL_INFO);
     $this->log("NewErroneousCheckEntries: " . print_r($newErroneousCheckEntries, true), __METHOD__, TL_INFO);
+    $againOkayCheckEntries = array_diff_assoc($oldErroneousCheckEntries, $newErroneousCheckEntries);
     $this->log("AgainOkayCheckEntries: " . print_r($againOkayCheckEntries, true), __METHOD__, TL_INFO);
     if (!empty($againOkayCheckEntries) && \Config::get('monitoringMailingActive') && \Config::get('monitoringAdminEmail') != '')
     {
@@ -155,7 +155,7 @@ class Monitoring extends \Backend
     }
   }
   
-  private function isMailingActive($entry)
+  private function isMailingActive($entry, $key)
   {
     return $entry->disableMailing == "";
   }
