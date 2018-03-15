@@ -138,6 +138,9 @@ class Monitoring extends \Backend
     
     // send an email, if previously erroneous checks are okay again
     $againOkayCheckEntries = array_diff_assoc($oldErroneousCheckEntries, $newErroneousCheckEntries);
+    $this->log("OldErroneousCheckEntries: " . print_r($oldErroneousCheckEntries, true), __METHOD__, TL_INFO);
+    $this->log("NewErroneousCheckEntries: " . print_r($newErroneousCheckEntries, true), __METHOD__, TL_INFO);
+    $this->log("AgainOkayCheckEntries: " . print_r($againOkayCheckEntries, true), __METHOD__, TL_INFO);
     if (!empty($againOkayCheckEntries) && \Config::get('monitoringMailingActive') && \Config::get('monitoringAdminEmail') != '')
     {
       $objEmail = new \Email();
