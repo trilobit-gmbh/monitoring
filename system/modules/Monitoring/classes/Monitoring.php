@@ -143,10 +143,6 @@ class Monitoring extends \Backend
       $objEmail->sendTo(\Config::get('monitoringAdminEmail'));
       $this->logDebugMsg("Scheduled monitoring check ended. Some checks are okay again. The monitoring admin was informed via email (" . \Config::get('monitoringAdminEmail') . ").", __METHOD__);
     }
-    else
-    {
-      $this->logDebugMsg('No "again okay" email send ... check monitoring settings.', __METHOD__);
-    }
   }
   
   /**
