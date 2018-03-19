@@ -40,6 +40,7 @@ $GLOBALS['TL_LANG']['tl_monitoring']['test_string']             = array('Test st
 $GLOBALS['TL_LANG']['tl_monitoring']['last_test_date']          = array('Last test', 'The date of the last test');
 $GLOBALS['TL_LANG']['tl_monitoring']['last_test_status']        = array('Last status', 'The status of the last test.');
 $GLOBALS['TL_LANG']['tl_monitoring']['last_test_response_time'] = array('Last response time', 'The duration until receiving the response string (in seconds) of the last test.');
+$GLOBALS['TL_LANG']['tl_monitoring']['disableMailing']          = array('Deactivate mailing', 'Do not send emails when the status for this monitoring entry changes.');
 $GLOBALS['TL_LANG']['tl_monitoring']['disable']                 = array('Deactivate', 'Temporarily disable the monitoring entry.');
 
 /**
@@ -48,6 +49,7 @@ $GLOBALS['TL_LANG']['tl_monitoring']['disable']                 = array('Deactiv
 $GLOBALS['TL_LANG']['tl_monitoring']['website_legend']   = 'Website';
 $GLOBALS['TL_LANG']['tl_monitoring']['test_legend']      = 'Test';
 $GLOBALS['TL_LANG']['tl_monitoring']['last_test_legend'] = 'Last test result';
+$GLOBALS['TL_LANG']['tl_monitoring']['mailing_legend']   = 'Mailing';
 $GLOBALS['TL_LANG']['tl_monitoring']['disable_legend']   = 'Deactivation';
 
 /**

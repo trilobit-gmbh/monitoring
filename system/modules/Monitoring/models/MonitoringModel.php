@@ -66,7 +66,7 @@ class MonitoringModel extends \Model
 	}
 
 	/**
-	 * Find all monitoring entries
+	 * Find all active monitoring entries
 	 *
 	 * @param array $arrOptions An optional options array
 	 *
@@ -77,6 +77,20 @@ class MonitoringModel extends \Model
 	    $t = static::$strTable;
 
 	    return static::findBy(array("$t.disable=''"), null, $arrOptions);
+	}
+
+	/**
+	 * Find all active monitoring entries that are erroneous
+	 *
+	 * @param array $arrOptions An optional options array
+	 *
+	 * @return \Model\Collection|null A collection of models or null if there are no monitoring entries
+	 */
+	public static function findAllActiveErroneous(array $arrOptions=array())
+	{
+	    $t = static::$strTable;
+
+	    return static::findBy(array("$t.disable='' AND ($t.last_test_status='ERROR' OR $t.last_test_status='INCOMPLETE')"), null, $arrOptions);
 	}
 }
 ?>
