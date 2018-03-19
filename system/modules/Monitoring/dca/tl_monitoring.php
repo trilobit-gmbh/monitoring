@@ -142,7 +142,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
   // Palettes
   'palettes' => array
   (
-    'default'                     => '{website_legend},customer,website,system,added;{test_legend},url,test_string;{last_test_legend},last_test_date,last_test_status,last_test_response_time;{disable_legend},disable'
+    'default'                     => '{website_legend},customer,website,system,added;{test_legend},url,test_string;{last_test_legend},last_test_date,last_test_status,last_test_response_time;' . (\Config::get('monitoringMailingActive') ? '{mailing_legend},disableMailing;' : '') . '{disable_legend},disable'
   ),
 
   // Fields
@@ -255,6 +255,15 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
       'inputType'               => 'text',
       'eval'                    => array('tl_class'=>'w50', 'readonly'=>true, 'rgxp'=>'digit', 'doNotCopy'=>true),
       'sql'                     => "double NOT NULL default '0'" // see doctrine/dbal#1018
+    ),
+    'disableMailing' => array
+    (
+      'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['disableMailing'],
+      'exclude'                 => true,
+      'filter'                  => true,
+      'inputType'               => 'checkbox',
+      'eval'                    => array('tl_class'=>'w50'),
+      'sql'                     => "char(1) NOT NULL default ''"
     ),
     'disable' => array
     (
