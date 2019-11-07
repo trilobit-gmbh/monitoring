@@ -56,3 +56,10 @@ Documentation
 [Read the manual](https://contaomonitoring.gitbooks.io/contaomonitoring)
 
 ![EN](https://raw.githubusercontent.com/ContaoMonitoring/documentation/master/en/en.png) [English manual](https://contaomonitoring.gitbooks.io/contaomonitoring/en/index.html)
+
+Donation
+--------
+
+If this project helps you, please help me to improve it.
+
+[![paypal](https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HBD9QJKE48BGQ)
