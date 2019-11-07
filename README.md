@@ -32,11 +32,19 @@ Tracker
 https://github.com/ContaoMonitoring/monitoring/issues
 
 
+Slack
+-----
+
+Workspace: https://contaomonitoring.slack.com
+Invitation: https://join.slack.com/t/contaomonitoring/shared_invite/enQtMzA3NTQzMzI0NDgzLWVmOTNlNzdiZDc3YzY5ZGU5NDE5ZTM1ZDM1YTk2NWY5ZGZmNTkxNWNmYjEwODNiYjA5NWIyYzQyYzMxMTYwY2Q
+
+
 Compatibility
 -------------
 
 - Contao version >= 3.2.0 ... <  3.6.0
 - Contao version >= 4.4.0
+
 
 Dependency
 ----------
@@ -56,3 +64,11 @@ Documentation
 [Read the manual](https://contaomonitoring.gitbooks.io/contaomonitoring)
 
 ![EN](https://raw.githubusercontent.com/ContaoMonitoring/documentation/master/en/en.png) [English manual](https://contaomonitoring.gitbooks.io/contaomonitoring/en/index.html)
+
+
+Donation
+--------
+
+If this project helps you, please help me to improve it.
+
+[![paypal](https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HBD9QJKE48BGQ)
