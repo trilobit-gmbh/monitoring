@@ -1,6 +1,7 @@
 [![Latest Version on Packagist](http://img.shields.io/packagist/v/contao-monitoring/monitoring.svg?style=flat)](https://packagist.org/packages/contao-monitoring/monitoring)
 [![Installations via composer per month](http://img.shields.io/packagist/dm/contao-monitoring/monitoring.svg?style=flat)](https://packagist.org/packages/contao-monitoring/monitoring)
 [![Installations via composer total](http://img.shields.io/packagist/dt/contao-monitoring/monitoring.svg?style=flat)](https://packagist.org/packages/contao-monitoring/monitoring)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HBD9QJKE48BGQ&source=url)
 
 Contao Extension: Monitoring
 ============================
@@ -71,4 +72,4 @@ Donation
 
 If this project helps you, please help me to improve it.
 
-[![paypal](https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HBD9QJKE48BGQ)
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HBD9QJKE48BGQ&source=url)
