@@ -412,7 +412,7 @@ class Monitoring extends \Backend
    */
   private function addCheckMessage($intEntryId, $strStatus)
   {
-    $this->addRawMessage('<p class="tl_message_monitoring_status tl_message_monitoring_status_' . strtolower($strStatus) . '">' . sprintf($GLOBALS['TL_LANG']['MSC']['monitoringCheckResult'], $intEntryId, $GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'][$strStatus][0]) . '</p>');
+    $this->addRawMessage('<p class="tl_message_monitoring_status monitoring_status_' . strtolower($strStatus) . '">' . sprintf($GLOBALS['TL_LANG']['MSC']['monitoringCheckResult'], $intEntryId, $GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'][$strStatus][0]) . '</p>');
   }
 }
 ?>

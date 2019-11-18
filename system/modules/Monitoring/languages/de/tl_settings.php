@@ -30,11 +30,14 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive']                = array('Mailing aktivieren', 'Wählen Sie ob Mailing aktiviert sein soll.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']                   = array('Monitoring Admin E-Mail', 'Die E-Mail Adresse des Monitoring Admin.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculation']              = array('Test Zirkulation', 'Wählen Sie wie oft ein Test wiederholt werden soll, wenn er fehl schlägt.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculationDelay']         = array('Test Zirkulation Verzögerung', 'Wählen Sie wie viele Sekunden zwischen den Test Zyklen vergehen soll.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringDebugMode']                    = array('Debugmodus aktivieren', 'Wenn der Debugmodus aktiviert ist, werden zusätzliche Informationen im System-Log protokolliert.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive']         = array('Mailing aktivieren', 'Wählen Sie ob Mailing aktiviert sein soll.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']            = array('Monitoring Admin E-Mail', 'Die E-Mail Adresse des Monitoring Admin.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculation']       = array('Test Zirkulation', 'Wählen Sie wie oft ein Test wiederholt werden soll, wenn er fehl schlägt.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculationDelay']  = array('Test Zirkulation Verzögerung', 'Wählen Sie wie viele Sekunden zwischen den Test Zyklen vergehen soll.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringDebugMode']             = array('Debugmodus aktivieren', 'Wenn der Debugmodus aktiviert ist, werden zusätzliche Informationen im System-Log protokolliert.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringColorStatusOkay']       = array('Farbe für Status <i>Okay</i>', 'Legen Sie die Farbe fest, welche zur Darstellung des Status <i>Okay</i> verwendet werden soll.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringColorStatusIncomplete'] = array('Farbe für Status <i>Unvollständig</i>', 'Legen Sie die Farbe fest, welche zur Darstellung des Status <i>Unvollständig</i> verwendet werden soll.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringColorStatusError']      = array('Farbe für Status <i>Fehler</i>', 'Legen Sie die Farbe fest, welche zur Darstellung des Status <i>Fehler</i> verwendet werden soll.');
 
 /**
  * Legends

@@ -31,7 +31,7 @@
  * Add to palette
  */
 $GLOBALS['TL_DCA']['tl_settings']['palettes']['__selector__'][] = 'monitoringMailingActive';
-$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{monitoring_legend},monitoringMailingActive,monitoringTestCirculation,monitoringTestCirculationDelay,monitoringDebugMode';
+$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{monitoring_legend},monitoringMailingActive,monitoringTestCirculation,monitoringTestCirculationDelay,monitoringDebugMode,monitoringColorStatusOkay,monitoringColorStatusIncomplete,monitoringColorStatusError';
 $GLOBALS['TL_DCA']['tl_settings']['subpalettes']['monitoringMailingActive'] = 'monitoringAdminEmail'; 
 
 /**
@@ -75,6 +75,30 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringDebugMode'] = array
   'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringDebugMode'],
   'inputType'               => 'checkbox',
   'eval'                    => array('tl_class'=>'w50 m12 clr')
+);
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringColorStatusOkay'] = array
+(
+  'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringColorStatusOkay'],
+  'inputType'               => 'text',
+  'eval'                    => array('maxlength'=>6, 'colorpicker'=>true, 'isHexColor'=>true, 'decodeEntities'=>true, 'tl_class'=>'clr w50 wizard'),
+  'load_callback'           => array(array('MonitoringColorHelper', 'generateDefaultColorStatusOkay'))
+);
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringColorStatusIncomplete'] = array
+(
+  'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringColorStatusIncomplete'],
+  'inputType'               => 'text',
+  'eval'                    => array('maxlength'=>6, 'colorpicker'=>true, 'isHexColor'=>true, 'decodeEntities'=>true, 'tl_class'=>'w50 wizard'),
+  'load_callback'           => array(array('MonitoringColorHelper', 'generateDefaultColorStatusIncomplete'))
+);
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringColorStatusError'] = array
+(
+  'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringColorStatusError'],
+  'inputType'               => 'text',
+  'eval'                    => array('maxlength'=>6, 'colorpicker'=>true, 'isHexColor'=>true, 'decodeEntities'=>true, 'tl_class'=>'w50 wizard'),
+  'load_callback'           => array(array('MonitoringColorHelper', 'generateDefaultColorStatusError'))
 );
 
 /**

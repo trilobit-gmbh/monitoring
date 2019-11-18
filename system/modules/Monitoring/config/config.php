@@ -58,6 +58,12 @@ if ('BE' === TL_MODE) {
 $GLOBALS['TL_CRON']['hourly'][] = array('Monitoring', 'checkScheduled');
 
 /**
+ * Hooks
+ */
+// Adding HOOK to customize backend template
+$GLOBALS['TL_HOOKS']['outputBackendTemplate'][] = array('MonitoringHookImpl', 'outputTemplate');
+
+/**
  * Global names
  */
 $GLOBALS['TL_CONFIG']['MONITORING_AGENT_NAME'] = "ContaoMonitoringClient";
