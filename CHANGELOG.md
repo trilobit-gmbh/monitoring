@@ -1,6 +1,10 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.11.0 (2019-1x-xx)
+--------------------------
+- added parameterization of colors to be color blind friendly (see #28)
+
 Version 1.10.0 (2018-03-20)
 --------------------------
 - added sending an email, when test result changes to OKAY again (see #14)
