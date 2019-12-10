@@ -27,3 +27,7 @@ p.tl_message_monitoring_status {
   background-repeat: no-repeat;
   background-position: 6px center;
 }
+#tl_buttons > a[class*="tl_monitoring"] {
+    margin-bottom: 5px;
+    display: inline-block;
+}
