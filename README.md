@@ -52,7 +52,7 @@ Dependency
 
 This extension is dependent on the following extensions:
 
-- [[menatwork/contao-multicolumnwizard]](https://packagist.org/packages/menatwork/contao-multicolumnwizard)
+- [[terminal42/notification_center]](https://packagist.org/packages/terminal42/notification_center)
 
 The following extensions are recommended:
 

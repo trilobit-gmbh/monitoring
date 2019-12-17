@@ -24,7 +24,8 @@
 	"require":{
 		"php":">=5.3",
 		"contao/core-bundle":"~3.2 || ~4.4",
-		"contao-community-alliance/composer-plugin":"~2.4 || ~3.0"
+		"contao-community-alliance/composer-plugin":"~2.4 || ~3.0",
+		"terminal42/notification_center":"~1.5"
 	},
 	"suggest" : {
 		"cliffparnitzky/backend-custom-startpage" : "Provides the possibility for each user to select an individual startpage in the backend."
