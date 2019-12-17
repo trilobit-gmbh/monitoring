@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2017 Leo Feyer
+ * Copyright (C) 2005-2019 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014-2017
+ * @copyright  Cliff Parnitzky 2014-2019
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -37,7 +37,7 @@ namespace Monitoring;
  * Class Monitoring
  *
  * Read the text from the given url and compare with test string.
- * @copyright  Cliff Parnitzky 2014-2017
+ * @copyright  Cliff Parnitzky 2014-2019
  * @author     Cliff Parnitzky
  * @package    Controller
  */
@@ -105,6 +105,8 @@ class Monitoring extends \Backend
    */
   public function checkScheduled()
   {
+    $mailSender = new MonitoringMailSender();
+    
     $oldErroneousCheckEntries = $this->removeMailingDeactivatedEntries($this->getErroneousCheckEntries());
     
     $status = $this->checkMultiple(self::CHECK_TYPE_AUTOMATIC);
@@ -126,6 +128,11 @@ class Monitoring extends \Backend
         $objEmail->text = self::EMAIL_MESSAGE_START_ERROR . $this->getCheckEntriesAsString($newErroneousCheckEntries) . sprintf(self::EMAIL_MESSAGE_END, \Environment::get('base') . "contao");
         $objEmail->sendTo(\Config::get('monitoringAdminEmail'));
         $this->logDebugMsg("Scheduled monitoring check ended. Some checks ended erroneous. The monitoring admin was informed via email (" . \Config::get('monitoringAdminEmail') . ").", __METHOD__);
+        
+        foreach($newErroneousCheckEntries as $entry)
+        {
+          $mailSender->sendErrorEmail($entry);
+        }
       }
       else
       {
@@ -142,6 +149,11 @@ class Monitoring extends \Backend
       $objEmail->text = self::EMAIL_MESSAGE_START_OKAY . $this->getCheckEntriesAsString($againOkayCheckEntries, true) . sprintf(self::EMAIL_MESSAGE_END, \Environment::get('base') . "contao");
       $objEmail->sendTo(\Config::get('monitoringAdminEmail'));
       $this->logDebugMsg("Scheduled monitoring check ended. Some checks are okay again. The monitoring admin was informed via email (" . \Config::get('monitoringAdminEmail') . ").", __METHOD__);
+      
+      foreach($againOkayCheckEntries as $entry)
+      {
+        $mailSender->sendAgainOkayEmail($entry);
+      }
     }
   }
   

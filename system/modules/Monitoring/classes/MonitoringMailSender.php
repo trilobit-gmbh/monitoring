@@ -88,6 +88,70 @@ class MonitoringMailSender extends \Backend
     }
     return $arrChoices;
   }
+  
+  /**
+   * Send the error email
+   *
+   * @param object $objMonitoringEntry
+   */
+  public function sendErrorEmail($objMonitoringEntry) 
+  {
+    $intNotification = \Config::get('monitoringErrorNotification');
+    if (!empty($objMonitoringEntry->monitoringErrorNotification))
+    {
+      $intNotification = $objMonitoringEntry->monitoringErrorNotification;
+    }
 
+    $this->sendNotifications($intNotification, $objMonitoringEntry->row());
+  }
+
+  /**
+   * Send the again okay email
+   *
+   * @param object $objMonitoringEntry
+   */
+  public function sendAgainOkayEmail($objMonitoringEntry) 
+  {
+    $intNotification = \Config::get('monitoringAgainOkayNotification');
+    if (!empty($objMonitoringEntry->monitoringAgainOkayNotification))
+    {
+      $intNotification = $objMonitoringEntry->monitoringAgainOkayNotification;
+    }
+
+    $this->sendNotifications($intNotification, $objMonitoringEntry->row());
+  }
+
+  /**
+   * send the e-mail for the given module
+   *
+   * @param int
+   * @param array
+   * @param object
+   * @param array
+   */
+  private function sendNotifications($intNotification, $arrData, $arrTokens = array())
+  {
+    if (!is_array($arrTokens))
+    {
+      $arrTokens = array();
+    }
+
+    $arrTokens['admin_email']            = \Config::get('adminEmail');
+    $arrTokens['monitoring_admin_email'] = \Config::get('monitoringAdminEmail');
+    $arrTokens['domain']                 = \Environment::get('host');
+    
+    // translate/format values
+    foreach ($arrData as $strFieldName => $strFieldValue)
+    {
+      $arrTokens['monitoring_entry_' . $strFieldName] = \Haste\Util\Format::dcaValue('tl_member', $strFieldName, $strFieldValue);
+    }
+
+    $objNotification = \NotificationCenter\Model\Notification::findByPk($intNotification);
+
+    if ($objNotification !== null)
+    {
+      $objNotification->send($arrTokens, $GLOBALS['TL_LANGUAGE']);
+    }
+  }
 }
 ?>
