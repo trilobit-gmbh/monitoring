@@ -72,22 +72,26 @@ $GLOBALS['TL_CONFIG']['MONITORING_AGENT_NAME'] = "ContaoMonitoringClient";
  * Notification Center Notification Types
  */
 $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['ContaoMonitoring']['ErrorNotification'] = array(
-  'recipients'          => array('admin_email','customer_email','user_email','creator_email'),
-  'email_recipient_cc'  => array('admin_email','customer_email','user_email','creator_email'),
-  'email_recipient_bcc' => array('admin_email','customer_email','user_email','creator_email'),
-  'email_replyTo'       => array('admin_email','user_email','creator_email'),
-  'email_subject'       => array('customer_*', 'order_*'),
-  'email_text'          => array('customer_*', 'order_*', 'order_positions_text', 'order_total'),
-  'email_html'          => array('customer_*', 'order_*', 'order_positions_html', 'order_total')
+  'recipients'           => array('admin_email', 'monitoring_admin_email'),
+  'email_subject'        => array('domain', 'monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_text'           => array('domain', 'monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_html'           => array('domain', 'monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_sender_name'    => array('monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_sender_address' => array('admin_email', 'monitoring_admin_email'),
+  'email_recipient_cc'   => array('admin_email', 'monitoring_admin_email'),
+  'email_recipient_bcc'  => array('admin_email', 'monitoring_admin_email'),
+  'email_replyTo'        => array('admin_email', 'monitoring_admin_email'),
 );
 $GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['ContaoMonitoring']['AgainOkayNotification'] = array(
-  'recipients'          => array('admin_email','customer_email','user_email','creator_email'),
-  'email_recipient_cc'  => array('admin_email','customer_email','user_email','creator_email'),
-  'email_recipient_bcc' => array('admin_email','customer_email','user_email','creator_email'),
-  'email_replyTo'       => array('admin_email','user_email','creator_email'),
-  'email_subject'       => array('customer_*', 'order_*'),
-  'email_text'          => array('customer_*', 'order_*', 'order_positions_text', 'order_total'),
-  'email_html'          => array('customer_*', 'order_*', 'order_positions_html', 'order_total')
+  'recipients'           => array('admin_email', 'monitoring_admin_email'),
+  'email_subject'        => array('domain', 'monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_text'           => array('domain', 'monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_html'           => array('domain', 'monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_sender_name'    => array('monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_sender_address' => array('admin_email', 'monitoring_admin_email'),
+  'email_recipient_cc'   => array('admin_email', 'monitoring_admin_email'),
+  'email_recipient_bcc'  => array('admin_email', 'monitoring_admin_email'),
+  'email_replyTo'        => array('admin_email', 'monitoring_admin_email'),
 );
 
 ?>
