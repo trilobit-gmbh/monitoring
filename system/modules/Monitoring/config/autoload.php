@@ -27,6 +27,7 @@ ClassLoader::addClasses(array
 	'Monitoring\Monitoring'            => 'system/modules/Monitoring/classes/Monitoring.php',
 	'Monitoring\MonitoringColorHelper' => 'system/modules/Monitoring/classes/MonitoringColorHelper.php',
 	'Monitoring\MonitoringHookImpl'    => 'system/modules/Monitoring/classes/MonitoringHookImpl.php',
+	'Monitoring\MonitoringMailSender'  => 'system/modules/Monitoring/classes/MonitoringMailSender.php',
 
 	// Models
 	'Monitoring\MonitoringModel'       => 'system/modules/Monitoring/models/MonitoringModel.php',

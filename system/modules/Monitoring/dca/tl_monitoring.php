@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2017 Leo Feyer
+ * Copyright (C) 2005-2019 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014-2017
+ * @copyright  Cliff Parnitzky 2014-2019
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -40,6 +40,10 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
     'onsubmit_callback' => array
     (
       array('tl_monitoring', 'storeDateAdded'),
+    ),
+    'onload_callback' => array
+    (
+      array('tl_monitoring', 'initPalettes'),
     ),
     'sql' => array
     (
@@ -142,7 +146,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
   // Palettes
   'palettes' => array
   (
-    'default'                     => '{website_legend},customer,website,system,added;{test_legend},url,test_string;{last_test_legend},last_test_date,last_test_status,last_test_response_time;' . (\Config::get('monitoringMailingActive') ? '{mailing_legend},disableMailing;' : '') . '{disable_legend},disable'
+    'default'                     => '{website_legend},customer,website,system,added;{test_legend},url,test_string;{last_test_legend},last_test_date,last_test_status,last_test_response_time;' . (\Config::get('monitoringMailingActive') ? '{mailing_legend},disableMailing,monitoringErrorNotification,monitoringAgainOkayNotification;' : '') . '{disable_legend},disable'
   ),
 
   // Fields
@@ -262,8 +266,28 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
       'exclude'                 => true,
       'filter'                  => true,
       'inputType'               => 'checkbox',
-      'eval'                    => array('tl_class'=>'w50'),
+      'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'w50'),
       'sql'                     => "char(1) NOT NULL default ''"
+    ),
+    'monitoringErrorNotification' => array
+    (
+      'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['monitoringErrorNotification'],
+      'exclude'                 => true,
+      'inputType'               => 'select',
+      'foreignKey'              => 'tl_nc_notification.title',
+      'options_callback'        => array('MonitoringMailSender', 'getErrorNotificationChoices'),
+      'eval'                    => array('chosen'=>true, 'includeBlankOption'=>true, 'tl_class'=>'clr w50'),
+      'sql'                     => "int(10) unsigned NOT NULL default '0'"
+    ),
+    'monitoringAgainOkayNotification' => array
+    (
+      'label'                   => &$GLOBALS['TL_LANG']['tl_monitoring']['monitoringAgainOkayNotification'],
+      'exclude'                 => true,
+      'inputType'               => 'select',
+      'foreignKey'              => 'tl_nc_notification.title',
+      'options_callback'        => array('MonitoringMailSender', 'getAgainOkayNotificationChoices'),
+      'eval'                    => array('chosen'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
+      'sql'                     => "int(10) unsigned NOT NULL default '0'"
     ),
     'disable' => array
     (
@@ -281,7 +305,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
  * Class tl_monitoring
  *
  * Provide miscellaneous methods that are used by the data configuration array.
- * @copyright  Cliff Parnitzky 2014-2017
+ * @copyright  Cliff Parnitzky 2014-2019
  * @author     Cliff Parnitzky
  * @package    Controller
  */
@@ -500,6 +524,23 @@ class tl_monitoring extends Backend
     $objVersions->create();
     $this->log('A new version of record "tl_monitoring.id='.$intId.'" has been created'.$this->getParentEntries('tl_monitoring', $intId), __METHOD__, TL_GENERAL);
   }
+  
+  /**
+   * Initialize the palettes when loading
+   * @param \DataContainer
+   */
+  public function initPalettes()
+  {
+    if (\Input::get('act') == "edit")
+    {
+      $objMonitoringEntry = \MonitoringModel::findByPk(\Input::get('id'));
+      if ($objMonitoringEntry != null && $objMonitoringEntry->disableMailing)
+      {
+        $GLOBALS['TL_DCA']['tl_monitoring']['palettes']['default'] = str_replace(',monitoringErrorNotification,monitoringAgainOkayNotification', '', $GLOBALS['TL_DCA']['tl_monitoring']['palettes']['default']);
+      }
+    }
+  }
+
 }
 
 ?>

@@ -31,7 +31,9 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_settings']['monitoringMailingActive']         = array('Activate mailing', 'Select if mailing should be active.');
-$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']            = array('Monitoring admin email', 'The email address aof the monitoring admin.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail']            = array('Monitoring admin email', 'The email address of the monitoring admin.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringErrorNotification']     = array('Error notification', 'Please select the notification to be send, if a check fails.');
+$GLOBALS['TL_LANG']['tl_settings']['monitoringAgainOkayNotification'] = array('Again okay notification', 'Please select the notification to be send, if an erroneous check is again okay.');
 $GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculation']       = array('Test circulation', 'Select how often the test should be repeated if it fails.');
 $GLOBALS['TL_LANG']['tl_settings']['monitoringTestCirculationDelay']  = array('Test circulation delay', 'Select how many seconds should elapse between the test cycles.');
 $GLOBALS['TL_LANG']['tl_settings']['monitoringDebugMode']             = array('Enable debug mode', 'If the debug mode is enabled, additional information will be logged in the system log.');

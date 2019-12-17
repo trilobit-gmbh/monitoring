@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2017 Leo Feyer
+ * Copyright (C) 2005-2019 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014-2017
+ * @copyright  Cliff Parnitzky 2014-2019
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -31,17 +31,19 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_monitoring']['customer']                = array('Kunde', 'Der Kunde der zu monitorenden Webseite.');
-$GLOBALS['TL_LANG']['tl_monitoring']['website']                 = array('Webseite', 'Die zu monitorenden Webseite.');
-$GLOBALS['TL_LANG']['tl_monitoring']['system']                  = array('System', 'Das System der zu monitorenden Webseite.');
-$GLOBALS['TL_LANG']['tl_monitoring']['added']                   = array('Erstellt am', 'Das Erstellungsdatum des Monitoring Eintrags.');
-$GLOBALS['TL_LANG']['tl_monitoring']['url']                     = array('URL', 'Die Adresse der zu testenden Seite. Eingabe <u>mit</u> Protokoll (z.B. http:// oder https://)!');
-$GLOBALS['TL_LANG']['tl_monitoring']['test_string']             = array('Teststring', 'Der Text, der auf der zu testenden Seite gesucht werden soll (HTML-Tags werden entfernt).');
-$GLOBALS['TL_LANG']['tl_monitoring']['last_test_date']          = array('Letzter Test', 'Das Datum des letzten Tests.');
-$GLOBALS['TL_LANG']['tl_monitoring']['last_test_status']        = array('Letzter Status', 'Der Status des letzten Tests.');
-$GLOBALS['TL_LANG']['tl_monitoring']['last_test_response_time'] = array('Letzte Antwortzeit', 'Die Dauer bis zum Erhalt des Antwortstring (in Sekunden) des letzten Tests.');
-$GLOBALS['TL_LANG']['tl_monitoring']['disableMailing']          = array('Mailing deaktivieren', 'Keine E-Mails senden, wenn sich der Status für diesen Monitoring Eintrag ändert.');
-$GLOBALS['TL_LANG']['tl_monitoring']['disable']                 = array('Deaktivieren', 'Den Monitoring Eintrag vorübergehend deaktivieren.');
+$GLOBALS['TL_LANG']['tl_monitoring']['customer']                        = array('Kunde', 'Der Kunde der zu monitorenden Webseite.');
+$GLOBALS['TL_LANG']['tl_monitoring']['website']                         = array('Webseite', 'Die zu monitorenden Webseite.');
+$GLOBALS['TL_LANG']['tl_monitoring']['system']                          = array('System', 'Das System der zu monitorenden Webseite.');
+$GLOBALS['TL_LANG']['tl_monitoring']['added']                           = array('Erstellt am', 'Das Erstellungsdatum des Monitoring Eintrags.');
+$GLOBALS['TL_LANG']['tl_monitoring']['url']                             = array('URL', 'Die Adresse der zu testenden Seite. Eingabe <u>mit</u> Protokoll (z.B. http:// oder https://)!');
+$GLOBALS['TL_LANG']['tl_monitoring']['test_string']                     = array('Teststring', 'Der Text, der auf der zu testenden Seite gesucht werden soll (HTML-Tags werden entfernt).');
+$GLOBALS['TL_LANG']['tl_monitoring']['last_test_date']                  = array('Letzter Test', 'Das Datum des letzten Tests.');
+$GLOBALS['TL_LANG']['tl_monitoring']['last_test_status']                = array('Letzter Status', 'Der Status des letzten Tests.');
+$GLOBALS['TL_LANG']['tl_monitoring']['last_test_response_time']         = array('Letzte Antwortzeit', 'Die Dauer bis zum Erhalt des Antwortstring (in Sekunden) des letzten Tests.');
+$GLOBALS['TL_LANG']['tl_monitoring']['disableMailing']                  = array('Mailing deaktivieren', 'Keine E-Mails senden, wenn sich der Status für diesen Monitoring Eintrag ändert.');
+$GLOBALS['TL_LANG']['tl_monitoring']['monitoringErrorNotification']     = array('Fehler Benachrichtigung', 'Bitte wählen Sie die Benachrichtigung, abweichend von der Systemeinstellung, die versendet werden soll, wenn eine Prüfung fehl schlägt.');
+$GLOBALS['TL_LANG']['tl_monitoring']['monitoringAgainOkayNotification'] = array('Wieder Okay Benachrichtigung', 'Bitte wählen Sie die Benachrichtigung, abweichend von der Systemeinstellung, die versendet werden soll, wenn eine fehlerhafte Prüfung wieder Okay ist.');
+$GLOBALS['TL_LANG']['tl_monitoring']['disable']                         = array('Deaktivieren', 'Den Monitoring Eintrag vorübergehend deaktivieren.');
 
 /**
  * Legends

@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2017 Leo Feyer
+ * Copyright (C) 2005-2019 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014-2017
+ * @copyright  Cliff Parnitzky 2014-2019
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -67,5 +67,27 @@ $GLOBALS['TL_HOOKS']['outputBackendTemplate'][] = array('MonitoringHookImpl', 'o
  * Global names
  */
 $GLOBALS['TL_CONFIG']['MONITORING_AGENT_NAME'] = "ContaoMonitoringClient";
+
+/**
+ * Notification Center Notification Types
+ */
+$GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['ContaoMonitoring']['ErrorNotification'] = array(
+  'recipients'          => array('admin_email','customer_email','user_email','creator_email'),
+  'email_recipient_cc'  => array('admin_email','customer_email','user_email','creator_email'),
+  'email_recipient_bcc' => array('admin_email','customer_email','user_email','creator_email'),
+  'email_replyTo'       => array('admin_email','user_email','creator_email'),
+  'email_subject'       => array('customer_*', 'order_*'),
+  'email_text'          => array('customer_*', 'order_*', 'order_positions_text', 'order_total'),
+  'email_html'          => array('customer_*', 'order_*', 'order_positions_html', 'order_total')
+);
+$GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['ContaoMonitoring']['AgainOkayNotification'] = array(
+  'recipients'          => array('admin_email','customer_email','user_email','creator_email'),
+  'email_recipient_cc'  => array('admin_email','customer_email','user_email','creator_email'),
+  'email_recipient_bcc' => array('admin_email','customer_email','user_email','creator_email'),
+  'email_replyTo'       => array('admin_email','user_email','creator_email'),
+  'email_subject'       => array('customer_*', 'order_*'),
+  'email_text'          => array('customer_*', 'order_*', 'order_positions_text', 'order_total'),
+  'email_html'          => array('customer_*', 'order_*', 'order_positions_html', 'order_total')
+);
 
 ?>

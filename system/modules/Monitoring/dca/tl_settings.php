@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2018 Leo Feyer
+ * Copyright (C) 2005-2019 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014-2018
+ * @copyright  Cliff Parnitzky 2014-2019
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -32,7 +32,7 @@
  */
 $GLOBALS['TL_DCA']['tl_settings']['palettes']['__selector__'][] = 'monitoringMailingActive';
 $GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{monitoring_legend},monitoringMailingActive,monitoringTestCirculation,monitoringTestCirculationDelay,monitoringDebugMode,monitoringColorStatusOkay,monitoringColorStatusIncomplete,monitoringColorStatusError';
-$GLOBALS['TL_DCA']['tl_settings']['subpalettes']['monitoringMailingActive'] = 'monitoringAdminEmail'; 
+$GLOBALS['TL_DCA']['tl_settings']['subpalettes']['monitoringMailingActive'] = 'monitoringAdminEmail,monitoringErrorNotification,monitoringAgainOkayNotification'; 
 
 /**
  * Add fields
@@ -49,6 +49,24 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringAdminEmail'] = array
   'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringAdminEmail'],
   'inputType'               => 'text',
   'eval'                    => array('mandatory'=>true, 'rgxp'=>'email', 'tl_class'=>'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringErrorNotification'] = array
+(
+  'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringErrorNotification'],
+  'inputType'               => 'select',
+  'foreignKey'              => 'tl_nc_notification.title',
+  'options_callback'        => array('MonitoringMailSender', 'getErrorNotificationChoices'),
+  'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50 clr')
+);
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringAgainOkayNotification'] = array
+(
+  'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['monitoringAgainOkayNotification'],
+  'inputType'               => 'select',
+  'foreignKey'              => 'tl_nc_notification.title',
+  'options_callback'        => array('MonitoringMailSender', 'getAgainOkayNotificationChoices'),
+  'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50')
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringTestCirculation'] = array
@@ -106,7 +124,7 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['monitoringColorStatusError'] = arra
  *
  * Provide miscellaneous methods that are used by the data configuration array.
  * PHP version 5
- * @copyright  Cliff Parnitzky 2018-2018
+ * @copyright  Cliff Parnitzky 2018-2019
  * @author     Cliff Parnitzky
  * @package    Controller
  */
