@@ -1,10 +1,11 @@
 Contao Extension "Monitoring"
 =============================
 
-Version 1.11.0 (2019-1x-xx)
+Version 1.11.0 (2019-12-xx)
 --------------------------
 - added parameterization of colors to be color blind friendly (see #28)
 - added CSS for more space for the action buttons (see #25)
+- added sending mails via notification center (exclusively) (see #1)
 
 Version 1.10.0 (2018-03-20)
 --------------------------
