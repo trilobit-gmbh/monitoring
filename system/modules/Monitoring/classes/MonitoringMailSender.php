@@ -153,5 +153,13 @@ class MonitoringMailSender extends \Backend
       $objNotification->send($arrTokens, $GLOBALS['TL_LANGUAGE']);
     }
   }
+  
+  /**
+   * Check if the notifications are configured
+   */
+  public static function areNotificationsConfigured()
+  {
+    return !empty(\Config::get('monitoringErrorNotification')) && !empty(\Config::get('monitoringAgainOkayNotification'));
+  }
 }
 ?>

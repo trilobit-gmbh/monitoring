@@ -44,6 +44,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
     'onload_callback' => array
     (
       array('tl_monitoring', 'initPalettes'),
+      array('tl_monitoring', 'showMissingNotificationConfigurationHint')
     ),
     'sql' => array
     (
@@ -540,7 +541,19 @@ class tl_monitoring extends Backend
       }
     }
   }
-
+  
+  /**
+   * Show a hint if the notification configuration is missing in the system settings.
+   *
+   * @param object
+   */
+  public function showMissingNotificationConfigurationHint($dc)
+  {
+    if (!\MonitoringMailSender::areNotificationsConfigured())
+    {
+      \Message::addError($GLOBALS['TL_LANG']['ERR']['monitoringMissingNotificationConfiguration']);
+    }
+  }
 }
 
 ?>
