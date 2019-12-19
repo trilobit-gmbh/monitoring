@@ -1,26 +1,33 @@
-a.tl_monitoring_check_all{ background-image: url('check_all.png'); } a.tl_monitoring_check_one{ background-image: url('check_one.png'); } .col_last_test_status { text-align: center; }
-
-
-.tl_message_monitoring_status_okay, .tl_message_monitoring_status_okay a {
-  color: #049f04;
+a.tl_monitoring_check_all{
+  background-image: url('check_all.png');
 }
-p.tl_message_monitoring_status_okay {
-  background: url("status_okay.png") no-repeat scroll 6px center #ceffce;
+a.tl_monitoring_check_one{
+  background-image: url('check_one.png');
 }
-.tl_message_monitoring_status_error, .tl_message_monitoring_status_error a {
-  color: #cb032b;
+.col_last_test_status {
+  text-align: center;
 }
-p.tl_message_monitoring_status_error {
-  background: url("status_error.png") no-repeat scroll 6px center #ffdcdc;
+p.tl_message_monitoring_status.monitoring_status_okay {
+  background-image: url("status_okay.png");
 }
-.tl_message_monitoring_status_incomplete, .tl_message_monitoring_status_incomplete a {
-  color: #bd9500;
+p.tl_message_monitoring_status.monitoring_status_incomplete {
+  background-image: url("status_incomplete.png");
 }
-p.tl_message_monitoring_status_incomplete {
-  background: url("status_incomplete.png") no-repeat scroll 6px center #ffffd2;
+p.tl_message_monitoring_status.monitoring_status_error {
+  background-image: url("status_error.png");
+}
+p.tl_message_monitoring_status,
+p.tl_message_monitoring_status a {
+  color: #ffffff;
 }
 p.tl_message_monitoring_status {
-    border-radius: 3px;
-    margin: 1px 0 0;
-    padding: 4px 5px 5px 25px;
+  border-radius: 3px;
+  margin: 1px 0 0;
+  padding: 4px 5px 5px 25px;
+  background-repeat: no-repeat;
+  background-position: 6px center;
+}
+#tl_buttons > a[class*="tl_monitoring"] {
+    margin-bottom: 5px;
+    display: inline-block;
 }

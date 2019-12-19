@@ -21,20 +21,17 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014-2019
+ * @copyright  Cliff Parnitzky 2019-2019
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
  */
 
 /**
- * Misc messages
+ * Notification types
  */
-$GLOBALS['TL_LANG']['MSC']['monitoringCheckResult'] = 'Die Prüfung der Erreichbarkeit für den Monitoring Eintrag mit der ID %s endete im Status <b>%s</b>.';
-
-/**
- * Error messages
- */
-$GLOBALS['TL_LANG']['ERR']['monitoringMissingNotificationConfiguration'] = 'Die Monitoring System <b>Benachrichtigungskonfiguration fehlt</b> in den Systemeinstellungen. In diesem Fall ist der <b>Versand von Mails nicht möglich</b>.';
+$GLOBALS['TL_LANG']['tl_nc_notification']['type']['ContaoMonitoring']      = 'Contao Monitoring';
+$GLOBALS['TL_LANG']['tl_nc_notification']['type']['ErrorNotification']     = array('Error notification', 'This notification type will be sent when a monitoring check fails.');
+$GLOBALS['TL_LANG']['tl_nc_notification']['type']['AgainOkayNotification'] = array('Again okay notification', 'This notification type will be sent when an erroneous monitoring check is again okay.');
 
 ?>

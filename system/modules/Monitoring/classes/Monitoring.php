@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2017 Leo Feyer
+ * Copyright (C) 2005-2019 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014-2017
+ * @copyright  Cliff Parnitzky 2014-2019
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -37,7 +37,7 @@ namespace Monitoring;
  * Class Monitoring
  *
  * Read the text from the given url and compare with test string.
- * @copyright  Cliff Parnitzky 2014-2017
+ * @copyright  Cliff Parnitzky 2014-2019
  * @author     Cliff Parnitzky
  * @package    Controller
  */
@@ -51,12 +51,8 @@ class Monitoring extends \Backend
   const CHECK_TYPE_MANUAL = 'MANUAL';
   const CHECK_TYPE_AUTOMATIC = 'AUTOMATIC';
 
-  const EMAIL_SUBJECT_ERROR = 'Monitoring errors detected';
-  const EMAIL_SUBJECT_OKAY = 'Monitoring entries okay again';
-  const EMAIL_MESSAGE_START_ERROR = "Scheduled monitoring check ended.\n\nThe following checks ended erroneous:\n\n";
-  const EMAIL_MESSAGE_START_OKAY = "Scheduled monitoring check ended.\n\nThe following checks are okay again:\n\n";
-  const EMAIL_MESSAGE_ENTRY = "- %s %s %s [%s] (%s)\n";
-  const EMAIL_MESSAGE_END = "\nPlease check your system for further information: %s\n\nThis is an automatically generated email by Contao extension [Monitoring].";
+  const ERROR_MESSAGE_START = "Scheduled monitoring check ended.\n\nThe following checks ended erroneous:\n\n";
+  const ERROR_MESSAGE_ENTRY = "- %s %s %s [%s] (%s)\n";
   
   const TEST_CIRCULATION = 1;
   const TEST_CIRCULATION_DELAY = 10;
@@ -105,6 +101,8 @@ class Monitoring extends \Backend
    */
   public function checkScheduled()
   {
+    $mailSender = new MonitoringMailSender();
+    
     $oldErroneousCheckEntries = $this->removeMailingDeactivatedEntries($this->getErroneousCheckEntries());
     
     $status = $this->checkMultiple(self::CHECK_TYPE_AUTOMATIC);
@@ -116,15 +114,15 @@ class Monitoring extends \Backend
     // only needed when there where errors detected
     if ($status != self::STATUS_OKAY)
     {
-      $errorMsg = self::EMAIL_MESSAGE_START_ERROR . $this->getCheckEntriesAsString($allErroneousCheckEntries);
+      $errorMsg = self::ERROR_MESSAGE_START . $this->getCheckEntriesAsString($allErroneousCheckEntries);
       $this->log($errorMsg, __METHOD__, TL_ERROR);
       
       if (!empty($newErroneousCheckEntries) && \Config::get('monitoringMailingActive') && \Config::get('monitoringAdminEmail') != '')
       {
-        $objEmail = new \Email();
-        $objEmail->subject = self::EMAIL_SUBJECT_ERROR;
-        $objEmail->text = self::EMAIL_MESSAGE_START_ERROR . $this->getCheckEntriesAsString($newErroneousCheckEntries) . sprintf(self::EMAIL_MESSAGE_END, \Environment::get('base') . "contao");
-        $objEmail->sendTo(\Config::get('monitoringAdminEmail'));
+        foreach($newErroneousCheckEntries as $entry)
+        {
+          $mailSender->sendErrorEmail($entry);
+        }
         $this->logDebugMsg("Scheduled monitoring check ended. Some checks ended erroneous. The monitoring admin was informed via email (" . \Config::get('monitoringAdminEmail') . ").", __METHOD__);
       }
       else
@@ -137,10 +135,10 @@ class Monitoring extends \Backend
     $againOkayCheckEntries = array_diff_key($oldErroneousCheckEntries, $newErroneousCheckEntries);
     if (!empty($againOkayCheckEntries) && \Config::get('monitoringMailingActive') && \Config::get('monitoringAdminEmail') != '')
     {
-      $objEmail = new \Email();
-      $objEmail->subject = self::EMAIL_SUBJECT_OKAY;
-      $objEmail->text = self::EMAIL_MESSAGE_START_OKAY . $this->getCheckEntriesAsString($againOkayCheckEntries, true) . sprintf(self::EMAIL_MESSAGE_END, \Environment::get('base') . "contao");
-      $objEmail->sendTo(\Config::get('monitoringAdminEmail'));
+      foreach($againOkayCheckEntries as $entry)
+      {
+        $mailSender->sendAgainOkayEmail($entry);
+      }
       $this->logDebugMsg("Scheduled monitoring check ended. Some checks are okay again. The monitoring admin was informed via email (" . \Config::get('monitoringAdminEmail') . ").", __METHOD__);
     }
   }
@@ -294,12 +292,12 @@ class Monitoring extends \Backend
   /**
    * Return the list of erroneous check entries as string
    */
-  private function getCheckEntriesAsString($arrErroneousCheckEntries, $blnOverwriteStatus=false)
+  private function getCheckEntriesAsString($arrErroneousCheckEntries)
   {
     $strReturn = '';
     foreach ($arrErroneousCheckEntries as $key=>$entry)
     {
-      $strReturn .= sprintf(self::EMAIL_MESSAGE_ENTRY, $entry->customer, $entry->website, $entry->system, $blnOverwriteStatus ? self::STATUS_OKAY : $entry->last_test_status, $entry->url);
+      $strReturn .= sprintf(self::ERROR_MESSAGE_ENTRY, $entry->customer, $entry->website, $entry->system, $entry->last_test_status, $entry->url);
     }
 
     return $strReturn;
@@ -412,7 +410,7 @@ class Monitoring extends \Backend
    */
   private function addCheckMessage($intEntryId, $strStatus)
   {
-    $this->addRawMessage('<p class="tl_message_monitoring_status tl_message_monitoring_status_' . strtolower($strStatus) . '">' . sprintf($GLOBALS['TL_LANG']['MSC']['monitoringCheckResult'], $intEntryId, $GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'][$strStatus][0]) . '</p>');
+    $this->addRawMessage('<p class="tl_message_monitoring_status monitoring_status_' . strtolower($strStatus) . '">' . sprintf($GLOBALS['TL_LANG']['MSC']['monitoringCheckResult'], $intEntryId, $GLOBALS['TL_LANG']['tl_monitoring']['statusTypes'][$strStatus][0]) . '</p>');
   }
 }
 ?>

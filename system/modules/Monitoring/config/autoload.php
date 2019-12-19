@@ -3,7 +3,7 @@
 /**
  * Contao Open Source CMS
  *
- * Copyright (c) 2005-2017 Leo Feyer
+ * Copyright (c) 2005-2019 Leo Feyer
  *
  * @license LGPL-3.0+
  */
@@ -24,9 +24,12 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Classes
-	'Monitoring\Monitoring'          => 'system/modules/Monitoring/classes/Monitoring.php',
+	'Monitoring\Monitoring'            => 'system/modules/Monitoring/classes/Monitoring.php',
+	'Monitoring\MonitoringColorHelper' => 'system/modules/Monitoring/classes/MonitoringColorHelper.php',
+	'Monitoring\MonitoringHookImpl'    => 'system/modules/Monitoring/classes/MonitoringHookImpl.php',
+	'Monitoring\MonitoringMailSender'  => 'system/modules/Monitoring/classes/MonitoringMailSender.php',
 
 	// Models
-	'Monitoring\MonitoringModel'     => 'system/modules/Monitoring/models/MonitoringModel.php',
-	'Monitoring\MonitoringTestModel' => 'system/modules/Monitoring/models/MonitoringTestModel.php',
+	'Monitoring\MonitoringModel'       => 'system/modules/Monitoring/models/MonitoringModel.php',
+	'Monitoring\MonitoringTestModel'   => 'system/modules/Monitoring/models/MonitoringTestModel.php',
 ));

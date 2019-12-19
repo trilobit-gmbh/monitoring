@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2014 Leo Feyer
+ * Copyright (C) 2005-2019 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014
+ * @copyright  Cliff Parnitzky 2014-2019
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -31,5 +31,10 @@
  * Misc messages
  */
 $GLOBALS['TL_LANG']['MSC']['monitoringCheckResult'] = 'The availability check for monitoring entry ID %s endet with status <b>%s</b>.';
+
+/**
+ * Error messages
+ */
+$GLOBALS['TL_LANG']['ERR']['monitoringMissingNotificationConfiguration'] = 'The monitoring system <b>notification configuration is missing</b> in the system settings. In this case <b>sending mails is not possible</b>.';
 
 ?>
