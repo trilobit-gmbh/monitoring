@@ -1,0 +1,22 @@
+name: PHP 7.4 Syntax Check
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: PHP Lint
+      uses: StephaneBour/actions-php-lint@7.4
+
+    - name: PHP Code Style (phpcs)
+      uses: chindit/actions-phpcs@master
+
+    - name: PHP Copy Paste Detector
+      uses: StephaneBour/actions-php-cpd@1.0
