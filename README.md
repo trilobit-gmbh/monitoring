@@ -43,7 +43,6 @@ Invitation: https://join.slack.com/t/contaomonitoring/shared_invite/enQtMzA3NTQz
 Compatibility
 -------------
 
-- Contao version >= 3.2.0 ... <  3.6.0
 - Contao version >= 4.4.0
 
 
