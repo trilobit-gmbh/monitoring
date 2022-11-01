@@ -1,6 +1,11 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.11.1 (2022-11-01)
+--------------------------
+- fix the backend icon
+- fix the composer dependencies
+
 Version 1.11.0 (2019-12-19)
 --------------------------
 - added parameterization of colors to be color blind friendly (see #28)
