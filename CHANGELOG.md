@@ -1,6 +1,17 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.11.1 (2022-11-01)
+--------------------------
+- fix the backend icon
+- fix the composer dependencies
+
+Version 1.11.0 (2019-12-19)
+--------------------------
+- added parameterization of colors to be color blind friendly (see #28)
+- added CSS for more space for the action buttons (see #25)
+- added sending mails via notification center (exclusively) (see #1)
+
 Version 1.10.0 (2018-03-20)
 --------------------------
 - added sending an email, when test result changes to OKAY again (see #14)

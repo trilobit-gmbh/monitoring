@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2017 Leo Feyer
+ * Copyright (C) 2005-2019 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014-2017
+ * @copyright  Cliff Parnitzky 2014-2019
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -58,8 +58,40 @@ if ('BE' === TL_MODE) {
 $GLOBALS['TL_CRON']['hourly'][] = array('Monitoring', 'checkScheduled');
 
 /**
+ * Hooks
+ */
+// Adding HOOK to customize backend template
+$GLOBALS['TL_HOOKS']['outputBackendTemplate'][] = array('MonitoringHookImpl', 'outputTemplate');
+
+/**
  * Global names
  */
 $GLOBALS['TL_CONFIG']['MONITORING_AGENT_NAME'] = "ContaoMonitoringClient";
+
+/**
+ * Notification Center Notification Types
+ */
+$GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['ContaoMonitoring']['ErrorNotification'] = array(
+  'recipients'           => array('admin_email', 'monitoring_admin_email'),
+  'email_subject'        => array('domain', 'monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_text'           => array('domain', 'monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_html'           => array('domain', 'monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_sender_name'    => array('monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_sender_address' => array('admin_email', 'monitoring_admin_email'),
+  'email_recipient_cc'   => array('admin_email', 'monitoring_admin_email'),
+  'email_recipient_bcc'  => array('admin_email', 'monitoring_admin_email'),
+  'email_replyTo'        => array('admin_email', 'monitoring_admin_email'),
+);
+$GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['ContaoMonitoring']['AgainOkayNotification'] = array(
+  'recipients'           => array('admin_email', 'monitoring_admin_email'),
+  'email_subject'        => array('domain', 'monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_text'           => array('domain', 'monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_html'           => array('domain', 'monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_sender_name'    => array('monitoring_entry_*', 'admin_email', 'monitoring_admin_email'),
+  'email_sender_address' => array('admin_email', 'monitoring_admin_email'),
+  'email_recipient_cc'   => array('admin_email', 'monitoring_admin_email'),
+  'email_recipient_bcc'  => array('admin_email', 'monitoring_admin_email'),
+  'email_replyTo'        => array('admin_email', 'monitoring_admin_email'),
+);
 
 ?>

@@ -43,7 +43,6 @@ Invitation: https://join.slack.com/t/contaomonitoring/shared_invite/enQtMzA3NTQz
 Compatibility
 -------------
 
-- Contao version >= 3.2.0 ... <  3.6.0
 - Contao version >= 4.4.0
 
 
@@ -52,7 +51,7 @@ Dependency
 
 This extension is dependent on the following extensions:
 
-- [[menatwork/contao-multicolumnwizard]](https://packagist.org/packages/menatwork/contao-multicolumnwizard)
+- [[terminal42/notification_center]](https://packagist.org/packages/terminal42/notification_center)
 
 The following extensions are recommended:
 
@@ -62,9 +61,9 @@ The following extensions are recommended:
 Documentation
 -------------
 
-[Read the manual](https://contaomonitoring.gitbooks.io/contaomonitoring)
+[Read the manual](https://contaomonitoring.gitbook.io/contaomonitoring/)
 
-![EN](https://raw.githubusercontent.com/ContaoMonitoring/documentation/master/en/en.png) [English manual](https://contaomonitoring.gitbooks.io/contaomonitoring/en/index.html)
+![EN](https://raw.githubusercontent.com/ContaoMonitoring/documentation/master/en/en.png) [English manual](https://contaomonitoring.gitbook.io/contaomonitoring/en)
 
 
 Donation

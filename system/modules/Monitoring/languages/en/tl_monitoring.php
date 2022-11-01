@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2017 Leo Feyer
+ * Copyright (C) 2005-2019 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014-2017
+ * @copyright  Cliff Parnitzky 2014-2019
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -31,17 +31,19 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_monitoring']['customer']                = array('Customer', 'The customer of the website to be monitored.');
-$GLOBALS['TL_LANG']['tl_monitoring']['website']                 = array('Website', 'The website to be monitored.');
-$GLOBALS['TL_LANG']['tl_monitoring']['system']                  = array('System', 'The system of the website to be monitored.');
-$GLOBALS['TL_LANG']['tl_monitoring']['added']                   = array('Created on', 'The creation date of the monitoring entry.');
-$GLOBALS['TL_LANG']['tl_monitoring']['url']                     = array('URL', 'The adress of the page to be tested. Enter with protocol (e.g. http:// or https://)!');
-$GLOBALS['TL_LANG']['tl_monitoring']['test_string']             = array('Test string', 'The text to searched on the page to be tested (HTML tags will be deleted).');
-$GLOBALS['TL_LANG']['tl_monitoring']['last_test_date']          = array('Last test', 'The date of the last test');
-$GLOBALS['TL_LANG']['tl_monitoring']['last_test_status']        = array('Last status', 'The status of the last test.');
-$GLOBALS['TL_LANG']['tl_monitoring']['last_test_response_time'] = array('Last response time', 'The duration until receiving the response string (in seconds) of the last test.');
-$GLOBALS['TL_LANG']['tl_monitoring']['disableMailing']          = array('Deactivate mailing', 'Do not send emails when the status for this monitoring entry changes.');
-$GLOBALS['TL_LANG']['tl_monitoring']['disable']                 = array('Deactivate', 'Temporarily disable the monitoring entry.');
+$GLOBALS['TL_LANG']['tl_monitoring']['customer']                        = array('Customer', 'The customer of the website to be monitored.');
+$GLOBALS['TL_LANG']['tl_monitoring']['website']                         = array('Website', 'The website to be monitored.');
+$GLOBALS['TL_LANG']['tl_monitoring']['system']                          = array('System', 'The system of the website to be monitored.');
+$GLOBALS['TL_LANG']['tl_monitoring']['added']                           = array('Created on', 'The creation date of the monitoring entry.');
+$GLOBALS['TL_LANG']['tl_monitoring']['url']                             = array('URL', 'The adress of the page to be tested. Enter with protocol (e.g. http:// or https://)!');
+$GLOBALS['TL_LANG']['tl_monitoring']['test_string']                     = array('Test string', 'The text to searched on the page to be tested (HTML tags will be deleted).');
+$GLOBALS['TL_LANG']['tl_monitoring']['last_test_date']                  = array('Last test', 'The date of the last test');
+$GLOBALS['TL_LANG']['tl_monitoring']['last_test_status']                = array('Last status', 'The status of the last test.');
+$GLOBALS['TL_LANG']['tl_monitoring']['last_test_response_time']         = array('Last response time', 'The duration until receiving the response string (in seconds) of the last test.');
+$GLOBALS['TL_LANG']['tl_monitoring']['disableMailing']                  = array('Deactivate mailing', 'Do not send emails when the status for this monitoring entry changes.');
+$GLOBALS['TL_LANG']['tl_monitoring']['monitoringErrorNotification']     = array('Error notification', 'Please select the notification, deviating from the system setting, to be send, if an check failes.');
+$GLOBALS['TL_LANG']['tl_monitoring']['monitoringAgainOkayNotification'] = array('Again okay notification', 'Please select the notification, deviating from the system setting, to be send, if an erroneous check is again okay.');
+$GLOBALS['TL_LANG']['tl_monitoring']['disable']                         = array('Deactivate', 'Temporarily disable the monitoring entry.');
 
 /**
  * Legends
