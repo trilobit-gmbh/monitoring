@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2019 Leo Feyer
+ * Copyright (C) 2005-2022 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2014-2019
+ * @copyright  Cliff Parnitzky 2014-2022
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -67,7 +67,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
     ),
     'label' => array
     (
-      'fields'                  => array('icon', 'customer', 'website', 'system', 'last_test_date', 'last_test_status'),
+      'fields'                  => array('', 'customer', 'website', 'system', 'last_test_date', 'last_test_status'),
       'showColumns'             => true,
       'label_callback'          => array('tl_monitoring', 'getLabel')
     ),
@@ -306,7 +306,7 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
  * Class tl_monitoring
  *
  * Provide miscellaneous methods that are used by the data configuration array.
- * @copyright  Cliff Parnitzky 2014-2019
+ * @copyright  Cliff Parnitzky 2014-2022
  * @author     Cliff Parnitzky
  * @package    Controller
  */
@@ -464,20 +464,20 @@ class tl_monitoring extends Backend
       $this->toggleVisibility(Input::get('tid'), (Input::get('state') == 1), (@func_get_arg(12) ?: null));
       $this->redirect($this->getReferer());
     }
-    
+
     // Check permissions AFTER checking the tid, so hacking attempts are logged
     if (!$this->User->isAdmin && !$this->User->hasAccess('tl_monitoring::disable', 'alexf'))
     {
       return '';
     }
-    
+
     $href .= '&amp;tid='.$row['id'].'&amp;state='.$row['disable'];
-    
+
     if ($row['disable'])
     {
       $icon = 'invisible.gif';
     }
-    
+
     return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label).'</a> ';
   }
 
@@ -495,10 +495,10 @@ class tl_monitoring extends Backend
       $this->log('Not enough permissions to activate/deactivate monitoring entry ID "'.$intId.'"', __METHOD__, TL_ERROR);
       $this->redirect('contao/main.php?act=error');
     }
-    
+
     $objVersions = new Versions('tl_monitoring', $intId);
     $objVersions->initialize();
-    
+
     // Trigger the save_callback
     if (is_array($GLOBALS['TL_DCA']['tl_monitoring']['fields']['disable']['save_callback']))
     {
@@ -515,17 +515,17 @@ class tl_monitoring extends Backend
         }
       }
     }
-    
+
     $time = time();
-    
+
     // Update the database
     $this->Database->prepare("UPDATE tl_monitoring SET tstamp=$time, disable='" . ($blnVisible ? '' : 1) . "' WHERE id=?")
              ->execute($intId);
-    
+
     $objVersions->create();
     $this->log('A new version of record "tl_monitoring.id='.$intId.'" has been created'.$this->getParentEntries('tl_monitoring', $intId), __METHOD__, TL_GENERAL);
   }
-  
+
   /**
    * Initialize the palettes when loading
    * @param \DataContainer
@@ -541,7 +541,7 @@ class tl_monitoring extends Backend
       }
     }
   }
-  
+
   /**
    * Show a hint if the notification configuration is missing in the system settings.
    *
@@ -555,5 +555,3 @@ class tl_monitoring extends Backend
     }
   }
 }
-
-?>
