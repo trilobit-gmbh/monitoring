@@ -1,6 +1,11 @@
 Contao Extension "Monitoring"
 =============================
 
+Version 1.11.2 (2022-11-16)
+--------------------------
+- fix unnecessary name of icon column
+- fix non transformed email tokens
+
 Version 1.11.1 (2022-11-01)
 --------------------------
 - fix the backend icon
