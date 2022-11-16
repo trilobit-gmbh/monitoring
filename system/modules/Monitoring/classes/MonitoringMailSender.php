@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2019 Leo Feyer
+ * Copyright (C) 2005-2022 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2019-2019
+ * @copyright  Cliff Parnitzky 2019-2022
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -36,7 +36,7 @@ namespace Monitoring;
  * Class MonitoringMailSender
  *
  * Send mails for different status.
- * @copyright  Cliff Parnitzky 2019-2019
+ * @copyright  Cliff Parnitzky 2019-2022
  * @author     Cliff Parnitzky
  * @package    Controller
  */
@@ -88,13 +88,13 @@ class MonitoringMailSender extends \Backend
     }
     return $arrChoices;
   }
-  
+
   /**
    * Send the error email
    *
    * @param object $objMonitoringEntry
    */
-  public function sendErrorEmail($objMonitoringEntry) 
+  public function sendErrorEmail($objMonitoringEntry)
   {
     $intNotification = \Config::get('monitoringErrorNotification');
     if (!empty($objMonitoringEntry->monitoringErrorNotification))
@@ -110,7 +110,7 @@ class MonitoringMailSender extends \Backend
    *
    * @param object $objMonitoringEntry
    */
-  public function sendAgainOkayEmail($objMonitoringEntry) 
+  public function sendAgainOkayEmail($objMonitoringEntry)
   {
     $intNotification = \Config::get('monitoringAgainOkayNotification');
     if (!empty($objMonitoringEntry->monitoringAgainOkayNotification))
@@ -139,11 +139,11 @@ class MonitoringMailSender extends \Backend
     $arrTokens['admin_email']            = \Config::get('adminEmail');
     $arrTokens['monitoring_admin_email'] = \Config::get('monitoringAdminEmail');
     $arrTokens['domain']                 = \Environment::get('host');
-    
+
     // translate/format values
     foreach ($arrData as $strFieldName => $strFieldValue)
     {
-      $arrTokens['monitoring_entry_' . $strFieldName] = \Haste\Util\Format::dcaValue('tl_member', $strFieldName, $strFieldValue);
+      $arrTokens['monitoring_entry_' . $strFieldName] = \Haste\Util\Format::dcaValue('tl_monitoring', $strFieldName, $strFieldValue);
     }
 
     $objNotification = \NotificationCenter\Model\Notification::findByPk($intNotification);
@@ -153,7 +153,7 @@ class MonitoringMailSender extends \Backend
       $objNotification->send($arrTokens, $GLOBALS['TL_LANGUAGE']);
     }
   }
-  
+
   /**
    * Check if the notifications are configured
    */
@@ -162,4 +162,3 @@ class MonitoringMailSender extends \Backend
     return !empty(\Config::get('monitoringErrorNotification')) && !empty(\Config::get('monitoringAgainOkayNotification'));
   }
 }
-?>
