@@ -1,39 +1,42 @@
 {
-	"name":"contao-monitoring/monitoring",
-	"description":"Contao Monitoring system for checking availability of websites.",
-	"keywords":["contao","monitoring"],
-	"type":"contao-module",
-	"homepage":"https://github.com/ContaoMonitoring/monitoring",
-	"license":"LGPL-3.0-or-later",
-	"authors":[
+	"name": "contao-monitoring/monitoring",
+	"description": "Contao Monitoring system for checking availability of websites.",
+	"keywords": [
+		"contao",
+		"monitoring"
+	],
+	"type": "contao-module",
+	"homepage": "https://github.com/ContaoMonitoring/monitoring",
+	"license": "LGPL-3.0-or-later",
+	"authors": [
 		{
-			"name":"Cliff Parnitzky",
-			"email":"contao@cliff-parnitzky.de",
-			"role":"Developer"
+			"name": "Cliff Parnitzky",
+			"email": "contao@cliff-parnitzky.de",
+			"role": "Developer"
 		},
 		{
-			"name":"Patrick Froch",
-			"role":"Developer"
+			"name": "Patrick Froch",
+			"role": "Developer"
 		}
 	],
-	"support":{
-		"email":"contao@cliff-parnitzky.de",
-		"issues":"https://github.com/ContaoMonitoring/monitoring/issues",
-		"source":"https://github.com/ContaoMonitoring/monitoring"
+	"support": {
+		"email": "contao@cliff-parnitzky.de",
+		"issues": "https://github.com/ContaoMonitoring/monitoring/issues",
+		"source": "https://github.com/ContaoMonitoring/monitoring"
 	},
-	"require":{
-		"php":">=7.4",
-		"contao/core-bundle":"~4.4",
-		"contao-community-alliance/composer-plugin":"~3.0",
-		"terminal42/notification_center":"~1.5"
+	"require": {
+		"php": ">=7.4",
+		"contao/core-bundle": "~4.4",
+		"contao-community-alliance/composer-plugin": "~3.0",
+		"terminal42/notification_center": "~1.7"
 	},
-	"suggest" : {
-		"cliffparnitzky/backend-custom-startpage" : "Provides the possibility for each user to select an individual startpage in the backend."
+	"suggest": {
+		"cliffparnitzky/backend-custom-startpage": "Provides the possibility for each user to select an individual startpage in the backend."
 	},
-	"extra":{
-		"contao":{
-			"sources":{
-				"system/modules/Monitoring":"system/modules/Monitoring"
+	"extra": {
+		"contao": {
+			"sources": {
+				"system/modules/Monitoring": "system/modules/Monitoring"
 			}
 		},
 		"branch-alias": {

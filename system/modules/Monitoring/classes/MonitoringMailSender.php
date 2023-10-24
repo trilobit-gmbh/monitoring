@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2022 Leo Feyer
+ * Copyright (C) 2005-2023 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Cliff Parnitzky 2019-2022
+ * @copyright  Cliff Parnitzky 2019-2023
  * @author     Cliff Parnitzky
  * @package    Monitoring
  * @license    LGPL
@@ -32,11 +32,17 @@
  */
 namespace Monitoring;
 
+use Contao\Config;
+use Contao\Database;
+use Contao\Environment;
+use Codefog\HasteBundle\Formatter;
+use NotificationCenter\Model\Notification;
+
 /**
  * Class MonitoringMailSender
  *
  * Send mails for different status.
- * @copyright  Cliff Parnitzky 2019-2022
+ * @copyright  Cliff Parnitzky 2019-2023
  * @author     Cliff Parnitzky
  * @package    Controller
  */
@@ -80,7 +86,7 @@ class MonitoringMailSender extends \Backend
   private function getNotificationChoices($strType)
   {
     $arrChoices = array();
-    $objNotifications = \Database::getInstance()->prepare("SELECT id,title FROM tl_nc_notification WHERE type=? ORDER BY title")
+    $objNotifications = Database::getInstance()->prepare("SELECT id,title FROM tl_nc_notification WHERE type=? ORDER BY title")
                                                 ->execute($strType);
     while ($objNotifications->next())
     {
@@ -96,7 +102,7 @@ class MonitoringMailSender extends \Backend
    */
   public function sendErrorEmail($objMonitoringEntry)
   {
-    $intNotification = \Config::get('monitoringErrorNotification');
+    $intNotification = Config::get('monitoringErrorNotification');
     if (!empty($objMonitoringEntry->monitoringErrorNotification))
     {
       $intNotification = $objMonitoringEntry->monitoringErrorNotification;
@@ -112,7 +118,7 @@ class MonitoringMailSender extends \Backend
    */
   public function sendAgainOkayEmail($objMonitoringEntry)
   {
-    $intNotification = \Config::get('monitoringAgainOkayNotification');
+    $intNotification = Config::get('monitoringAgainOkayNotification');
     if (!empty($objMonitoringEntry->monitoringAgainOkayNotification))
     {
       $intNotification = $objMonitoringEntry->monitoringAgainOkayNotification;
@@ -136,17 +142,17 @@ class MonitoringMailSender extends \Backend
       $arrTokens = array();
     }
 
-    $arrTokens['admin_email']            = \Config::get('adminEmail');
-    $arrTokens['monitoring_admin_email'] = \Config::get('monitoringAdminEmail');
-    $arrTokens['domain']                 = \Environment::get('host');
+    $arrTokens['admin_email']            = Config::get('adminEmail');
+    $arrTokens['monitoring_admin_email'] = Config::get('monitoringAdminEmail');
+    $arrTokens['domain']                 = Environment::get('host');
 
     // translate/format values
     foreach ($arrData as $strFieldName => $strFieldValue)
     {
-      $arrTokens['monitoring_entry_' . $strFieldName] = \Haste\Util\Format::dcaValue('tl_monitoring', $strFieldName, $strFieldValue);
+      $arrTokens['monitoring_entry_' . $strFieldName] = Formatter::dcaValue('tl_monitoring', $strFieldName, $strFieldValue);
     }
 
-    $objNotification = \NotificationCenter\Model\Notification::findByPk($intNotification);
+    $objNotification = Notification::findByPk($intNotification);
 
     if ($objNotification !== null)
     {
@@ -159,6 +165,6 @@ class MonitoringMailSender extends \Backend
    */
   public static function areNotificationsConfigured()
   {
-    return !empty(\Config::get('monitoringErrorNotification')) && !empty(\Config::get('monitoringAgainOkayNotification'));
+    return !empty(Config::get('monitoringErrorNotification')) && !empty(Config::get('monitoringAgainOkayNotification'));
   }
 }
