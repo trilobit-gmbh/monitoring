@@ -137,6 +137,8 @@ class MonitoringMailSender extends \Backend
    */
   private function sendNotifications($intNotification, $arrData, $arrTokens = array())
   {
+    $formatter = new Formatter();
+    
     if (!is_array($arrTokens))
     {
       $arrTokens = array();
@@ -149,7 +151,7 @@ class MonitoringMailSender extends \Backend
     // translate/format values
     foreach ($arrData as $strFieldName => $strFieldValue)
     {
-      $arrTokens['monitoring_entry_' . $strFieldName] = Formatter::dcaValue('tl_monitoring', $strFieldName, $strFieldValue);
+      $arrTokens['monitoring_entry_' . $strFieldName] = $formatter->dcaValue('tl_monitoring', $strFieldName, $strFieldValue);
     }
 
     $objNotification = Notification::findByPk($intNotification);
