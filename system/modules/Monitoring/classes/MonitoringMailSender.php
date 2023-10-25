@@ -30,11 +30,14 @@
 /**
  * Run in a custom namespace, so the class can be replaced
  */
+
 namespace Monitoring;
 
+use Contao\Backend;
 use Contao\Config;
 use Contao\Database;
 use Contao\Environment;
+use Contao\System;
 use Codefog\HasteBundle\Formatter;
 use NotificationCenter\Model\Notification;
 
@@ -46,7 +49,7 @@ use NotificationCenter\Model\Notification;
  * @author     Cliff Parnitzky
  * @package    Controller
  */
-class MonitoringMailSender extends \Backend
+class MonitoringMailSender extends Backend
 {
 
   /**
@@ -87,7 +90,7 @@ class MonitoringMailSender extends \Backend
   {
     $arrChoices = array();
     $objNotifications = Database::getInstance()->prepare("SELECT id,title FROM tl_nc_notification WHERE type=? ORDER BY title")
-                                                ->execute($strType);
+      ->execute($strType);
     while ($objNotifications->next())
     {
       $arrChoices[$objNotifications->id] = $objNotifications->title;
@@ -137,8 +140,6 @@ class MonitoringMailSender extends \Backend
    */
   private function sendNotifications($intNotification, $arrData, $arrTokens = array())
   {
-    $formatter = new Formatter();
-    
     if (!is_array($arrTokens))
     {
       $arrTokens = array();
@@ -151,7 +152,7 @@ class MonitoringMailSender extends \Backend
     // translate/format values
     foreach ($arrData as $strFieldName => $strFieldValue)
     {
-      $arrTokens['monitoring_entry_' . $strFieldName] = $formatter->dcaValue('tl_monitoring', $strFieldName, $strFieldValue);
+      $arrTokens['monitoring_entry_' . $strFieldName] = System::getContainer()->get(Formatter::class)->dcaValue('tl_monitoring', $strFieldName, $strFieldValue);
     }
 
     $objNotification = Notification::findByPk($intNotification);
