@@ -131,8 +131,8 @@ $GLOBALS['TL_DCA']['tl_monitoring'] = array
       (
         'label'               => &$GLOBALS['TL_LANG']['tl_monitoring']['showPage'],
         'button_callback'     => array('tl_monitoring', 'getShowPageButton'),
-          'icon'                => 'system/modules/Monitoring/assets/show_page.png',
-        'attributes'          => 'target="_blank" onclick="Backend.openModalIframe({\'width\':765,\'title\':\'' . $GLOBALS['TL_LANG']['tl_monitoring']['showPage'][0] . '\',\'url\':this.href});return false"'
+        'icon'                => 'system/modules/Monitoring/assets/show_page.png',
+        'attributes'          => 'target="_blank" onclick="Backend.openModalIframe({\'width\':765,\'title\':\'' . $GLOBALS['TL_LANG']['tl_monitoring']['showPage'][0] ?? '' . '\',\'url\':this.href});return false"'
       ),
       'checkOne' => array
       (
