@@ -168,8 +168,10 @@ class Monitoring extends \Backend
     {
       $status = self::STATUS_UNTESTED;
 
-      $url = $this->valString($objMonitoringEntry->url, false);
+      //$url = $this->valString($objMonitoringEntry->url, false);
       $testString = $this->valString($objMonitoringEntry->test_string, true);
+
+      $url = $objMonitoringEntry->url;
 
       $repitition = 0;
       $maxRepititions = \Config::get('monitoringTestCirculation');
@@ -337,7 +339,8 @@ class Monitoring extends \Backend
     (
       'http'=>array
       (
-        'user_agent' => \Config::get('MONITORING_AGENT_NAME')
+        'user_agent' => \Config::get('MONITORING_AGENT_NAME'),
+        'header' => "Content-type: text/html\r\n"
       )
     );
     $context = stream_context_create($opts);
@@ -377,12 +380,13 @@ class Monitoring extends \Backend
     {
       $str = strtolower($str);
     }
+
     $str = strip_tags($str);
     $str = str_replace(' ', '', $str);
-    $str = str_replace("\n", '', $str);
+    $str = str_replace(["\n", "\r",], '', $str);
     $str = \StringUtil::decodeEntities($str);
 
-    return $str;
+    return trim($str);
   }
 
   /**
